@@ -1,21 +1,22 @@
-.left-bar {
-    min-height: 100vh;
-    background: linear-gradient(to bottom,#2895F9 0%,#4E4EE6 100%);
-    width: 78px;
-}
 .catat-container-page {
     display: flex;
-    flex-direction: row
+    flex-direction: row;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    letter-spacing: .2px;
+    line-height: 1.572;
+    font-weight: normal;
 }
 .catat-page {
     display: block;
     width: 100%;
     height: auto;
-}
-.sidebar-catat {
-    background: #F4F8FC;
-    background: linear-gradient(to right,#ffffff 80%,#F9FAFB);
-    width: 360px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    letter-spacing: .2px;
+    line-height: 1.572;
+    color: #6A7387;
+    font-weight: normal;
 }
 .catat-main-page {
     width: 100%

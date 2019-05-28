@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import '../scss/main-page.scss'
+import '../scss/main.scss';
+import logo from '../assets/img/logo_icon_default.svg'
 import axios from "axios";
+import SideBar from '../components/SideBar';
 
-class ListCycle extends Component {
+class MainPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,8 +17,10 @@ class ListCycle extends Component {
     return (
       <div className="catat-page">
           <div className="catat-container-page">
-            <div className="left-bar"></div>
-            <div className="sidebar-catat">tes</div>
+            <div className="left-bar">
+              <img src={logo} className="logo-left-bar"/>
+            </div>
+            <SideBar/>
             <div className="catat-main-page">tes</div>
           </div>
       </div>
@@ -24,4 +28,4 @@ class ListCycle extends Component {
   }
 }
 
-export default ListCycle;
+export default MainPage;

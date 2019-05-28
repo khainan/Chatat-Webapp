@@ -1,0 +1,48 @@
+
+.sidebar-catat {
+    background: #F4F8FC;
+    background: linear-gradient(to right,#ffffff 80%,#F9FAFB);
+    width: 400px;
+}
+
+.btn-catat-transaksi {
+    background-color: #2895F9;
+    color: #fff;
+    border-color: #1E2432;
+    box-shadow: inset 2px 2px 0 #fff, 2px 2px 0 #2895F9;
+    width: 210px;
+    height: 40px;
+    font-size: 14px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: bold;
+    border-radius: 6px;
+    margin-bottom: 46px;
+    margin-top: 46px;
+}
+.menu-catat {
+    padding-left: 0px;
+    li {
+        list-style-type: none;
+        font-weight: 600;
+        margin-bottom: 16px;
+        &:hover {
+          cursor: pointer;
+          color: #2895F9;
+        }
+    }
+}
+.title-menu {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #A1A9BD;
+    font-weight: 700;
+    margin: 0px;
+    margin-bottom: 12px;
+    display: inline-block;
+}
+.container-menu {
+    padding: 22px 44px;
+    padding-top: 0px;
+    text-align: left;
+}
