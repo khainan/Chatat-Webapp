@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import '../scss/main.scss';
-import logo from '../assets/img/logo_icon_default.svg'
-import axios from "axios";
 import SideBar from '../components/SideBar';
+import LeftBar from '../components/LeftBar';
+import ChatatPages from '../pages/ChatatPages';
 
 class MainPage extends Component {
   constructor(props) {
@@ -17,11 +17,9 @@ class MainPage extends Component {
     return (
       <div className="catat-page">
           <div className="catat-container-page">
-            <div className="left-bar">
-              <img src={logo} className="logo-left-bar"/>
-            </div>
+            <LeftBar/>
             <SideBar/>
-            <div className="catat-main-page">tes</div>
+            <ChatatPages/>
           </div>
       </div>
     );
