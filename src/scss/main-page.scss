@@ -1,0 +1,29 @@
+.left-bar {
+    min-height: 100vh;
+    background: linear-gradient(to bottom,#2895F9 0%,#4E4EE6 100%);
+    width: 60px;
+}
+.catat-container-page {
+    display: flex;
+    flex-direction: row
+}
+.catat-page {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.sidebar-catat {
+    flex:2;
+    background: #F4F8FC;
+}
+.catat-main-page {
+    flex:10;
+}
+.body-font {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    letter-spacing: .2px;
+    line-height: 1.572;
+    color: #6A7387;
+    font-weight: normal;
+}
