@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from '../assets/img/logo_icon_default.svg'
+import logo from '../assets/images/logo_icon_default.svg'
 import axios from "axios";
 
 class LeftBar extends Component {

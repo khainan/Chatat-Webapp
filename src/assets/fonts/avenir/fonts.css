@@ -1,0 +1,49 @@
+@font-face {
+  font-family: "avenirLTStd";
+  font-style: normal;
+  font-weight: 900;
+  src: url("AvenirLTStd-900.eot?#iefix") format("embedded-opentype"),
+	   url("AvenirLTStd-900.woff2") format("woff2"),
+	   url("AvenirLTStd-900.otf") format("opentype"),
+	   url("AvenirLTStd-900.svg") format("svg")
+}
+
+@font-face {
+  font-family: "avenirLTStd";
+  font-style: normal;
+  font-weight: 700;
+  src: url("AvenirLTStd-700.eot?#iefix") format("embedded-opentype"),
+	   url("AvenirLTStd-700.woff2") format("woff2"),
+	   url("AvenirLTStd-700.otf") format("opentype"),
+	   url("AvenirLTStd-700.svg") format("svg")
+}
+
+@font-face {
+  font-family: "avenirLTStd";
+  font-style: normal;
+  font-weight: 500;
+  src: url("AvenirLTStd-500.eot?#iefix") format("embedded-opentype"),
+	   url("AvenirLTStd-500.woff2") format("woff2"),
+	   url("AvenirLTStd-500.otf") format("opentype"),
+	   url("AvenirLTStd-500.svg") format("svg")
+}
+
+@font-face {
+  font-family: "avenirLTStd";
+  font-style: normal;
+  font-weight: 400;
+  src: url("AvenirLTStd-400.eot?#iefix") format("embedded-opentype"),
+	   url("AvenirLTStd-400.woff2") format("woff2"),
+	   url("AvenirLTStd-400.otf") format("opentype"),
+	   url("AvenirLTStd-400.svg") format("svg")
+}
+
+@font-face {
+  font-family: "avenirLTStd";
+  font-style: normal;
+  font-weight: 300;
+  src: url("AvenirLTStd-300.eot?#iefix") format("embedded-opentype"),
+	   url("AvenirLTStd-300.woff2") format("woff2"),
+	   url("AvenirLTStd-300.otf") format("opentype"),
+	   url("AvenirLTStd-300.svg") format("svg")
+}

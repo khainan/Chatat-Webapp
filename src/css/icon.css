@@ -1,0 +1,44 @@
+.icon-row {
+    display: flex;
+    flex-wrap: wrap
+}
+
+.icon-row .icon-item {
+    position: relative;
+    flex: 0 0 20%
+}
+
+.icon-row .icon-item:nth-child(odd) {
+    background-color: #fafafa
+}
+
+.icon-row .icon-item:after {
+    content: "";
+    display: block;
+    padding-top: 100%
+}
+
+.icon-row .icon-item .inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column
+}
+
+.icon-row .icon-item i {
+    font-size: 4em;
+    line-height: 1
+}
+
+.icon-row .icon-item code {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%)
+}

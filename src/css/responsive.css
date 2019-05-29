@@ -1,0 +1,32 @@
+@media screen and (max-width:1366px){
+    .main-page .container {
+        padding: 0 42px
+    }
+    
+    .table-wrapper {
+        margin: 0 -42px
+    }
+    
+    .table-wrapper .table thead tr th:first-child,
+    .table-wrapper .table tbody tr td:first-child {
+        padding-left: 42px
+    }
+    
+    .table-wrapper .table thead tr th:last-child,
+    .table-wrapper .table tbody tr td:last-child {
+        padding-right: 42px
+    }
+    
+    .table .table-action .icon-action {
+        right: 42px
+    }
+    
+    /*==========*/
+    .main-pages .main-menu {
+        flex: 0 0 340px
+    }
+    
+    .main-menu .secondary-menu {
+        width: 280px
+    }
+}
