@@ -375,7 +375,6 @@
 }
 
 .main-menu .menu-bottom {
-    margin-top: auto;
     margin-bottom: 0;
     padding-bottom: 3em
 }
@@ -386,7 +385,17 @@
     letter-spacing: .06em;
     color: #A1A9BD;
     font-weight: 700;
-    margin-bottom: 12px
+    margin-bottom: 12px;
+}
+
+.main-menu .first-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #A1A9BD;
+    font-weight: 700;
+    margin-bottom: 12px;
+    margin-top: 34px;
 }
 
 .main-menu .menu {
@@ -494,7 +503,8 @@
     flex-direction: column;
     box-shadow: 0 0 60px -10px rgba(161,169,189,.2);
     overflow-y: auto;
-    overflow-x: hidden
+    overflow-x: hidden;
+    z-index:0;
 }
 
 .main-page .section-body {

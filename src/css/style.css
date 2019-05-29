@@ -843,7 +843,8 @@ select.input-sm {
     color: #fff;
     border-color: #1E2432;
     box-shadow: inset 2px 2px 0 #fff,
-                2px 2px 0 #2895F9;  
+                2px 2px 0 #2895F9; 
+    padding: 10px 46px; 
 }
 .btn-primary:hover,
 .btn-primary:focus,

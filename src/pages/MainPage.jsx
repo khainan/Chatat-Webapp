@@ -53,7 +53,7 @@ class MainPage extends Component {
                     <div className="main-menu-inner" scroll>
                         <div className="menu-item menu-top">
                             <a className="btn btn-block btn-primary mb3" href="catat-transaksi.html">Catat Transaksi</a>
-                            <div className="title-menu">Dashboard</div>
+                            <div className="first-title">Dashboard</div>
                             <ul className="menu">
                                 <li className="active"><a href="index.html"><i className="icon icon-dashboard"></i><span className="label-menu">Dashboard</span></a></li>
                                 <li><a href="dashboard-daftar_trx.html"><i className="icon icon-documents"></i><span className="label-menu">Daftar Transaksi</span></a></li>
