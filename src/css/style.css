@@ -1971,7 +1971,10 @@ select.input-sm {
 .table-wrapper .table tbody tr {
     position: relative
 }
-
+.table-wrapper .table {
+    width: 100%;
+    border-collapse: collapse;
+}
 .table-wrapper .table thead tr th:first-child,
 .table-wrapper .table tbody tr td:first-child {
     padding-left: 100px
