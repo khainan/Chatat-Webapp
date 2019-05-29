@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Loading from '../components/Loading';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -7,22 +8,17 @@ class LoginPage extends Component {
     this.state = {
         loading:true
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount(){
-    setTimeout(()=>{
-        this.setState({
-            loading:false
-        })
-    },1000)
+  handleSubmit(){
+      this.props.history.replace('/dashboard')
   }
  
   render() {
     return (
     <div>
-        {this.state.loading && <div id="curtain">
-            <div class="curtain-logo"></div>
-        </div>}
+        <Loading/>
         <main id="main">
             <section className="main-login">
                 <div className="logo"></div>
@@ -69,7 +65,7 @@ class LoginPage extends Component {
                                     </div>
                                 </div>
                                 <div className="login-content-submit">
-                                    <button className="btn btn-block btn-primary" type="submit">Login</button>
+                                    <button className="btn btn-block btn-primary" onClick={this.handleSubmit}>Login</button>
                                 </div>
                             </form>
                         </div>
