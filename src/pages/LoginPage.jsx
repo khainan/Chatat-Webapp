@@ -10,14 +10,19 @@ class LoginPage extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.forgotPassword = this.forgotPassword.bind(this);
+    this.register = this.register.bind(this);
   }
 
   handleSubmit(){
-      this.props.history.replace('/dashboard')
+      this.props.history.replace('/main/dashboard')
   }
 
   forgotPassword(){
     this.props.history.replace('/reset-password')
+  }
+
+  register(){
+    this.props.history.replace('/register')
   }
  
   render() {
@@ -40,11 +45,11 @@ class LoginPage extends Component {
                     <div className="content">
                         <div className="content-inner">
                             <div className="login-content-heading">
-                                <span className="text-label">Belum punya akun?</span> <a className="btn btn-sm btn-default" href="register.html">Daftar sekarang</a>
+                                <span className="text-label">Belum punya akun?</span><a className="btn btn-sm btn-default" onClick={this.register}>Daftar sekarang</a>
                             </div>
                             <form>
                                 <div className="main-title">
-                                    <h4 className="title">Login to your account</h4>
+                                    <h4 className="title"><span className="break-text">Login to </span>your account</h4>
                                 </div>
                                 <div className="login-content-section">
                                     <div className="form-group">

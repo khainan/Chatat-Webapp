@@ -213,6 +213,7 @@ b, strong {
 }
 
 .link {
+    cursor: pointer;
     font-weight: 600;
     background-image: linear-gradient(to right, #2895F9 0%, #2895F9 100%);
     background-repeat: no-repeat;
@@ -494,11 +495,14 @@ select.input-sm {
     background-color: transparent;
     border-radius: 0;
     border: none;
-    padding: 0 16px 0 0
+    padding: 0 16px 0 0;
+    position: absolute;
+    top: 16px
 }
 
 .input-group .form-input {
-    display: table-cell
+    padding-left: 46px;
+    padding-bottom: 18px;
 }
 
 .input-group .form-input .form-label {
@@ -653,8 +657,8 @@ select.input-sm {
 	position: absolute;
 	top: 2px;
 	left: 0;
-	width: 20px;
-	height: 20px;
+	width: 18px;
+	height: 18px;
 	border-radius: 6px;
     border: 1px solid #0774DB;
     transition: border .3s cubic-bezier(.4,0,0,1)
@@ -803,7 +807,12 @@ select.input-sm {
     margin-left: 12px
 }
 
+.label-menu {
+    cursor: pointer;
+}
+
 .btn {
+    cursor: pointer;
     position: relative;
     transform: translateZ(0);
     line-height: 40px;
@@ -1828,7 +1837,8 @@ select.input-sm {
     margin-right: 20px;
     margin-top: -3px;
     font-weight: normal;
-    color: #2895F9
+    color: #2895F9;
+    cursor: pointer;
 }
 
 .dropdown-hover ul > li.divider {
@@ -1931,6 +1941,7 @@ select.input-sm {
 }
 
 .list-icon-link .icon-btn {
+    cursor: pointer;
     position: relative;
     display: inline-block;
     width: 42px;
