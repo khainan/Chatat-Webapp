@@ -2,22 +2,33 @@ import React, { Component } from "react";
 import '../css/primary.css';
 import Dashboard from '../components/Dashboard';
 import Loading from '../components/Loading';
+import Modal from '../components/ModalDaftarAset';
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      showModal:false,
+      data:{},
     };
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleShowModal = this.handleShowModal.bind(this);
   }
 
   handleLogout(){
     window.location.href = '/'
   }
 
+  handleShowModal(){
+    setTimeout(()=>{
+        this.setState({
+            showModal:true
+        })
+    },2000)
+  }
+
   componentDidMount(){
-  
+    this.state.data && this.handleShowModal();
   }
 
   render() {
@@ -28,10 +39,12 @@ class MainPage extends Component {
     let today = new Date();
     let date = today.getDate() + ' ' + (monthNames[today.getMonth()]) + ' ' + today.getFullYear();
     let currentPage =  this.props.match.params.currentPage;
+    let showModal = this.state.showModal;
 
     return (
       <main id="main">
       <Loading/>
+      { showModal && <Modal/>}
       <section className="main-pages">    
           <aside className="main-menu">
               <div className="content primary-menu">
@@ -125,7 +138,7 @@ class MainPage extends Component {
                 </div>
             </section>
             {/* FUNCTION TO CHANGE BETWEEN PAGE */}
-
+            
             { currentPage === "dashboard" &&
               <Dashboard/>
             }
