@@ -38,7 +38,7 @@ class MainPage extends Component {
       "July", "August", "September", "October", "November", "December"
     ];
     let today = new Date();
-    let date = today.getDate() + ' ' + (monthNames[today.getMonth()]) + ' ' + today.getFullYear();
+    let date = today.getDate() + ' ' + (monthNames[today.getMonth()]) + ', ' + today.getFullYear();
     let currentPage =  this.props.match.params.currentPage;
     let showModal = this.state.showModal;
 
