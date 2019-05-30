@@ -34,8 +34,8 @@ class ModalDaftarAset extends Component {
                                             <h5 className="title">Catat dulu daftar aset/utang piutang kamu</h5>
                                             <div className="btn-groups">
                                                 <div className="center">
-                                                    <a className="btn btn-sm btn-default group-item" onClick={this.closeModal} >Nanti</a>
-                                                    <a className="btn btn-sm btn-primary group-item">Oke</a>
+                                                    <a className="btn btn-sm btn-default group-item btn-modal" onClick={this.closeModal} >Nanti</a>
+                                                    <a className="btn btn-sm btn-primary group-item btn-modal">Oke</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -3,6 +3,7 @@ import '../css/primary.css';
 import Dashboard from '../components/Dashboard';
 import Loading from '../components/Loading';
 import Modal from '../components/ModalDaftarAset';
+import { UncontrolledTooltip } from 'reactstrap';
 
 class MainPage extends Component {
   constructor(props) {
@@ -52,9 +53,18 @@ class MainPage extends Component {
                       <div className="main-menu-inner">
                           <div className="primary-logo"></div>
                           <ul className="list-icon-link">
-                              <li><a className="icon-btn" data-toggle="tooltip" title="notification" data-placement="right"><i className="icon-email"></i></a></li>
-                              <li><a className="icon-btn" data-toggle="tooltip" title="report" data-placement="right"><i className="icon-idea"></i></a></li>
-                              <li><a className="icon-btn" data-toggle="tooltip" title="aset" data-placement="right"><div className="dotted"></div><i className="icon-briefcase"></i></a></li>
+                              <li><a className="icon-btn" id={"email"}><i className="icon-email"></i></a></li>
+                              <li><a className="icon-btn" id={"idea"}><i className="icon-idea"></i></a></li>
+                              <li><a className="icon-btn" id={"briefcase"}><div className="dotted"></div><i className="icon-briefcase"></i></a></li>
+                              <UncontrolledTooltip placement="right" target="email">
+                                notification
+                              </UncontrolledTooltip>
+                              <UncontrolledTooltip placement="right" target="idea">
+                                report
+                              </UncontrolledTooltip>
+                              <UncontrolledTooltip placement="right" target="briefcase">
+                                aset
+                              </UncontrolledTooltip>
                           </ul>
                           <div className="menu-user menu-icon dropdown">
                               <div className="menu-user-img">

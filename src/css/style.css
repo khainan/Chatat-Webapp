@@ -418,7 +418,8 @@ select.input-sm {
     color: inherit;
     font-weight: 600;
     font-size: 12px;
-    color: #A1A9BD
+    color: #A1A9BD;
+
 }
 
 .text-bold {
@@ -503,6 +504,7 @@ select.input-sm {
 .input-group .form-input {
     padding-left: 46px;
     padding-bottom: 18px;
+    width: 100%;
 }
 
 .input-group .form-input .form-label {
@@ -804,7 +806,11 @@ select.input-sm {
 }
 
 .btn-groups .group-item + .group-item {
-    margin-left: 12px
+    margin-left: 12px;
+}
+
+.btn-modal {
+    padding: 10px 20px !important;
 }
 
 .label-menu {
@@ -935,7 +941,6 @@ select.input-sm {
 .btn-sm {
     line-height: 32px;
     font-size: 12px;
-    padding: 10px 20px;
 }
 
 .btn-circle {
@@ -1044,6 +1049,7 @@ select.input-sm {
 .close:focus:active {
     opacity: 1;
     color:#1E2432;
+    cursor: pointer;
 }
 
 .fix-close {
