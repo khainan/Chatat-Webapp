@@ -133,6 +133,10 @@
     text-align: center
 }*/
 
+.break-text {
+    display: block;
+}
+
 .main-login {
     position: relative;
     height: 100vh;
@@ -560,6 +564,7 @@
     max-width: 320px
 }
 
+
 .section-header .page-title .main-title {
     margin: 0;
     line-height: 1.35
@@ -694,6 +699,10 @@
 
 .step-progress .step-btn-next {
     right: 0
+}
+
+.text-center {
+    text-align: center;
 }
 
 /*==========*/

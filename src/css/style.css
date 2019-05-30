@@ -23,7 +23,17 @@ body {
     top: 0;
     left: 0;
     z-index: 99999;
-    transition: 1s
+    transition: 0.4s;
+}
+
+#curtain-gray {
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    transition: 0.5s;
+    background: #DFE3ED;
 }
 
 .with-width {

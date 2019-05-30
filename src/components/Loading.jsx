@@ -5,16 +5,28 @@ class Loading extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        loading:true
+        loading:true,
+        secondLoading:true,
     };
+    this.closeSecondModal = this.closeSecondModal.bind(this);
   }
 
   componentDidMount(){
     setTimeout(()=>{
         this.setState({
             loading:false
+        },()=>{
+          this.closeSecondModal()
         })
     },1000)
+  }
+
+  closeSecondModal(){
+    setTimeout(()=>{
+      this.setState({
+        secondLoading:false
+      })
+    },300)
   }
 
  
@@ -27,6 +39,15 @@ class Loading extends Component {
         </div>
         :
         <div className="with-no-width" id="curtain">
+            <div class="curtain-logo hide-logo"></div>
+        </div>
+        }
+        { this.state.secondLoading ? 
+        <div className="with-width" id="curtain-gray">
+            <div class="curtain-logo"></div>
+        </div>
+        :
+        <div className="with-no-width" id="curtain-gray">
             <div class="curtain-logo hide-logo"></div>
         </div>
         }

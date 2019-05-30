@@ -9,10 +9,15 @@ class LoginPage extends Component {
         loading:true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.forgotPassword = this.forgotPassword.bind(this);
   }
 
   handleSubmit(){
       this.props.history.replace('/dashboard')
+  }
+
+  forgotPassword(){
+    this.props.history.replace('/reset-password')
   }
  
   render() {
@@ -23,8 +28,7 @@ class LoginPage extends Component {
             <section className="main-login">
                 <div className="logo"></div>
                 <div className="main-login-bg">
-                    <div className="thumb">
-                        
+                    <div className="thumb">                
                     </div>
                     <footer>
                         <div className="footer-content">
@@ -61,7 +65,7 @@ class LoginPage extends Component {
                                             <input type="checkbox" id="remember"/>
                                             <label for="remember">Ingat password</label>
                                         </div>
-                                        <a className="link" href="reset.html">Reset password?</a>
+                                        <a className="link" onClick={this.forgotPassword}>Reset password?</a>
                                     </div>
                                 </div>
                                 <div className="login-content-submit">
