@@ -35,20 +35,20 @@ class Loading extends Component {
     <div>
         {this.state.loading ? 
         <div className="with-width" id="curtain">
-            <div class="curtain-logo"></div>
+            <div className="curtain-logo"></div>
         </div>
         :
         <div className="with-no-width" id="curtain">
-            <div class="curtain-logo hide-logo"></div>
+            <div className="curtain-logo hide-logo"></div>
         </div>
         }
         { this.state.secondLoading ? 
         <div className="with-width" id="curtain-gray">
-            <div class="curtain-logo"></div>
+            <div className="curtain-logo"></div>
         </div>
         :
         <div className="with-no-width" id="curtain-gray">
-            <div class="curtain-logo hide-logo"></div>
+            <div className="curtain-logo hide-logo"></div>
         </div>
         }
     </div>

@@ -3,6 +3,7 @@ import '../css/primary.css';
 import Dashboard from '../components/Dashboard';
 import Loading from '../components/Loading';
 import Modal from '../components/ModalDaftarAset';
+import Aset from '../components/Aset';
 import { UncontrolledTooltip } from 'reactstrap';
 
 class MainPage extends Component {
@@ -14,6 +15,8 @@ class MainPage extends Component {
     };
     this.handleLogout = this.handleLogout.bind(this);
     this.handleShowModal = this.handleShowModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.goToAset = this.goToAset.bind(this);
   }
 
   handleLogout(){
@@ -28,9 +31,24 @@ class MainPage extends Component {
     },2000)
   }
 
+  closeModal(){
+      this.setState({
+          showModal:false
+      })
+  }
+
+  goToAset(){
+      this.setState({
+          showModal:false
+      })
+      this.props.history.replace('/main/aset')
+  }
+
   componentDidMount(){
     this.state.data && this.handleShowModal();
   }
+
+
 
   render() {
 
@@ -45,7 +63,12 @@ class MainPage extends Component {
     return (
       <main id="main">
       <Loading/>
-      { showModal && <Modal/>}
+      { showModal && currentPage !== "aset" && 
+        <Modal 
+            showModal={this.state.showModal}
+            closeModal={this.closeModal}
+            goToAset={this.goToAset}
+         />}
       <section className="main-pages">    
           <aside className="main-menu">
               <div className="content primary-menu">
@@ -88,7 +111,7 @@ class MainPage extends Component {
             </div>
             <div className="content secondary-menu">
                 <div className="content-inner">
-                    <div className="main-menu-inner" scroll>
+                    <div className="main-menu-inner">
                         <div className="menu-item menu-top">
                             <a className="btn btn-block btn-primary main-btn">Catat Transaksi</a>
                             <div className="first-title">Dashboard</div>
@@ -151,6 +174,13 @@ class MainPage extends Component {
             
             { currentPage === "dashboard" &&
               <Dashboard/>
+            }
+
+            {
+              currentPage === "aset" &&
+              <Aset 
+                
+              />
             }
 
 

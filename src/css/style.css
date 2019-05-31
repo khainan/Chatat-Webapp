@@ -492,6 +492,52 @@ select.input-sm {
     width: 100%
 }
 
+.aset-form-kas {
+    width: 30%;
+    margin-left:20px; 
+}
+
+.main-pages-aset {
+    margin-bottom: 4%; 
+}
+
+.btn-next-back {
+    position: relative;
+    margin-top: 4%;
+}
+
+.container-next-save {
+    float: right;
+}
+
+.btn-skip {
+    margin-right: 14px;
+}
+
+.btn-save {
+    cursor: pointer;
+    position: relative;
+    transform: translateZ(0);
+    line-height: 40px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 6px;
+    letter-spacing: inherit;
+    background-color: #2895F9;
+    color: #fff;
+    border-color: #1E2432;
+    box-shadow: inset 2px 2px 0 #fff, 2px 2px 0 #2895F9;
+    transition: color .3s cubic-bezier(.4,0,0,1),
+                border-color .3s cubic-bezier(.4,0,0,1),
+                box-shadow .3s cubic-bezier(.4,0,0,1),
+                background-color .3s cubic-bezier(.4,0,0,1);
+}
+
+.btn-save:hover {
+    opacity: 0.8;
+}
+
 .input-group .input-group-addon {
     background-color: transparent;
     border-radius: 0;
@@ -503,9 +549,8 @@ select.input-sm {
 
 .input-group .form-input {
     padding-left: 46px;
-    padding-bottom: 18px;
-    width: 100%;
 }
+
 
 .input-group .form-input .form-label {
     position: static;
@@ -516,6 +561,10 @@ select.input-sm {
 .input-group .form-input .form-control {
     display: block;
     padding: 5px 0 14px
+}
+
+.input-group .form-input .form-control .aset-form{
+    width: 45%;
 }
 
 .circle-icon {
@@ -2091,6 +2140,30 @@ select.input-sm {
 .table thead tr th.th-action {
     background-image: none;
     cursor: default
+}
+
+.section-body-aset {
+    margin-top: 5%;
+    width: 90%;
+}
+
+.container-aset {
+    display: flex;
+    flex-direction: row;
+}
+
+.section-aset {
+    position: relative;
+    flex: 4;
+    margin-right: 4%
+}
+
+.with-select {
+    padding-bottom: 22px;
+}
+
+.form-label .aset-form {
+    width: 40%;
 }
 
 .table-text {
