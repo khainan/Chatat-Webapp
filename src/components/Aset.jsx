@@ -68,8 +68,16 @@ class Aset extends Component {
                                 </div>
                                 {/* FUNCTION CHANGE BETWEEN COMPONENT */}
                                 
-                                {
-                                    <BahanBaku/>
+                                {   <div>
+                                        <BahanBaku
+                                        
+                                        />
+                                        <div className="btn-groups">
+                                            <div className="right">
+                                                <a className="link">Tambah Bahan Baku</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                                 <div className="btn-next-back">
                                     <button className="btn btn-default group-item">Kembali</button>

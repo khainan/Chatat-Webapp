@@ -87,11 +87,6 @@ class BahanBakuComponent extends Component {
                     </div>
                 </div>
                 <hr />
-                <div className="btn-groups">
-                    <div className="right">
-                        <a className="link" href="#!">Tambah {this.props.title}</a>
-                    </div>
-                </div>
             </div>
         );
     }
