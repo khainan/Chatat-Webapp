@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import AkunBank from './AkunBank';
+import Peralatan from './Peralatan';
+import BahanBaku from './BahanBaku';
 
 class Aset extends Component {
     constructor(props) {
@@ -67,15 +69,8 @@ class Aset extends Component {
                                 {/* FUNCTION CHANGE BETWEEN COMPONENT */}
                                 
                                 {
-                                    <AkunBank/>
+                                    <BahanBaku/>
                                 }
-
-
-                                <div className="btn-groups">
-                                    <div className="right">
-                                        <a className="link" href="#!">Tambah Akun Bank</a>
-                                    </div>
-                                </div>
                                 <div className="btn-next-back">
                                     <button className="btn btn-default group-item">Kembali</button>
                                     <span className="container-next-save">

@@ -13,8 +13,8 @@ class ModalDaftarAset extends Component {
         return (
         <div>
         {this.props.showModal && <div className="modal-chatat">
-            <div id="modal-catat-aset" className="modal auto-modal fade" tabindex="-1" role="dialog">
-                <div className="modal-dialog" role="document">
+            <div id="modal-catat-aset" className="modal auto-modal fade">
+                <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="container">
                             <div className="row">

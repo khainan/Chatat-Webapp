@@ -148,7 +148,10 @@ class MainPage extends Component {
                 <div className="container">
                     <div className="section-top">
                         <ul className="breadcrumb">
-                            <li><a>Dashboard</a></li>
+                            <li>
+                                <a>Dashboard </a> 
+                                {currentPage !== "dashboard" && <a>{ " / " + currentPage}</a>}
+                            </li>
                         </ul>
                         <div id="current-date">{date}</div>
                     </div>

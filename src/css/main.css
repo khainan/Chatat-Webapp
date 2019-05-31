@@ -617,8 +617,8 @@
 .step-progress .step-item {
     position: relative;
     text-align: center;
-    padding: 0 1em;
-    flex: 0 0 20%;
+    padding: 0 1%;
+    flex: 0 0 18%;
     min-width: 140px
 }
 

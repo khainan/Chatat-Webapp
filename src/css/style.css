@@ -2144,7 +2144,7 @@ select.input-sm {
 
 .section-body-aset {
     margin-top: 5%;
-    width: 90%;
+    width: 100%;
 }
 
 .container-aset {
@@ -2160,6 +2160,26 @@ select.input-sm {
 
 .with-select {
     padding-bottom: 22px;
+}
+
+.with-padding-top {
+    padding-top: 22px;
+}
+
+.input-satuan {
+    width: 100%;
+    padding: 0 14px;
+    margin-top: 18px;
+    font-size: 14px;
+    height: 42px;
+    color: #1E2432;
+    font-weight: 600;
+    line-height: inherit;
+    letter-spacing: inherit;
+    border-radius: 6px;
+    background-color: #FFE2D1;
+    border-color: #1E2432;
+    box-shadow: inset 2px 2px 0px #fff, 2px 2px 0 #FFE2D1;
 }
 
 .form-label .aset-form {

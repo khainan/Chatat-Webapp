@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-class AkunBankComponent extends Component {
+class BahanBakuComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,65 +14,42 @@ class AkunBankComponent extends Component {
         return (
             <div>
                 <hr />
-                <div className="row control-group">
-                    <div className="aset-form-kas">
-                        <div className="form-group">
-                            <div className="input-group">
-                                <span className="input-group-addon">
-                                    <i className="circle-icon icon-pocket"></i>
-                                </span>
-                                <div className="form-input">
-                                    <label className="form-label">Kas kecil (Uang kas)</label>
-                                    <input className="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div className="main-title">
-                    <p className="title">Akun Bank</p>
+                    <p className="title">{this.props.title}</p>
                 </div>
                 <div className="container-aset">
                     <div className="section-aset">
                         <div className="form-group">
                             <div className="input-group">
                                 <span className="input-group-addon">
-                                    <i className="circle-icon icon-briefcase"></i>
-                                </span>
-                                <div className="form-input with-select">
-                                    <label className="form-label">Nama Bank</label>
-                                    <select className="form-control">
-                                        <option>--</option>
-                                        <option>Bank Centra Asia (BCA)</option>
-                                        <option>Bank Rakyat Indonesia (BRI)</option>
-                                        <option>Bank Negara Indonesia (BNI)</option>
-                                        <option>Mandiri</option>
-                                        <option>Danamon</option>
-                                        <option>CIMB</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <div className="input-group">
-                                <span className="input-group-addon">
-                                    <i className="circle-icon icon-payments"></i>
+                                    <i className="circle-icon icon-edit"></i>
                                 </span>
                                 <div className="form-input">
-                                    <label className="form-label">No. Rekening</label>
+                                    <label className="form-label">Keterangan</label>
                                     <input className="form-control" />
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="section-aset">
                         <div className="form-group">
                             <div className="input-group">
                                 <span className="input-group-addon">
                                     <i className="circle-icon icon-user"></i>
                                 </span>
                                 <div className="form-input">
-                                    <label className="form-label">Nama Akun</label>
+                                    <label className="form-label">Vendor</label>
+                                    <input className="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="section-aset">
+                        <div className="form-group">
+                            <div className="input-group">
+                                <span className="input-group-addon">
+                                    <i className="circle-icon icon-ranks"></i>
+                                </span>
+                                <div className="form-input">
+                                    <label className="form-label">Sisa Bahan Baku</label>
                                     <input className="form-control" />
                                 </div>
                             </div>
@@ -80,22 +57,39 @@ class AkunBankComponent extends Component {
                         <div className="form-group">
                             <div className="input-group">
                                 <span className="input-group-addon">
-                                    <i className="circle-icon icon-pocket"></i>
+                                    <i className="circle-icon icon-components"></i>
                                 </span>
-                                <div className="form-input">
-                                    <label className="form-label">Saldo</label>
-                                    <input className="form-control" />
+                                <div className="form-input with-padding-top">
+                                    <label className="form-label">Satuan</label>
+                                    <select className="form-control">
+                                        <option>--</option>
+                                        <option>Kilogram</option>
+                                        <option>Gram</option>
+                                        <option>Ons</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="section-aset">
+                        <div className="form-group">
+                            <div className="input-group">
+                                <span className="input-group-addon">
+                                    <i className="circle-icon icon-payments"></i>
+                                </span>
+                                <div className="form-input">
+                                    <label className="form-label">{this.props.title === "Bahan Baku" ? "Harga Satuan" : "Harga /Unit"}</label>
+                                    <input className="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <input className="input-satuan" value={0} defaultValue="0"/>
                     </div>
                 </div>
                 <hr />
                 <div className="btn-groups">
                     <div className="right">
-                        <a className="link" href="#!">Tambah Akun Bank</a>
+                        <a className="link" href="#!">Tambah {this.props.title}</a>
                     </div>
                 </div>
             </div>
@@ -103,4 +97,4 @@ class AkunBankComponent extends Component {
     }
 }
 
-export default AkunBankComponent;
+export default BahanBakuComponent;
