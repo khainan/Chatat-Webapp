@@ -1,20 +1,20 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
-import ResetPassword from './pages/ResetPassword';
-import RegisterPage from './pages/RegisterPage';
+import UnAuthenticatedApp from './UnAuthenticatedApp'
+
+import {useUser} from './context/user-context'
+import './App.css';
+import Loading from './components/Loading';
+
 
 function App() {
+  const user = useUser()
   return (
-    <Router>
-      <Route exact path="/" component={LoginPage}/>
-      <Route path="/reset-password" component={ResetPassword}/>
-      <Route path="/register" component={RegisterPage}/>
-      <Route path="/main/:currentPage" component={MainPage}/>
-    </Router>
-  );
+    <React.Suspense fallback={<Loading />}>
+      {user ? <MainPage /> : <UnAuthenticatedApp />}
+    </React.Suspense>
+  )
 }
 
-export default App;
+export default App

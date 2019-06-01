@@ -1,74 +1,35 @@
-import React, { Component } from "react";
+import React, { useState } from 'react';
 import '../css/primary.css';
 import Dashboard from '../components/Dashboard';
 import Loading from '../components/Loading';
 import Modal from '../components/ModalDaftarAset';
 import Aset from '../components/Aset';
 import { UncontrolledTooltip } from 'reactstrap';
+import {useAuth} from '../context/auth-context'
+import {useUser} from '../context/user-context'
 
-class MainPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showModal:false,
-      data:{},
-    };
-    this.handleLogout = this.handleLogout.bind(this);
-    this.handleShowModal = this.handleShowModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.goToAset = this.goToAset.bind(this);
-  }
+function MainPage() {
 
-  handleLogout(){
-    window.location.href = '/'
-  }
-
-  handleShowModal(){
-    setTimeout(()=>{
-        this.setState({
-            showModal:true
-        })
-    },2000)
-  }
-
-  closeModal(){
-      this.setState({
-          showModal:false
-      })
-  }
-
-  goToAset(){
-      this.setState({
-          showModal:false
-      })
-      this.props.history.replace('/main/aset')
-  }
-
-  componentDidMount(){
-    this.state.data && this.handleShowModal();
-  }
-
-
-
-  render() {
-
+    const user = useUser();
+    const {logout} = useAuth();
+    const [isModalShow, showModal] = useState(true);
     const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
     let today = new Date();
     let date = today.getDate() + ' ' + (monthNames[today.getMonth()]) + ', ' + today.getFullYear();
-    let currentPage =  this.props.match.params.currentPage;
-    let showModal = this.state.showModal;
+    let currentPage = 'dashboard';
 
     return (
       <main id="main">
-      <Loading/>
-      { showModal && currentPage !== "aset" && 
+      {/* <Loading/> */}
+      { isModalShow && 
         <Modal 
-            showModal={this.state.showModal}
-            closeModal={this.closeModal}
-            goToAset={this.goToAset}
-         />}
+            showModal={() => showModal(true)}
+            closeModal={() => showModal(false)}
+            //goToAset={this.goToAset}
+         />
+      }
       <section className="main-pages">    
           <aside className="main-menu">
               <div className="content primary-menu">
@@ -99,10 +60,10 @@ class MainPage extends Component {
                                   <ul>
                                     <li className="dropdown-header">
                                         <span className="text-label">Halo,</span>
-                                        <div className="username">Username</div>
+                                        <div className="username">{user.nama}</div>
                                     </li>
                                     <li><a><i className="icon icon-configure"></i><span className="label-menu">Setting</span></a></li>
-                                    <li onClick={this.handleLogout}><a><i className="icon icon-log_out"></i><span className="label-menu">Keluar</span></a></li>
+                                    <li onClick={logout}><a><i className="icon icon-log_out"></i><span className="label-menu">Keluar</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -192,7 +153,6 @@ class MainPage extends Component {
     </section>
 </main>
       );
-  }
 }
 
 export default MainPage;

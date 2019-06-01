@@ -1,34 +1,26 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Loading from '../components/Loading';
+import React from "react";
+import {useAuth} from '../context/auth-context'
+import useCallbackStatus from '../utils/use-callback-status'
 
-class LoginPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        loading:true
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.forgotPassword = this.forgotPassword.bind(this);
-    this.register = this.register.bind(this);
-  }
 
-  handleSubmit(){
-      this.props.history.replace('/main/dashboard')
-  }
-
-  forgotPassword(){
-    this.props.history.replace('/reset-password')
-  }
-
-  register(){
-    this.props.history.replace('/register')
-  }
- 
-  render() {
+function LoginPage(props) {
+    const {login} = useAuth();
+    const {isPending, isRejected, error, run} = useCallbackStatus()
+    function handleSubmit(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value
+      const password = document.getElementById("password").value
+  
+      run(
+        login({
+          email,
+          password
+        }),
+      )
+    }
+  
     return (
     <div>
-        <Loading/>
         <main id="main">
             <section className="main-login">
                 <div className="logo"></div>
@@ -45,7 +37,7 @@ class LoginPage extends Component {
                     <div className="content">
                         <div className="content-inner">
                             <div className="login-content-heading">
-                                <span className="text-label">Belum punya akun?</span><a className="btn btn-sm btn-default" onClick={this.register}>Daftar sekarang</a>
+                                <span className="text-label">Belum punya akun?</span><a className="btn btn-sm btn-default" onClick={()=>props.history.replace('/register')}>Daftar sekarang</a>
                             </div>
                             <form>
                                 <div className="main-title">
@@ -54,14 +46,14 @@ class LoginPage extends Component {
                                 <div className="login-content-section">
                                     <div className="form-group">
                                         <div className="form-input">
-                                            <input className="form-control" type="text" required=""/>
+                                            <input className="form-control" type="text" required="" id="email"/>
                                             <label className="form-label">Username</label>
                                         </div>
                                     </div>
                                     <div className="form-group">
                                         <div className="form-input">
                                             <button className="show-pass" type="button"></button>
-                                            <input className="form-control" type="password" required=""/>
+                                            <input className="form-control" type="password" required="" id="password"/>
                                             <label className="form-label">Password</label>
                                         </div>
                                     </div>
@@ -70,11 +62,11 @@ class LoginPage extends Component {
                                             <input type="checkbox" id="remember"/>
                                             <label for="remember">Ingat password</label>
                                         </div>
-                                        <a className="link" onClick={this.forgotPassword}>Reset password?</a>
+                                        <a className="link" >Reset password?</a>
                                     </div>
                                 </div>
                                 <div className="login-content-submit">
-                                    <button className="btn btn-block btn-primary" onClick={this.handleSubmit}>Login</button>
+                                    <button className="btn btn-block btn-primary" onClick={handleSubmit}>{isPending ? "Loading" : "Login"}</button>
                                 </div>
                             </form>
                         </div>
@@ -85,6 +77,6 @@ class LoginPage extends Component {
         </div>
     );
   }
-}
+
 
 export default LoginPage;
