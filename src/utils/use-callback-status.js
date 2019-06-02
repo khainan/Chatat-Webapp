@@ -11,7 +11,7 @@ function useIsMounted() {
 
 function useCallbackStatus() {
   const isMounted = useIsMounted()
-  const [{status, error}, setState] = React.useReducer(
+  const [{status, error, response}, setState] = React.useReducer(
     (s, a) => ({...s, ...a}),
     {status: 'rest', error: null},
   )
@@ -31,7 +31,7 @@ function useCallbackStatus() {
     safeSetState({status: 'pending'})
     return promise.then(
       value => {
-        safeSetState({status: 'rest'})
+        safeSetState({status: 'rest', response: value})
         return value
       },
       error => {
@@ -47,6 +47,7 @@ function useCallbackStatus() {
     error,
     status,
     run,
+    response
   }
 }
 

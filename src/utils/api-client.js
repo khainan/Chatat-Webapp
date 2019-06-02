@@ -1,4 +1,4 @@
-function client(endpoint, {body, ...customConfig} = {}) {
+function client(endpoint, {body, ...customConfig} = {},method) {
 
    // const token = window.localStorage.getItem('__chatat_token__')
     const headers = {'content-type': 'application/json', 'Authorization': 'Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0'};
@@ -6,7 +6,7 @@ function client(endpoint, {body, ...customConfig} = {}) {
     //   headers['Content-Hash'] = token
     // }
     const config = {
-      method: body ? 'POST' : 'GET',
+      method: method,
       ...customConfig,
       headers: {
         ...headers,

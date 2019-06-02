@@ -16,20 +16,18 @@ function getUser() {
     return Promise.resolve(null);
   }
   const body = {body: { "hash": token}}
-  return client('loginbyhash', body).catch(error => {
+  return client('loginbyhash', body, 'POST').catch(error => {
     logout()
     return Promise.reject(error)
   })
 }
 
 function login({email, password}) {
-  return client('login', {body: {email, password}}).then(handleUserResponse)
+  return client('login', {body: {email, password}}, 'POST').then(handleUserResponse)
 }
 
-function register({username, password}) {
-  return client('register', {body: {username, password}}).then(
-    handleUserResponse,
-  )
+function register({nama, username, email, password}) {
+  return client('register', {body: {nama, username, email, password, paketid: "20192718199383289456"}}, 'PUT')
 }
 
 function logout() {

@@ -40,7 +40,7 @@ function AuthProvider(props) {
   }
 
   const login = form => authClient.login(form).then(reload)
-  const register = form => authClient.register(form).then(reload)
+  const register = form => authClient.register(form)
   const logout = () => authClient.logout().then(reload)
 
   return (
