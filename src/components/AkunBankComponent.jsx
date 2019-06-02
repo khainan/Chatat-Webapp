@@ -11,6 +11,9 @@ class AkunBankComponent extends Component {
 
 
     render() {
+
+        let id = this.props.id;
+
         return (
             <div>
                 <hr />
@@ -23,7 +26,9 @@ class AkunBankComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Kas kecil (Uang kas)</label>
-                                    <input className="form-control" />
+                                    <input className="form-control" 
+                                        onChange={(e)=> this.props.handleSetData("kas" , "kaskecil", null , id , e.currentTarget.value )}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -41,7 +46,7 @@ class AkunBankComponent extends Component {
                                 </span>
                                 <div className="form-input with-select">
                                     <label className="form-label">Nama Bank</label>
-                                    <select className="form-control">
+                                    <select className="form-control" onChange={(e)=> this.props.handleSetData("kas" , "akunbank", "bank", id , e.currentTarget.value )}>
                                         <option>--</option>
                                         <option>Bank Centra Asia (BCA)</option>
                                         <option>Bank Rakyat Indonesia (BRI)</option>
@@ -60,7 +65,9 @@ class AkunBankComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">No. Rekening</label>
-                                    <input className="form-control" />
+                                    <input className="form-control" 
+                                        onChange={(e)=> this.props.handleSetData("kas" , "akunbank", "rekening", id ,e.currentTarget.value )}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -73,7 +80,9 @@ class AkunBankComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Nama Akun</label>
-                                    <input className="form-control" />
+                                    <input className="form-control" 
+                                       onChange={(e)=> this.props.handleSetData("kas" , "akunbank", "atasnama", id ,e.currentTarget.value )} 
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -84,7 +93,9 @@ class AkunBankComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Saldo</label>
-                                    <input className="form-control" />
+                                    <input className="form-control" 
+                                        onChange={(e)=> this.props.handleSetData("kas" , "akunbank", "saldo", id ,e.currentTarget.value )}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -93,11 +104,6 @@ class AkunBankComponent extends Component {
                     </div>
                 </div>
                 <hr />
-                <div className="btn-groups">
-                    <div className="right">
-                        <a className="link" href="#!">Tambah Akun Bank</a>
-                    </div>
-                </div>
             </div>
         );
     }

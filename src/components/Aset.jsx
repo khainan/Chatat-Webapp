@@ -3,39 +3,103 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import AkunBank from './AkunBank';
 import Peralatan from './Peralatan';
 import BahanBaku from './BahanBaku';
+import Piutang from './Piutang';
+import Property from './Property';
+import Loading from './Loading';
 
 class Aset extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true,
-            secondLoading: true,
+            page:1,
+            dataKas:{
+                kaskecil:null,
+                akunbank:[
+                    {
+                        bank:null,
+                        rekening:null,
+                        atasama:null,
+                        saldo:null,
+                    }
+                ]
+            },
+            dataPeralatan:
+                [{
+                    peralatan:null,
+                    nominal: null,
+                    masapakai: null
+                }],
+            dataKendaraan:
+                [{
+                    kendaraan:null,
+                    nominal: null,
+                    masapakai: null
+                }],
+            dataBahanBaku:
+                [{
+                    bahanbaku:null,
+                    unit: null,
+                    harga: null,
+                    satuan:null,
+                    vendor:null
+                }],
+            dataProperty:
+                [{
+                    properti:null,
+                    nominal: null,
+                    status: null,
+                    masapakai:null
+                }],
+            dataPiutang:
+                [{
+                    costumer:null,
+                    nominal: null
+                }],
+            
+            
+            
+            
         };
-        this.closeSecondModal = this.closeSecondModal.bind(this);
+        this.handleBack = this.handleBack.bind(this);
+        this.handleNext = this.handleNext.bind(this);
+        this.handleSetData = this.handleSetData.bind(this);
     }
 
-    componentDidMount() {
-        setTimeout(() => {
+    handleNext(){
+        let page = this.state.page
+
+        if(page < 5){
             this.setState({
-                loading: false
-            }, () => {
-                this.closeSecondModal()
+                page: page += 1
             })
-        }, 1000)
+        }
     }
 
-    closeSecondModal() {
-        setTimeout(() => {
+    handleBack(){
+        let page = this.state.page
+
+        if(page > 1){
             this.setState({
-                secondLoading: false
+                page: page -= 1
             })
-        }, 300)
+        }
     }
 
+    handleSetData(prefix, prefix2, prefix3, index , value){
+        
+        if(prefix === "kas"){
+            console.log(prefix, prefix2, prefix3, index, value)
+            
+        }
+    }
 
     render() {
+        let page = this.state.page;
+
+
         return (
             <div>
+                <Loading/>
                 <main id="main">
                     <section className="main-pages-aset">
                         <section className="section-body-aset">
@@ -68,21 +132,56 @@ class Aset extends Component {
                                 </div>
                                 {/* FUNCTION CHANGE BETWEEN COMPONENT */}
                                 
-                                {   <div>
-                                        <BahanBaku
-                                        
-                                        />
-                                        <div className="btn-groups">
-                                            <div className="right">
-                                                <a className="link">Tambah Bahan Baku</a>
-                                            </div>
-                                        </div>
+                                { page === 1 &&
+                                    <div>
+                                        <AkunBank
+                                            handleSetData={this.handleSetData}
+                                            data={this.state.dataKas}
+                                        /> 
                                     </div>
                                 }
+
+                                { page === 2 &&  
+                                    <div>
+                                        <Peralatan
+                                            handleSetData={this.handleSetData}
+                                            data={this.state.dataPeralatan}
+                                            data2={this.state.dataKendaraan}
+                                        /> 
+                                    </div>
+                                }
+
+                                { page === 3 &&
+                                    <div>
+                                        <BahanBaku
+                                            handleSetData={this.handleSetData}
+                                            data={this.state.dataBahanBaku}
+                                        /> 
+                                    </div>
+                                }
+
+                                { page === 4 && 
+                                    <div>
+                                        <Property
+                                            handleSetData={this.handleSetData}
+                                            data={this.state.dataProperty}
+                                        /> 
+                                    </div>
+                                }
+
+                                { page === 5 && 
+                                    <div>
+                                        <Piutang
+                                            handleSetData={this.handleSetData}
+                                            data={this.state.dataPiutang}
+                                        /> 
+                                    </div>
+                                }
+
                                 <div className="btn-next-back">
-                                    <button className="btn btn-default group-item">Kembali</button>
+                                    <button className="btn btn-default group-item" onClick={()=> this.handleBack()} >Kembali</button>
                                     <span className="container-next-save">
-                                        <button className="btn btn-default group-item btn-skip">Lewati</button>
+                                        <button className="btn btn-default group-item btn-skip" onClick={()=> this.handleNext() } >Lewati</button>
                                         <button className="btn-save ">Simpan</button>
                                     </span>
                                 </div>

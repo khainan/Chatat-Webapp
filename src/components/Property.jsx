@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import BahanBakuComponent from './BahanBakuComponent';
+import PropertyComponent from './PropertyComponent';
 
-class BahanBaku extends Component {
+class Property extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,14 +16,15 @@ class BahanBaku extends Component {
             <div>
                 <div>
                     { this.props.data.map(val => 
-                        <BahanBakuComponent
-                            title={"Bahan Baku"}
+                        <PropertyComponent
+                            title={"Property"}
+                            handleSetData={this.props.handleSetData}
                         />
                     )
                     }
                     <div className="btn-groups">
                         <div className="right">
-                            <a className="link">Tambah Bahan Baku</a>
+                            <a className="link">Tambah Property</a>
                         </div>
                     </div>
                 </div>
@@ -32,4 +33,4 @@ class BahanBaku extends Component {
     }
 }
 
-export default BahanBaku;
+export default Property;

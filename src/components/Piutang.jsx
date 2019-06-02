@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import BahanBakuComponent from './BahanBakuComponent';
+import PiutangComponent from './PiutangComponent';
 
-class BahanBaku extends Component {
+class Piutang extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
         };
     }
 
@@ -16,14 +15,14 @@ class BahanBaku extends Component {
             <div>
                 <div>
                     { this.props.data.map(val => 
-                        <BahanBakuComponent
-                            title={"Bahan Baku"}
+                        <PiutangComponent
+                            title={"Piutang"}
                         />
                     )
                     }
                     <div className="btn-groups">
                         <div className="right">
-                            <a className="link">Tambah Bahan Baku</a>
+                            <a className="link">Tambah Piutang</a>
                         </div>
                     </div>
                 </div>
@@ -32,4 +31,4 @@ class BahanBaku extends Component {
     }
 }
 
-export default BahanBaku;
+export default Piutang;

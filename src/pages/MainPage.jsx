@@ -8,7 +8,7 @@ import { UncontrolledTooltip } from 'reactstrap';
 import {useAuth} from '../context/auth-context'
 import {useUser} from '../context/user-context'
 
-function MainPage() {
+function MainPage(props) {
 
     const user = useUser();
     const {logout} = useAuth();
@@ -18,16 +18,24 @@ function MainPage() {
     ];
     let today = new Date();
     let date = today.getDate() + ' ' + (monthNames[today.getMonth()]) + ', ' + today.getFullYear();
-    let currentPage = 'dashboard';
+    
+    const [currentPage, setPages] = useState('dashboard');
+
+    let page = props.location.pathname;
+
+    function logoutPage(props){
+        localStorage.clear()
+        window.location.href = "/";
+    }
 
     return (
       <main id="main">
       {/* <Loading/> */}
-      { isModalShow && 
+      { isModalShow && page === "dashboard" &&
         <Modal 
             showModal={() => showModal(true)}
             closeModal={() => showModal(false)}
-            //goToAset={this.goToAset}
+            goToAset={() => props.history.replace('/aset')}
          />
       }
       <section className="main-pages">    
@@ -39,7 +47,7 @@ function MainPage() {
                           <ul className="list-icon-link">
                               <li><a className="icon-btn" id={"email"}><i className="icon-email"></i></a></li>
                               <li><a className="icon-btn" id={"idea"}><i className="icon-idea"></i></a></li>
-                              <li><a className="icon-btn" id={"briefcase"}><div className="dotted"></div><i className="icon-briefcase"></i></a></li>
+                              <li><a className="icon-btn" id={"briefcase"} onClick={() => props.history.replace('/aset')}><div className="dotted"></div><i className="icon-briefcase"></i></a></li>
                               <UncontrolledTooltip placement="right" target="email">
                                 notification
                               </UncontrolledTooltip>
@@ -63,7 +71,7 @@ function MainPage() {
                                         <div className="username">{user.nama}</div>
                                     </li>
                                     <li><a><i className="icon icon-configure"></i><span className="label-menu">Setting</span></a></li>
-                                    <li onClick={logout}><a><i className="icon icon-log_out"></i><span className="label-menu">Keluar</span></a></li>
+                                    <li onClick={()=> logoutPage()}><a><i className="icon icon-log_out"></i><span className="label-menu">Keluar</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -136,12 +144,12 @@ function MainPage() {
             </section>
             {/* FUNCTION TO CHANGE BETWEEN PAGE */}
             
-            { currentPage === "dashboard" &&
+            { page === "/" &&
               <Dashboard/>
             }
 
             {
-              currentPage === "aset" &&
+              page === "/aset" &&
               <Aset 
                 
               />

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-class PeralatanComponent extends Component {
+class PiutangComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,10 +22,10 @@ class PeralatanComponent extends Component {
                         <div className="form-group">
                             <div className="input-group">
                                 <span className="input-group-addon">
-                                    <i className="circle-icon icon-edit"></i>
+                                    <i className="circle-icon icon-user"></i>
                                 </span>
                                 <div className="form-input">
-                                    <label className="form-label">Keterangan</label>
+                                    <label className="form-label">Nama</label>
                                     <input className="form-control" />
                                 </div>
                             </div>
@@ -33,10 +33,10 @@ class PeralatanComponent extends Component {
                         <div className="form-group">
                             <div className="input-group">
                                 <span className="input-group-addon">
-                                    <i className="circle-icon icon-ranks"></i>
+                                    <i className="circle-icon icon-user"></i>
                                 </span>
                                 <div className="form-input">
-                                    <label className="form-label">Perkiraan Nilai Nominal</label>
+                                    <label className="form-label">Vendor</label>
                                     <input className="form-control" />
                                 </div>
                             </div>
@@ -46,10 +46,10 @@ class PeralatanComponent extends Component {
                         <div className="form-group">
                             <div className="input-group">
                                 <span className="input-group-addon">
-                                    <i className="circle-icon icon-calendar"></i>
+                                    <i className="circle-icon icon-pocket"></i>
                                 </span>
                                 <div className="form-input">
-                                    <label className="form-label">Perkiraan Masa Pakai</label>
+                                    <label className="form-label">Nominal</label>
                                     <input className="form-control" />
                                 </div>
                             </div>
@@ -64,4 +64,4 @@ class PeralatanComponent extends Component {
     }
 }
 
-export default PeralatanComponent;
+export default PiutangComponent;

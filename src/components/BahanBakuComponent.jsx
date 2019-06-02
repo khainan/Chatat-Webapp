@@ -11,6 +11,10 @@ class BahanBakuComponent extends Component {
 
 
     render() {
+
+        let prefix = this.props.title === "Bahan Baku" ? "Harga Satuan" : "Harga /Unit";
+        let subPrefix = this.props.title === "Bahan Baku" ? "Sisa Bahan Baku" : "Perkiraan Masa Pakai";
+
         return (
             <div>
                 <hr />
@@ -49,7 +53,7 @@ class BahanBakuComponent extends Component {
                                     <i className="circle-icon icon-ranks"></i>
                                 </span>
                                 <div className="form-input">
-                                    <label className="form-label">Sisa Bahan Baku</label>
+                                    <label className="form-label">{subPrefix}</label>
                                     <input className="form-control" />
                                 </div>
                             </div>
@@ -78,7 +82,7 @@ class BahanBakuComponent extends Component {
                                     <i className="circle-icon icon-payments"></i>
                                 </span>
                                 <div className="form-input">
-                                    <label className="form-label">{this.props.title === "Bahan Baku" ? "Harga Satuan" : "Harga /Unit"}</label>
+                                    <label className="form-label">{prefix}</label>
                                     <input className="form-control" />
                                 </div>
                             </div>

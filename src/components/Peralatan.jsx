@@ -6,7 +6,7 @@ class Peralatan extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data:["dummy"]
+            
         };
     }
 
@@ -15,20 +15,30 @@ class Peralatan extends Component {
         return (
             <div>
                 <div>
-                    { this.state.data.map(val => 
+                    { this.props.data.map(val => 
                         <PeralatanComponent
                             title={"Peralatan"}
                         />
                     )
                     }
+                    <div className="btn-groups">
+                        <div className="right">
+                            <a className="link" href="#!">Tambah Peralatan</a>
+                        </div>
+                    </div>
                 </div>
                 <div>
-                    { this.state.data.map(val => 
+                    { this.props.data2.map(val => 
                         <PeralatanComponent
                             title={"Kendaraan"}
                         />
                     )
                     }
+                    <div className="btn-groups">
+                        <div className="right">
+                            <a className="link" href="#!">Tambah Kendaraan</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

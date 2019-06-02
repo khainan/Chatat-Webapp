@@ -6,7 +6,6 @@ class AkunBank extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data:["dummy","dummy","dummy","dummy","dummy"]
         };
     }
 
@@ -14,10 +13,20 @@ class AkunBank extends Component {
     render() {
         return (
             <div>
-                { this.state.data.map(val => 
-                    <AkunBankComponent/>
+                { this.props.data.akunbank.map((val, index) => 
+                    <AkunBankComponent
+                        data={this.props.data}
+                        value={val}
+                        id={index}
+                        handleSetData={this.props.handleSetData}
+                    />
                 )
                 }
+                <div className="btn-groups">
+                    <div className="right">
+                        <a className="link" href="#!">Tambah Akun Bank</a>
+                    </div>
+                </div>
             </div>
         );
     }
