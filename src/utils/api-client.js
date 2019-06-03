@@ -1,25 +1,15 @@
+import axios from 'axios';
 function client(endpoint, {body, ...customConfig} = {},method) {
 
-   // const token = window.localStorage.getItem('__chatat_token__')
-    const headers = {'content-type': 'application/json', 'Authorization': 'Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0'};
-    // if (token) {
-    //   headers['Content-Hash'] = token
-    // }
-    const config = {
-      method: method,
-      ...customConfig,
-      headers: {
-        ...headers,
-        ...customConfig.headers,
-      },
-    }
-    if (body) {
-      config.body = JSON.stringify(body)
-    }
+     const requestBody = JSON.stringify(body);
+     const headers =  {"headers": {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json"}}
+     const requestMethod = {"method": method}
   
-    return window
-      .fetch(`https://azaradigital.com/_devservice/sysFront/costumer/${endpoint}`, config)
-      .then(r => r.json())
+    return axios
+      .put(`https://azaradigital.com/_devservice/sysFront/costumer/${endpoint}`, requestBody, headers, requestMethod)
+      .then(r => {
+        console.log("r", r);
+      })
   }
   
   export default client

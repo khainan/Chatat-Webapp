@@ -22,7 +22,9 @@ function RegisterPage (props) {
         }),
       )
     }
+    console.log("error", props);
 
+    isRejected && props.onNotify("error", error[Object.keys(error)[0]]);
     return (
         <div>
             <main id="main">

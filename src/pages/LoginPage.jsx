@@ -18,7 +18,6 @@ function LoginPage(props) {
         }),
       )
     }
-  
     return (
     <div>
         <main id="main">

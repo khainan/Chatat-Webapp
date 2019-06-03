@@ -35,7 +35,8 @@ function useCallbackStatus() {
         return value
       },
       error => {
-        safeSetState({status: 'rejected', error})
+        const responseData = error.response.data;
+        safeSetState({status: 'rejected', error : responseData })
         return Promise.reject(error)
       },
     )
