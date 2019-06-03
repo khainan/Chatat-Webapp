@@ -30,7 +30,10 @@ class BahanBakuComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Keterangan</label>
-                                    <input className="form-control" />
+                                    <input className="form-control"
+                                        value={this.props.value.bahanbaku}
+                                        onChange={(e)=> this.props.handleData("bahanbaku", this.props.id, e.currentTarget.value)}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -41,7 +44,10 @@ class BahanBakuComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Vendor</label>
-                                    <input className="form-control" />
+                                    <input className="form-control"
+                                        value={this.props.value.vendor}
+                                        onChange={(e)=> this.props.handleData("vendor", this.props.id, e.currentTarget.value)}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -54,7 +60,10 @@ class BahanBakuComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">{subPrefix}</label>
-                                    <input className="form-control" />
+                                    <input className="form-control" 
+                                        value={this.props.value.unit}
+                                        onChange={(e)=> this.props.handleData("unit", this.props.id, e.currentTarget.value)}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -65,7 +74,10 @@ class BahanBakuComponent extends Component {
                                 </span>
                                 <div className="form-input with-padding-top">
                                     <label className="form-label">Satuan</label>
-                                    <select className="form-control">
+                                    <select className="form-control"
+                                        value={this.props.value.satuan}
+                                        onChange={(e)=> this.props.handleData("satuan", this.props.id, e.currentTarget.value)}
+                                    >
                                         <option>--</option>
                                         <option>Kilogram</option>
                                         <option>Gram</option>
@@ -83,11 +95,14 @@ class BahanBakuComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">{prefix}</label>
-                                    <input className="form-control" />
+                                    <input className="form-control" 
+                                        value={this.props.value.harga}
+                                        onChange={(e)=> this.props.handleData("harga", this.props.id, e.currentTarget.value)}
+                                    />
                                 </div>
                             </div>
                         </div>
-                        <input className="input-satuan" value={0} defaultValue="0"/>
+                        <input className="input-satuan" value={this.props.value.harga} defaultValue="0"/>
                     </div>
                 </div>
                 <hr />

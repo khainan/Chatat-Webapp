@@ -16,24 +16,6 @@ class AkunBankComponent extends Component {
 
         return (
             <div>
-                <hr />
-                <div className="row control-group">
-                    <div className="aset-form-kas">
-                        <div className="form-group">
-                            <div className="input-group">
-                                <span className="input-group-addon">
-                                    <i className="circle-icon icon-pocket"></i>
-                                </span>
-                                <div className="form-input">
-                                    <label className="form-label">Kas kecil (Uang kas)</label>
-                                    <input className="form-control" 
-                                        onChange={(e)=> this.props.handleSetData("kas" , "kaskecil", null , id , e.currentTarget.value )}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div className="main-title">
                     <p className="title">Akun Bank</p>
                 </div>
@@ -46,7 +28,7 @@ class AkunBankComponent extends Component {
                                 </span>
                                 <div className="form-input with-select">
                                     <label className="form-label">Nama Bank</label>
-                                    <select className="form-control" onChange={(e)=> this.props.handleSetData("kas" , "akunbank", "bank", id , e.currentTarget.value )}>
+                                    <select className="form-control" value={this.props.value.bank} onChange={(e)=> this.props.handleSetData("akunbank", "bank", id , e.currentTarget.value )}>
                                         <option>--</option>
                                         <option>Bank Centra Asia (BCA)</option>
                                         <option>Bank Rakyat Indonesia (BRI)</option>
@@ -66,7 +48,7 @@ class AkunBankComponent extends Component {
                                 <div className="form-input">
                                     <label className="form-label">No. Rekening</label>
                                     <input className="form-control" 
-                                        onChange={(e)=> this.props.handleSetData("kas" , "akunbank", "rekening", id ,e.currentTarget.value )}
+                                      value={this.props.value.rekening} onChange={(e)=> this.props.handleSetData("akunbank", "rekening", id ,e.currentTarget.value )}
                                     />
                                 </div>
                             </div>
@@ -81,7 +63,7 @@ class AkunBankComponent extends Component {
                                 <div className="form-input">
                                     <label className="form-label">Nama Akun</label>
                                     <input className="form-control" 
-                                       onChange={(e)=> this.props.handleSetData("kas" , "akunbank", "atasnama", id ,e.currentTarget.value )} 
+                                      value={this.props.value.atasnama} onChange={(e)=> this.props.handleSetData("akunbank", "atasnama", id ,e.currentTarget.value )} 
                                     />
                                 </div>
                             </div>
@@ -94,7 +76,7 @@ class AkunBankComponent extends Component {
                                 <div className="form-input">
                                     <label className="form-label">Saldo</label>
                                     <input className="form-control" 
-                                        onChange={(e)=> this.props.handleSetData("kas" , "akunbank", "saldo", id ,e.currentTarget.value )}
+                                       value={this.props.value.saldo} onChange={(e)=> this.props.handleSetData("akunbank", "saldo", id ,e.currentTarget.value )}
                                     />
                                 </div>
                             </div>

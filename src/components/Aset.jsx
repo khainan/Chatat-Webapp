@@ -12,53 +12,12 @@ class Aset extends Component {
         super(props);
         this.state = {
             page:1,
-            dataKas:{
-                kaskecil:null,
-                akunbank:[
-                    {
-                        bank:null,
-                        rekening:null,
-                        atasama:null,
-                        saldo:null,
-                    }
-                ]
-            },
-            dataPeralatan:
-                [{
-                    peralatan:null,
-                    nominal: null,
-                    masapakai: null
-                }],
-            dataKendaraan:
-                [{
-                    kendaraan:null,
-                    nominal: null,
-                    masapakai: null
-                }],
-            dataBahanBaku:
-                [{
-                    bahanbaku:null,
-                    unit: null,
-                    harga: null,
-                    satuan:null,
-                    vendor:null
-                }],
-            dataProperty:
-                [{
-                    properti:null,
-                    nominal: null,
-                    status: null,
-                    masapakai:null
-                }],
-            dataPiutang:
-                [{
-                    costumer:null,
-                    nominal: null
-                }],
-            
-            
-            
-            
+            dataKas:null,
+            dataPeralatan:null,
+            dataKendaraan:null,
+            dataBahanBaku:null,
+            dataProperty:null,
+            dataPiutang:null
         };
         this.handleBack = this.handleBack.bind(this);
         this.handleNext = this.handleNext.bind(this);
@@ -85,11 +44,54 @@ class Aset extends Component {
         }
     }
 
-    handleSetData(prefix, prefix2, prefix3, index , value){
-        
+    handleSetData(prefix, value){  
+        let dataKas = this.state.dataKas;
+        let dataPeralatan = this.state.dataPeralatan;
+        let dataKendaraan = this.state.dataKendaraan;
+        let dataBahanBaku = this.state.dataBahanBaku;
+        let dataProperty = this.state.dataProperty;
+        let dataPiutang = this.state.dataPiutang;
+
         if(prefix === "kas"){
-            console.log(prefix, prefix2, prefix3, index, value)
-            
+            dataKas = value;
+            this.setState({
+                dataKas:dataKas
+            })
+        }
+
+        else if(prefix === "peralatan"){
+            dataPeralatan = value;
+            this.setState({
+                dataPeralatan:dataPeralatan
+            })
+        }
+        
+        else if(prefix === "kendaraan"){
+            dataKendaraan = value;
+            this.setState({
+                dataKendaraan:dataKendaraan
+            })
+        }
+
+        else if(prefix === "bahan baku"){
+            dataBahanBaku = value;
+            this.setState({
+                dataBahanBaku:dataBahanBaku
+            })
+        }
+
+        else if(prefix === "property"){
+            dataProperty = value;
+            this.setState({
+                dataProperty:dataProperty
+            })
+        }
+
+        else if(prefix === "piutang"){
+            dataPiutang = value;
+            this.setState({
+                dataPiutang:dataPiutang
+            })
         }
     }
 
@@ -110,19 +112,19 @@ class Aset extends Component {
                                             <i className="step-icon circle-icon icon-briefcase"></i>
                                             <div className="step-label text-label">Kas/Bank</div>
                                         </div>
-                                        <div className="step-item">
+                                        <div className={ page !== 1 ? "step-item active" : "step-item"}>
                                             <i className="step-icon circle-icon icon-configure"></i>
                                             <div className="step-label text-label">Peralatan Kendaraan</div>
                                         </div>
-                                        <div className="step-item">
+                                        <div className={ page !== 1 && page !== 2 ? "step-item active" : "step-item"}>
                                             <i className="step-icon circle-icon icon-components"></i>
                                             <div className="step-label text-label">Bahan Baku</div>
                                         </div>
-                                        <div className="step-item">
+                                        <div className={ page !== 1 && page !== 2 && page !== 3 ? "step-item active" : "step-item"}>
                                             <i className="step-icon circle-icon icon-diamond"></i>
                                             <div className="step-label text-label">Properti</div>
                                         </div>
-                                        <div className="step-item last-step">
+                                        <div className={ page === 5 ? "step-item last-step active" : "step-item last-step"}>
                                             <i className="step-icon circle-icon icon-undo"></i>
                                             <div className="step-label text-label">Piutang</div>
                                         </div>
@@ -145,8 +147,8 @@ class Aset extends Component {
                                     <div>
                                         <Peralatan
                                             handleSetData={this.handleSetData}
-                                            data={this.state.dataPeralatan}
-                                            data2={this.state.dataKendaraan}
+                                            dataKendaraan={this.state.dataKendaraan}
+                                            dataPeralatan={this.state.dataPeralatan}
                                         /> 
                                     </div>
                                 }

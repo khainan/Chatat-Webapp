@@ -11,6 +11,9 @@ class PeralatanComponent extends Component {
 
 
     render() {
+
+        let prefix = this.props.title === "Peralatan" ? "peralatan" : "kendaraan"
+
         return (
             <div>
                 <hr />
@@ -26,7 +29,7 @@ class PeralatanComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Keterangan</label>
-                                    <input className="form-control" />
+                                    <input className="form-control" value={this.props.value[prefix]} onChange={(e)=> this.props.handleData(prefix ,prefix, this.props.id ,e.currentTarget.value)} />
                                 </div>
                             </div>
                         </div>
@@ -37,7 +40,7 @@ class PeralatanComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Perkiraan Nilai Nominal</label>
-                                    <input className="form-control" />
+                                    <input className="form-control" value={this.props.value.nominal} onChange={(e)=> this.props.handleData(prefix ,"nominal", this.props.id ,e.currentTarget.value)} />
                                 </div>
                             </div>
                         </div>
@@ -50,7 +53,7 @@ class PeralatanComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Perkiraan Masa Pakai</label>
-                                    <input className="form-control" />
+                                    <input className="form-control" value={this.props.value.masapakai} onChange={(e)=> this.props.handleData(prefix ,"masapakai", this.props.id  ,e.currentTarget.value)} />
                                 </div>
                             </div>
                         </div>

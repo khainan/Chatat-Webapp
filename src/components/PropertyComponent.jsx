@@ -30,7 +30,10 @@ class PropertyComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Keterangan</label>
-                                    <input className="form-control" />
+                                    <input className="form-control" 
+                                        value={this.props.value.properti}
+                                        onChange={(e)=> this.props.handleData("properti", this.props.id, e.currentTarget.value)}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -41,7 +44,10 @@ class PropertyComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Harga /Unit</label>
-                                    <input className="form-control" />
+                                    <input className="form-control"
+                                        value={this.props.value.nominal}
+                                        onChange={(e)=> this.props.handleData("nominal", this.props.id, e.currentTarget.value)}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -54,7 +60,10 @@ class PropertyComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">{subPrefix}</label>
-                                    <input className="form-control" />
+                                    <input className="form-control" 
+                                        value={this.props.value.masapakai}
+                                        onChange={(e)=> this.props.handleData("masapakai", this.props.id, e.currentTarget.value)}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -65,7 +74,10 @@ class PropertyComponent extends Component {
                                 </span>
                                 <div className="form-input with-padding-top">
                                     <label className="form-label">Status</label>
-                                    <select className="form-control">
+                                    <select className="form-control"
+                                        value={this.props.value.status}
+                                        onChange={(e)=> this.props.handleData("status", this.props.id, e.currentTarget.value)}
+                                    >
                                         <option>--</option>
                                         <option>Sewa</option>
                                         <option>Beli</option>
@@ -75,7 +87,7 @@ class PropertyComponent extends Component {
                         </div>
                     </div>
                     <div className="section-aset">
-                        <input className="input-satuan" value={0} defaultValue="0"/>
+                        <input className="input-satuan" value={this.props.value.nominal} defaultValue="0"/>
                     </div>
                 </div>
                 <hr />
