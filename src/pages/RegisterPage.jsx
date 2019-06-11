@@ -44,7 +44,7 @@ function RegisterPage (props) {
                         <div className="content">
                             <div className="content-inner">
                                 <div className="login-content-heading">
-                                    <span className="text-label">Sudah punya akun?</span> <a className="btn btn-sm btn-default" onClick={()=>props.history.replace('/')}>Login sekarang</a>
+                                    <span className="text-label">Sudah punya akun?</span> <a className="btn btn-sm btn-default" onClick={()=>window.location.pathname = "/"}>Login sekarang</a>
                                 </div>
                                 <form>
                                     <div className="main-title">
