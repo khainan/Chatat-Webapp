@@ -5,7 +5,11 @@ import Peralatan from './Peralatan';
 import BahanBaku from './BahanBaku';
 import Piutang from './Piutang';
 import Property from './Property';
-import Loading from './Loading';
+import UtangUsaha from './UtangUsaha';
+import UtangLain from './UtangLain';
+import UtangJangkaPanjang from './UtangJangkaPanjang';
+import ModalUtang from './ModalUtang';
+import Loading from '../Loading';
 
 class Aset extends Component {
     constructor(props) {
@@ -17,7 +21,8 @@ class Aset extends Component {
             dataKendaraan:null,
             dataBahanBaku:null,
             dataProperty:null,
-            dataPiutang:null
+            dataPiutang:null,
+            dataUtangUsaha:null,
         };
         this.handleBack = this.handleBack.bind(this);
         this.handleNext = this.handleNext.bind(this);
@@ -27,7 +32,7 @@ class Aset extends Component {
     handleNext(){
         let page = this.state.page
 
-        if(page < 5){
+        if(page < 9){
             this.setState({
                 page: page += 1
             })
@@ -106,6 +111,7 @@ class Aset extends Component {
                     <section className="main-pages-aset">
                         <section className="section-body-aset">
                             <div className="container">
+                                { page < 6 &&
                                 <div className="step-progress">
                                     <div className="step-content">
                                         <div className="step-item first-step active">
@@ -132,6 +138,31 @@ class Aset extends Component {
                                     <div className="step-btn-prev"><i className="icon-arrow_backward_2"></i></div>
                                     <div className="step-btn-next"><i className="icon-arrow_forward_2"></i></div>
                                 </div>
+                                }
+                                { page > 5 &&
+                                <div className="step-progress">
+                                    <div className="step-content">
+                                        <div className="step-item first-step active">
+                                            <i className="step-icon circle-icon icon-briefcase"></i>
+                                            <div className="step-label text-label">Utang Usaha</div>
+                                        </div>
+                                        <div className={ page !== 6 ? "step-item active" : "step-item"}>
+                                            <i className="step-icon circle-icon icon-configure"></i>
+                                            <div className="step-label text-label">Utang Jangka Panjang</div>
+                                        </div>
+                                        <div className={ page !== 6 && page !== 7 ? "step-item active" : "step-item"}>
+                                            <i className="step-icon circle-icon icon-components"></i>
+                                            <div className="step-label text-label">Utang Lain2</div>
+                                        </div>
+                                        <div className={ page === 9 ? "step-item last-step active" : "step-item last-step"}>
+                                            <i className="step-icon circle-icon icon-diamond"></i>
+                                            <div className="step-label text-label">Modal</div>
+                                        </div>
+                                    </div>
+                                    <div className="step-btn-prev"><i className="icon-arrow_backward_2"></i></div>
+                                    <div className="step-btn-next"><i className="icon-arrow_forward_2"></i></div>
+                                </div>
+                                }
                                 {/* FUNCTION CHANGE BETWEEN COMPONENT */}
                                 
                                 { page === 1 &&
@@ -179,6 +210,42 @@ class Aset extends Component {
                                         /> 
                                     </div>
                                 }
+
+                                { page === 6 && 
+                                    <div>
+                                        <UtangUsaha
+                                            handleSetData={this.handleSetData}
+                                            data={this.state.dataPiutang}
+                                        /> 
+                                    </div>
+                                }
+                                
+                                { page === 7 && 
+                                    <div>
+                                        <UtangJangkaPanjang
+                                            handleSetData={this.handleSetData}
+                                            data={this.state.dataPiutang}
+                                        /> 
+                                    </div>
+                                }
+
+                                { page === 8 && 
+                                    <div>
+                                        <UtangLain
+                                            handleSetData={this.handleSetData}
+                                            data={this.state.dataPiutang}
+                                        /> 
+                                    </div>
+                                }
+
+                                { page === 9 && 
+                                    <div>
+                                        <ModalUtang
+                                            handleSetData={this.handleSetData}
+                                            data={this.state.dataPiutang}
+                                        /> 
+                                    </div>
+                                }                                
 
                                 <div className="btn-next-back">
                                     <button className="btn btn-default group-item" onClick={()=> this.handleBack()} >Kembali</button>

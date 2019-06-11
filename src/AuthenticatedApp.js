@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import MainPage from './pages/MainPage';
-import Aset from './components/Aset';
+import Aset from './components/aset/Aset';
 import CatatTransaksi from './components/CatatTransaksi';
 
 function UnAuthenticatedApp() {

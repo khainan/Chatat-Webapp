@@ -13,40 +13,11 @@ class LaporanNeraca extends Component {
         return (
         <div>
         <main id="main">
-    
-    <section className="main-pages">
-        <section className="main-page">
-            <section className="section-header">
-                <div className="container">
-                    <div className="section-top">
-                        <ul className="breadcrumb">
-                            <li><a href="index.html">Dashboard</a></li>
-                            <li><a href="#!">Neraca</a></li>
-                        </ul>
-                        <div id="current-date"></div>
-                    </div>
-                    <div className="section-title">
-                        <div className="page-title">
-                            <div className="main-title">
-                                <h4 className="title">Neraca</h4>
-                            </div>
-                        </div>
-                        <div className="cash-in text-right">
-                            <div className="cash-in-label">
-                                <span className="text-label">Sisa Kas</span>
-                                <div className="cash-in-value">Rp 1.000.000</div>
-                            </div>
-                            <div className="cash-in-icon">
-                                <a className="btn btn-circle btn-primary btn-sm" href="#!"><i className="icon-email"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <section className="container-laporan-neraca">
             <section className="section-body">
                 <div className="container">
-                    <div className="row">
-                        <div className="col-lg-6 col-md-6">
+                    <div className="row-flex">
+                        <div className="flex-6">
                             <div className="panel panel-border">
                                 <div className="panel-heading">
                                     <h5 className="panel-title">Assets</h5>
@@ -55,6 +26,7 @@ class LaporanNeraca extends Component {
                                     <p className="text-label">Current assets</p>
                                     <div className="table-responsive table-wrapper">
                                         <table className="table list-table table-sm">
+                                            <tbody>
                                             <tr>
                                                 <td>Cash</td>
                                                 <td><b>2,100</b></td>
@@ -87,16 +59,19 @@ class LaporanNeraca extends Component {
                                                 <td><b>Total current assets</b></td>
                                                 <td><b className="fs14 text-primary">89,000</b></td>
                                             </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div className="panel-body">
                                     <div className="table-responsive table-wrapper">
                                         <table className="table list-table table-sm">
+                                            <tbody>
                                             <tr>
                                                 <td>Investments</td>
                                                 <td><b className="fs14 text-primary">36,000</b></td>
                                             </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -104,6 +79,7 @@ class LaporanNeraca extends Component {
                                     <p className="text-label">Property, plant & equipment</p>
                                     <div className="table-responsive table-wrapper">
                                         <table className="table list-table table-sm">
+                                            <tbody>
                                             <tr>
                                                 <td>Land</td>
                                                 <td><b>5,500</b></td>
@@ -124,6 +100,7 @@ class LaporanNeraca extends Component {
                                                 <td><b>Prop, paint & equip - net</b></td>
                                                 <td><b className="fs14 text-primary">337,000</b></td>
                                             </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -131,6 +108,7 @@ class LaporanNeraca extends Component {
                                     <p className="text-label">Intangible assets</p>
                                     <div className="table-responsive table-wrapper">
                                         <table className="table list-table table-sm">
+                                            <tbody>
                                             <tr>
                                                 <td>Goodwill</td>
                                                 <td><b>105,000</b></td>
@@ -143,12 +121,14 @@ class LaporanNeraca extends Component {
                                                 <td><b>Total intangible assets</b></td>
                                                 <td><b className="fs14 text-primary">305,000</b></td>
                                             </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div className="panel-body">
                                     <div className="table-responsive table-wrapper">
                                         <table className="table list-table table-sm m0">
+                                            <tbody>
                                             <tr>
                                                 <td>Other assets</td>
                                                 <td><b className="fs14 text-primary">3,000</b></td>
@@ -157,12 +137,13 @@ class LaporanNeraca extends Component {
                                                 <td><b>Total assets</b></td>
                                                 <td><b className="fs14 text-primary">$ 770,000</b></td>
                                             </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-6 col-md-6">
+                        <div className="flex-6">
                             <div className="panel panel-border">
                                 <div className="panel-heading">
                                     <h5 className="panel-title">Liabilities</h5>
@@ -171,6 +152,7 @@ class LaporanNeraca extends Component {
                                     <p className="text-label">Current Liabilities</p>
                                     <div className="table-responsive table-wrapper">
                                         <table className="table list-table table-sm">
+                                            <tbody>
                                             <tr>
                                                 <td>Notes Payable</td>
                                                 <td><b>5,000</b></td>
@@ -203,6 +185,7 @@ class LaporanNeraca extends Component {
                                                 <td><b>Total current liabilities</b></td>
                                                 <td><b className="fs14 text-primary">61,000</b></td>
                                             </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -210,6 +193,7 @@ class LaporanNeraca extends Component {
                                     <p className="text-label">Long-term liabilities</p>
                                     <div className="table-responsive table-wrapper">
                                         <table className="table list-table table-sm m0">
+                                            <tbody>
                                             <tr>
                                                 <td>Notes Payable</td>
                                                 <td><b>20,000</b></td>
@@ -226,6 +210,7 @@ class LaporanNeraca extends Component {
                                                 <td><b>Total liabilities</b></td>
                                                 <td><b className="fs14 text-primary">481,000</b></td>
                                             </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -240,9 +225,6 @@ class LaporanNeraca extends Component {
                 </div>
             </section>
         </section>
-        
-    </section>
-    
 </main>
         </div>
         );

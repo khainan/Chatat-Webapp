@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {useUser} from '../../context/user-context'
 
 class AkunBankComponent extends Component {
     constructor(props) {
@@ -7,6 +9,16 @@ class AkunBankComponent extends Component {
         this.state = {
             
         };
+        
+    }
+
+    componentWillMount(){
+        const body = {email:"bylinggha@gmail.com",password:"Byee99"}
+        const requestBody = JSON.stringify(body);
+        const headers =  {"headers": {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json"}}
+        
+        axios.post("https://azaradigital.com/_devservice/sysFront/data-bank/list", requestBody , headers, "POST")
+        .then(r=> console.log(r))
     }
 
 
