@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import '../css/primary.css';
 import Dashboard from '../components/Dashboard';
+import DaftarTransaksi from '../components/DaftarTransaksi';
 import Loading from '../components/Loading';
 import Modal from '../components/ModalDaftarAset';
 import Aset from '../components/Aset';
+import CatatTransaksi from '../components/CatatTransaksi';
 import { UncontrolledTooltip } from 'reactstrap';
 import {useAuth} from '../context/auth-context'
 import {useUser} from '../context/user-context'
@@ -28,10 +30,15 @@ function MainPage(props) {
         window.location.href = "/";
     }
 
+    function classActive(props){
+        let page = props.location.pathname;
+
+    }
+
     return (
       <main id="main">
       {/* <Loading/> */}
-      { isModalShow && page === "dashboard" &&
+      { isModalShow && page === "/" &&
         <Modal 
             showModal={() => showModal(true)}
             closeModal={() => showModal(false)}
@@ -68,7 +75,7 @@ function MainPage(props) {
                                   <ul>
                                     <li className="dropdown-header">
                                         <span className="text-label">Halo,</span>
-                                        <div className="username">{user.nama}</div>
+                                        <div className="username">{"user.nama"}</div>
                                     </li>
                                     <li><a><i className="icon icon-configure"></i><span className="label-menu">Setting</span></a></li>
                                     <li onClick={()=> logoutPage()}><a><i className="icon icon-log_out"></i><span className="label-menu">Keluar</span></a></li>
@@ -82,11 +89,11 @@ function MainPage(props) {
                 <div className="content-inner">
                     <div className="main-menu-inner">
                         <div className="menu-item menu-top">
-                            <a className="btn btn-block btn-primary main-btn">Catat Transaksi</a>
+                            <a className="btn btn-block btn-primary main-btn" onClick={() => props.history.replace('/catat-transaksi')}>Catat Transaksi</a>
                             <div className="first-title">Dashboard</div>
                             <ul className="menu">
-                                <li className="active"><a><i className="icon icon-dashboard"></i><span className="label-menu">Dashboard</span></a></li>
-                                <li><a><i className="icon icon-documents"></i><span className="label-menu">Daftar Transaksi</span></a></li>
+                                <li onClick={() => props.history.replace('/')}><a><i className="icon icon-dashboard"></i><span className="label-menu">Dashboard</span></a></li>
+                                <li onClick={() => props.history.replace('/daftar-transaksi')}><a><i className="icon icon-documents"></i><span className="label-menu">Daftar Transaksi</span></a></li>
                                 <li><a><i className="icon icon-news"></i><span className="label-menu">Utang Piutang</span></a></li>
                                 <li><a><i className="icon icon-components"></i><span className="label-menu">Inventory</span></a></li>
                                 <li><a><i className="icon icon-users_teams"></i><span className="label-menu">Customer/Vendor</span></a></li>
@@ -151,6 +158,20 @@ function MainPage(props) {
             {
               page === "/aset" &&
               <Aset 
+                
+              />
+            }
+
+            {
+              page === "/catat-transaksi" &&
+              <CatatTransaksi 
+                
+              />
+            }
+
+            {
+              page === "/daftar-transaksi" &&
+              <DaftarTransaksi 
                 
               />
             }

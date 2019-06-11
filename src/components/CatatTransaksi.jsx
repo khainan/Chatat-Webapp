@@ -13,9 +13,8 @@ class CatatTransaksi extends Component {
         return (
             <div>
                 <main id="main">
-
-                    <section className="main-pages">
-                        <section className="section-body">
+                    <section className="main-pages-catat-transaksi">
+                        <section className="section-body-catat-transaksi">
                             <div className="container">
                                 <div className="radio-tabs">
                                     <div className="radio btn-radio">
@@ -28,8 +27,8 @@ class CatatTransaksi extends Component {
                                     </div>
                                 </div>
                                 <hr />
-                                <div className="row control-group">
-                                    <div className="col-lg-4 col-md-4">
+                                <div className="container-aset">
+                                    <div className="section-catat-transaksi">
                                         <div className="form-group input-date">
                                             <div className="input-group">
                                                 <span className="input-group-addon">
@@ -42,7 +41,7 @@ class CatatTransaksi extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-lg-4 col-md-4">
+                                    <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
                                                 <span className="input-group-addon">
@@ -50,11 +49,6 @@ class CatatTransaksi extends Component {
                                                 </span>
                                                 <div className="form-input">
                                                     <label className="form-label">Proyek</label>
-                                                    <div className="add-button" data-toggle="tooltip" data-placement="left" title="Tambah">
-                                                        <button className="btn btn-default" data-toggle="modal" data-target="#tambah-proyek">
-                                                            <span></span>
-                                                        </button>
-                                                    </div>
                                                     <select className="form-control" data-live-search="true" data-live-search-placeholder="Search">
                                                         <option>--</option>
                                                         <option>Proyek A</option>
@@ -68,9 +62,12 @@ class CatatTransaksi extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    <div className="section-catat-transaksi">
+
+                                    </div>
                                 </div>
-                                <div className="row control-group">
-                                    <div className="col-lg-4 col-md-4">
+                                <div className="container-aset">
+                                    <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
                                                 <span className="input-group-addon">
@@ -78,11 +75,6 @@ class CatatTransaksi extends Component {
                                                 </span>
                                                 <div className="form-input">
                                                     <label className="form-label">Asal Akun</label>
-                                                    <div className="add-button" data-toggle="tooltip" data-placement="left" title="Tambah">
-                                                        <button className="btn btn-default" data-toggle="modal" data-target="#tambah-akun">
-                                                            <span></span>
-                                                        </button>
-                                                    </div>
                                                     <select className="form-control" data-live-search="true" data-live-search-placeholder="Search">
                                                         <option>--</option>
                                                         <option>Asal Akun A</option>
@@ -96,7 +88,7 @@ class CatatTransaksi extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-lg-4 col-md-4">
+                                    <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
                                                 <span className="input-group-addon">
@@ -115,9 +107,12 @@ class CatatTransaksi extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    <div className="section-catat-transaksi">
+
+                                    </div>
                                 </div>
-                                <div className="row control-group">
-                                    <div className="col-lg-4 col-md-4">
+                                <div className="container-aset">
+                                    <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
                                                 <span className="input-group-addon">
@@ -130,7 +125,7 @@ class CatatTransaksi extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-lg-4 col-md-4">
+                                    <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
                                                 <span className="input-group-addon">
@@ -149,11 +144,6 @@ class CatatTransaksi extends Component {
                                                 </span>
                                                 <div className="form-input">
                                                     <label className="form-label">Satuan</label>
-                                                    <div className="add-button" data-toggle="tooltip" data-placement="left" title="Tambah">
-                                                        <button className="btn btn-default" data-toggle="modal" data-target="#tambah-satuan">
-                                                            <span></span>
-                                                        </button>
-                                                    </div>
                                                     <select className="form-control" data-live-search="true">
                                                         <option>--</option>
                                                     </select>
@@ -161,7 +151,7 @@ class CatatTransaksi extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-lg-4 col-md-4">
+                                    <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
                                                 <span className="input-group-addon">
@@ -178,8 +168,8 @@ class CatatTransaksi extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row control-group">
-                                    <div className="col-lg-4 col-md-4">
+                                <div className="container-aset">
+                                    <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
                                                 <span className="input-group-addon">
@@ -187,11 +177,6 @@ class CatatTransaksi extends Component {
                                                 </span>
                                                 <div className="form-input">
                                                     <label className="form-label">Customer</label>
-                                                    <div className="add-button" data-toggle="tooltip" data-placement="left" title="Tambah">
-                                                        <button className="btn btn-default" data-toggle="modal" data-target="#tambah-customer">
-                                                            <span></span>
-                                                        </button>
-                                                    </div>
                                                     <select className="form-control" data-live-search="true" data-live-search-placeholder="Search">
                                                         <option>--</option>
                                                         <option>Customer A</option>
@@ -216,7 +201,7 @@ class CatatTransaksi extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-lg-4 col-md-4">
+                                    <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
                                                 <span className="input-group-addon">
@@ -244,12 +229,15 @@ class CatatTransaksi extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    <div className="section-catat-transaksi">
+
+                                    </div>
                                 </div>
                                 <hr />
-                                <div className="btn-groups">
-                                    <div className="right">
-                                        <a className="btn btn-default group-item" href="#!">Cancel</a>
-                                        <a className="btn btn-primary group-item" href="#!">Simpan Transaksi</a>
+                                <div className="btn-group-catat-transaksi">
+                                    <div className="container-btn-catat-transaksi">
+                                        <button className="btn btn-default">Cancel</button>
+                                        <button className="btn-simpan-transaksi">Simpan Transaksi</button>
                                     </div>
                                 </div>
                             </div>

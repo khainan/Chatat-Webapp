@@ -516,6 +516,10 @@
     padding: 3em 0
 }
 
+.main-pages-catat-transaksi {
+    margin-bottom: 4%;
+}
+
 .main-page .section-header {
     position: relative;
     transform: translateZ(0);

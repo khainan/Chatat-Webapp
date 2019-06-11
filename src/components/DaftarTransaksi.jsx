@@ -16,33 +16,6 @@ class DaftarTransaksi extends Component {
     
     <section className="main-pages">
         <section className="main-page">
-            <section className="section-header">
-                <div className="container">
-                    <div className="section-top">
-                        <ul className="breadcrumb">
-                            <li><a href="index.html">Dashboard</a></li>
-                            <li><a href="#!">Daftar Transaksi</a></li>
-                        </ul>
-                        <div id="current-date"></div>
-                    </div>
-                    <div className="section-title">
-                        <div className="page-title">
-                            <div className="main-title">
-                                <h4 className="title">Daftar transaksi</h4>
-                            </div>
-                        </div>
-                        <div className="cash-in text-right">
-                            <div className="cash-in-label">
-                                <span className="text-label">Sisa Kas</span>
-                                <div className="cash-in-value">Rp 1.000.000</div>
-                            </div>
-                            <div className="cash-in-icon">
-                                <a className="btn btn-circle btn-primary btn-sm" href="#!"><i className="icon-email"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
             <section className="section-body">
                 <div className="container">
                     <div className="list-header">

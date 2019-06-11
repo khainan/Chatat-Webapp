@@ -506,6 +506,11 @@ select.input-sm {
     margin-top: 4%;
 }
 
+.container-btn-catat-transaksi {
+    display: flex;
+    margin-left: 68%;
+}
+
 .container-next-save {
     float: right;
 }
@@ -535,6 +540,31 @@ select.input-sm {
 }
 
 .btn-save:hover {
+    opacity: 0.8;
+}
+
+.btn-simpan-transaksi {
+    cursor: pointer;
+    position: relative;
+    transform: translateZ(0);
+    line-height: 40px;
+    padding: 0 20px;
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 6px;
+    letter-spacing: inherit;
+    background-color: #2895F9;
+    color: #fff;
+    border-color: #1E2432;
+    box-shadow: inset 2px 2px 0 #fff, 2px 2px 0 #2895F9;
+    transition: color .3s cubic-bezier(.4,0,0,1),
+                border-color .3s cubic-bezier(.4,0,0,1),
+                box-shadow .3s cubic-bezier(.4,0,0,1),
+                background-color .3s cubic-bezier(.4,0,0,1);
+}
+
+.btn-simpan-transaksi:hover {
     opacity: 0.8;
 }
 
@@ -2142,6 +2172,11 @@ select.input-sm {
     cursor: default
 }
 
+.section-body-catat-transaksi {
+    margin-top: 5%;
+    width: 100%;
+}
+
 .section-body-aset {
     margin-top: 5%;
     width: 100%;
@@ -2156,6 +2191,12 @@ select.input-sm {
     position: relative;
     flex: 4;
     margin-right: 4%
+}
+
+.section-catat-transaksi {
+    position: relative;
+    flex: 4;
+    margin: 4%
 }
 
 .with-select {
