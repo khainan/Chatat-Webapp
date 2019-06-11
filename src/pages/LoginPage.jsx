@@ -5,7 +5,7 @@ import useCallbackStatus from '../utils/use-callback-status'
 
 function LoginPage(props) {
     const {login} = useAuth();
-    const {isPending, isRejected, error, run} = useCallbackStatus()
+    const {isPending, isRejected, message, status, run} = useCallbackStatus()
     function handleSubmit(event) {
       event.preventDefault();
       const email = document.getElementById("email").value
@@ -18,6 +18,8 @@ function LoginPage(props) {
         }),
       )
     }
+    const type = isRejected ? "error" : "success";
+    message && props.onNotify(type, message);
     return (
     <div>
         <main id="main">

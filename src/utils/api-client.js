@@ -6,10 +6,8 @@ function client(endpoint, {body, ...customConfig} = {},method) {
      const requestMethod = {"method": method}
   
     return axios
-      .put(`https://azaradigital.com/_devservice/sysFront/costumer/${endpoint}`, requestBody, headers, requestMethod)
-      .then(r => {
-        console.log("r", r);
-      })
+      .post(`https://azaradigital.com/_devservice/sysFront/costumer/${endpoint}`, requestBody, headers, requestMethod)
+      .then(r => r.data)
   }
   
   export default client

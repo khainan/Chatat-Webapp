@@ -4,8 +4,9 @@ import {useAuth} from '../context/auth-context'
 import useCallbackStatus from '../utils/use-callback-status'
 
 function RegisterPage (props) {
+    console.log("props", props)
     const {register} = useAuth();
-    const {isPending, isRejected, error, run, response} = useCallbackStatus();
+    const {isPending, isRejected, message, status, run} = useCallbackStatus();
     function handleSubmit(event) {
       event.preventDefault();
       const nama = document.getElementById("nama").value
@@ -22,9 +23,9 @@ function RegisterPage (props) {
         }),
       )
     }
-    console.log("error", props);
-
-    isRejected && props.onNotify("error", error[Object.keys(error)[0]]);
+    console.log("props", props)
+    const type = isRejected ? "error" : "success";
+    message && props.onNotify(type, message);
     return (
         <div>
             <main id="main">
@@ -48,7 +49,6 @@ function RegisterPage (props) {
                                 <form>
                                     <div className="main-title">
                                         <h4 className="title"><span className="break-text">Getting started</span>absolutely free!</h4>
-                                        <p>{response ? response.message : ""}</p>
                                     </div>
                                     <div className="login-content-section">
                                         <div className="form-group">
