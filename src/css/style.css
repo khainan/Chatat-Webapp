@@ -2196,11 +2196,20 @@ select.input-sm {
 .section-catat-transaksi {
     position: relative;
     flex: 4;
-    margin: 4%
+    margin: 4% 2%;
+}
+
+.section-catat-transaksi .flex-3 {
+    flex: 3;
 }
 
 .with-select {
     padding-bottom: 22px;
+}
+
+.input-total {
+    padding-left: 0;
+    padding-bottom: 10px;
 }
 
 .input-satuan {

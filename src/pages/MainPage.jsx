@@ -75,7 +75,7 @@ function MainPage(props) {
                                   <ul>
                                     <li className="dropdown-header">
                                         <span className="text-label">Halo,</span>
-                                        <div className="username">{"user.nama"}</div>
+                                        <div className="username">{user.nama}</div>
                                     </li>
                                     <li><a><i className="icon icon-configure"></i><span className="label-menu">Setting</span></a></li>
                                     <li onClick={()=> logoutPage()}><a><i className="icon icon-log_out"></i><span className="label-menu">Keluar</span></a></li>
@@ -165,7 +165,7 @@ function MainPage(props) {
             {
               page === "/catat-transaksi" &&
               <CatatTransaksi 
-                
+                history={props.history}
               />
             }
 
