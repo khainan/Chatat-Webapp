@@ -11,7 +11,7 @@ function useIsMounted() {
 
 function useCallbackStatus() {
   const isMounted = useIsMounted()
-  const [{status, error, response}, setState] = React.useReducer(
+  const [{status, message}, setState] = React.useReducer(
     (s, a) => ({...s, ...a}),
     {status: 'rest', error: null},
   )
@@ -19,6 +19,7 @@ function useCallbackStatus() {
   const safeSetState = (...args) =>
     isMounted.current ? setState(...args) : null
 
+   
   const isPending = status === 'pending'
   const isRejected = status === 'rejected'
 
@@ -30,25 +31,24 @@ function useCallbackStatus() {
     }
     safeSetState({status: 'pending'})
     return promise.then(
-      value => {
-        safeSetState({status: 'rest', response: value})
-        return value
-      },
-      error => {
-        const responseData = error.response.data;
-        safeSetState({status: 'rejected', error : responseData })
-        return Promise.reject(error)
-      },
-    )
+      ({message}) => {
+        
+        safeSetState({status: 'rest', message})
+        return message
+      }
+    ).catch(error => {
+      const message = error.response.data.message;
+      safeSetState({status: 'rejected', message })
+      return Promise.reject(error)
+    })
   }
 
   return {
     isPending,
     isRejected,
-    error,
+    message,
     status,
     run,
-    response
   }
 }
 

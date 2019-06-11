@@ -14,18 +14,12 @@ function App() {
   const user = useUser();
   const notify = (type, message) => {
     switch (type) {
-      case 'info':
-        return toast.info(message);
-        break;
       case 'success':
+        
         return toast.success(message);
         break;
-      case 'warning':
-        return toast.warning(message);
-        break;
       case 'error':
-        console.log("masuk sini", type, message)
-        return  toast.error(message[0]);
+        return  toast.error(message);
         break;
       default:
         return toast(message);

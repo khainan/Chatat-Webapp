@@ -3,12 +3,14 @@ import client from './api-client'
 const localStorageKey = '__chatat_token__'
 const localStorageUser = '__chatat_user__'
 
-function handleUserResponse(data) {
+function handleUserResponse({data}) {
+
+    const token = data.hash;
+    window.localStorage.setItem(localStorageKey, token);
+    window.localStorage.setItem(localStorageUser, data);
   
-  const token = data.hash;
-  window.localStorage.setItem(localStorageKey, token);
-  window.localStorage.setItem(localStorageUser, data);
   return data
+  
 }
 
 function getUser() {
@@ -32,7 +34,7 @@ function login({email, password}) {
 
 function register({nama, username, email, password}) {
   return client('register', {body: {nama, username, email, password, paketid: "20192718199383289456"}}, 'PUT').catch(error => {
-    console.log("catch error", error);
+    
     return Promise.reject(error)
   })
 }
