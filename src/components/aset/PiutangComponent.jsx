@@ -26,9 +26,7 @@ class PiutangComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Nama</label>
-                                    <input className="form-control" 
-                                        value={this.props.value.customer}
-                                        onChange={(e)=> this.props.handleData("customer", this.props.id, e.currentTarget.value)}
+                                    <input className="form-control"
                                     />
                                 </div>
                             </div>
@@ -40,7 +38,10 @@ class PiutangComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Vendor</label>
-                                    <input className="form-control" />
+                                    <input className="form-control" 
+                                        value={this.props.value.customer}
+                                        onChange={(e)=> this.props.handleData("customer", this.props.id, e.currentTarget.value)}
+                                    />
                                 </div>
                             </div>
                         </div>

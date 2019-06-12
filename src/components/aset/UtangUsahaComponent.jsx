@@ -16,6 +16,7 @@ class UtangUsahaComponent extends Component {
                 <hr />
                 <div className="main-title">
                     <p className="title">{this.props.title}</p>
+                    <label className="form-label">Utang yang timbul dari proses usaha kamu, misal : Utang kepada Vendor atas pembelian bahan baku.</label>
                 </div>
                 <div className="container-aset">
                     <div className="section-aset">
@@ -27,8 +28,8 @@ class UtangUsahaComponent extends Component {
                                 <div className="form-input">
                                     <label className="form-label">Vendor</label>
                                     <input className="form-control" 
-                                        value={this.props.value.customer}
-                                        onChange={(e)=> this.props.handleData("customer", this.props.id, e.currentTarget.value)}
+                                        value={this.props.value.bank}
+                                        onChange={(e)=> this.props.handleData("bank", this.props.id, e.currentTarget.value)}
                                     />
                                 </div>
                             </div>

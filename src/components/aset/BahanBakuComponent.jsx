@@ -1,12 +1,42 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 
 class BahanBakuComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            listSatuan:null,
+            ready:false
         };
+    }
+
+    componentWillMount(){
+        this.getListOption();
+    }
+
+    getListOption(){
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+        
+        let data = {
+            "search": {
+                "satuan": "",
+                "status": "1"
+            },
+            "order": {
+                "created"	: "DESC"
+            },
+            "page": 1
+        }
+
+
+        axios({
+            method: "post",
+            url: `https://azaradigital.com/_devservice/sysFront/data-satuan/list`,
+            data,
+            headers
+          }).then(r => this.setState({listSatuan:[r.data.data], ready:true}));
     }
 
 
@@ -78,10 +108,11 @@ class BahanBakuComponent extends Component {
                                         value={this.props.value.satuan}
                                         onChange={(e)=> this.props.handleData("satuan", this.props.id, e.currentTarget.value)}
                                     >
-                                        <option>--</option>
-                                        <option>Kilogram</option>
-                                        <option>Gram</option>
-                                        <option>Ons</option>
+                                        {
+                                            this.state.ready && this.state.listSatuan[0].map(val=>
+                                                <option>{val.satuan}</option>    
+                                            )
+                                        }
                                     </select>
                                 </div>
                             </div>
@@ -102,7 +133,7 @@ class BahanBakuComponent extends Component {
                                 </div>
                             </div>
                         </div>
-                        <input className="input-satuan" value={this.props.value.harga} defaultValue="0"/>
+                        <input className="input-satuan" value={"Rp " + this.props.value.harga * this.props.value.unit}/>
                     </div>
                 </div>
                 <hr />

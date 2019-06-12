@@ -16,6 +16,7 @@ class UtangJangkaPanjangComponent extends Component {
                 <hr />
                 <div className="main-title">
                     <p className="title">{this.props.title}</p>
+                    <label className="form-label">Utang yang timbul karena meminjam uang pada Bank atau Investor lain, yang harus diangsur pengembaliannya, plus biasanya dikenakan bunga pinjaman</label>
                 </div>
                 <div className="container-aset">
                     <div className="section-aset">

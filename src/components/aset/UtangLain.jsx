@@ -6,9 +6,9 @@ class UtangLain extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataPiutang:
+            dataUtangLain:
                 [{
-                    costumer:null,
+                    customer:null,
                     nominal: null
                 }]
         };
@@ -18,33 +18,33 @@ class UtangLain extends Component {
 
     handleData(prefix, index, value){
         
-        let dataPiutang = this.state.dataPiutang;
+        let dataUtangLain = this.state.dataUtangLain;
         
-        dataPiutang[index][prefix] = value;
+        dataUtangLain[index][prefix] = value;
         this.setState({
-            dataPiutang: dataPiutang
-        },()=> this.props.handleSetData("piutang" , dataPiutang))
+            dataUtangLain: dataUtangLain
+        },()=> this.props.handleSetData("utang lain" , dataUtangLain))
     }
 
     addData(){
-        let dataPiutang = this.state.dataPiutang;
+        let dataUtangLain = this.state.dataUtangLain;
         let data = {
-            costumer:null,
+            customer:null,
             nominal: null
         }
 
-        dataPiutang.push(data);
+        dataUtangLain.push(data);
 
         this.setState({
-            dataPiutang:dataPiutang
+            dataUtangLain:dataUtangLain
         })
     }
 
     componentDidMount(){
         if(this.props.data){
-            this.state.dataPiutang = this.props.data;
+            this.state.dataUtangLain = this.props.data;
             this.setState({
-                dataPiutang:this.state.dataPiutang
+                dataUtangLain:this.state.dataUtangLain
             })
         }
     }
@@ -55,9 +55,9 @@ class UtangLain extends Component {
         return (
             <div>
                 <div>
-                    { this.state.dataPiutang.map((val, index) => 
+                    { this.state.dataUtangLain.map((val, index) => 
                         <UtangLainComponent
-                            title={"Utang Usaha"}
+                            title={"Utang Lain2"}
                             value={val}
                             id={index}
                             handleData={this.handleData}

@@ -16,6 +16,7 @@ class UtangLainComponent extends Component {
                 <hr />
                 <div className="main-title">
                     <p className="title">{this.props.title}</p>
+                    <label className="form-label">Utang yang timbul karena transaksi non rutin yang tidak berhubungan langsung dengan proses usaha kamu, misal : utang karena pembelian peralatan, dll.</label>
                 </div>
                 <div className="container-aset">
                     <div className="section-aset">

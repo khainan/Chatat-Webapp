@@ -7,18 +7,38 @@ class AkunBankComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            listBank:null,
+            ready:false
         };
         
     }
 
     componentWillMount(){
-        const body = {email:"bylinggha@gmail.com",password:"Byee99"}
-        const requestBody = JSON.stringify(body);
-        const headers =  {"headers": {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json"}}
+        this.getListOption();
+    }
+
+    getListOption(){
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
         
-        axios.post("https://azaradigital.com/_devservice/sysFront/data-bank/list", requestBody , headers, "POST")
-        .then(r=> console.log(r))
+        let data = {
+            "search": {
+                "nama": "",
+                "status": "1"
+            },
+            "order": {
+                "created"	: "DESC"
+            },
+            "page": 1
+        }
+
+
+        axios({
+            method: "post",
+            url: `https://azaradigital.com/_devservice/sysFront/data-bank/list`,
+            data,
+            headers
+          }).then(r => this.setState({listBank:[r.data.data], ready:true}));
     }
 
 
@@ -41,13 +61,11 @@ class AkunBankComponent extends Component {
                                 <div className="form-input with-select">
                                     <label className="form-label">Nama Bank</label>
                                     <select className="form-control" value={this.props.value.bank} onChange={(e)=> this.props.handleSetData("akunbank", "bank", id , e.currentTarget.value )}>
-                                        <option>--</option>
-                                        <option>Bank Centra Asia (BCA)</option>
-                                        <option>Bank Rakyat Indonesia (BRI)</option>
-                                        <option>Bank Negara Indonesia (BNI)</option>
-                                        <option>Mandiri</option>
-                                        <option>Danamon</option>
-                                        <option>CIMB</option>
+                                        {
+                                           this.state.ready && this.state.listBank[0].map(val =>
+                                                <option>{val.nama}</option>    
+                                            )
+                                        }
                                     </select>
                                 </div>
                             </div>

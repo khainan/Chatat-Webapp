@@ -6,9 +6,9 @@ class UtangJangkaPanjang extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataPiutang:
+            dataUtangJangkaPanjang:
                 [{
-                    costumer:null,
+                    bank:null,
                     nominal: null
                 }]
         };
@@ -18,33 +18,33 @@ class UtangJangkaPanjang extends Component {
 
     handleData(prefix, index, value){
         
-        let dataPiutang = this.state.dataPiutang;
+        let dataUtangJangkaPanjang = this.state.dataUtangJangkaPanjang;
         
-        dataPiutang[index][prefix] = value;
+        dataUtangJangkaPanjang[index][prefix] = value;
         this.setState({
-            dataPiutang: dataPiutang
-        },()=> this.props.handleSetData("piutang" , dataPiutang))
+            dataUtangJangkaPanjang: dataUtangJangkaPanjang
+        },()=> this.props.handleSetData("utang jangka panjang" , dataUtangJangkaPanjang))
     }
 
     addData(){
-        let dataPiutang = this.state.dataPiutang;
+        let dataUtangJangkaPanjang = this.state.dataUtangJangkaPanjang;
         let data = {
-            costumer:null,
+            bank:null,
             nominal: null
         }
 
-        dataPiutang.push(data);
+        dataUtangJangkaPanjang.push(data);
 
         this.setState({
-            dataPiutang:dataPiutang
+            dataUtangJangkaPanjang:dataUtangJangkaPanjang
         })
     }
 
     componentDidMount(){
         if(this.props.data){
-            this.state.dataPiutang = this.props.data;
+            this.state.dataUtangJangkaPanjang = this.props.data;
             this.setState({
-                dataPiutang:this.state.dataPiutang
+                dataUtangJangkaPanjang:this.state.dataUtangJangkaPanjang
             })
         }
     }
@@ -55,9 +55,9 @@ class UtangJangkaPanjang extends Component {
         return (
             <div>
                 <div>
-                    { this.state.dataPiutang.map((val, index) => 
+                    { this.state.dataUtangJangkaPanjang.map((val, index) => 
                         <UtangJangkaPanjangComponent
-                            title={"Utang Usaha"}
+                            title={"Utang Jangka Panjang"}
                             value={val}
                             id={index}
                             handleData={this.handleData}

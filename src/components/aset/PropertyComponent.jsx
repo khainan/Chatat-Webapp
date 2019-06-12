@@ -26,6 +26,24 @@ class PropertyComponent extends Component {
                         <div className="form-group">
                             <div className="input-group">
                                 <span className="input-group-addon">
+                                    <i className="circle-icon icon-components"></i>
+                                </span>
+                                <div className="form-input with-select">
+                                    <label className="form-label">Jenis Properti</label>
+                                    <select className="form-control"
+                                        value={this.props.value.status}
+                                        onChange={(e)=> this.props.handleData("status", this.props.id, e.currentTarget.value)}
+                                    >
+                                        <option>--</option>
+                                        <option>Sewa</option>
+                                        <option>Beli</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <div className="input-group">
+                                <span className="input-group-addon">
                                     <i className="circle-icon icon-edit"></i>
                                 </span>
                                 <div className="form-input">
@@ -37,6 +55,8 @@ class PropertyComponent extends Component {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="section-aset">
                         <div className="form-group">
                             <div className="input-group">
                                 <span className="input-group-addon">
@@ -51,8 +71,6 @@ class PropertyComponent extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="section-aset">
                         <div className="form-group">
                             <div className="input-group">
                                 <span className="input-group-addon">
@@ -67,27 +85,9 @@ class PropertyComponent extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group">
-                            <div className="input-group">
-                                <span className="input-group-addon">
-                                    <i className="circle-icon icon-components"></i>
-                                </span>
-                                <div className="form-input with-padding-top">
-                                    <label className="form-label">Status</label>
-                                    <select className="form-control"
-                                        value={this.props.value.status}
-                                        onChange={(e)=> this.props.handleData("status", this.props.id, e.currentTarget.value)}
-                                    >
-                                        <option>--</option>
-                                        <option>Sewa</option>
-                                        <option>Beli</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div className="section-aset">
-                        <input className="input-satuan" value={this.props.value.nominal} defaultValue="0"/>
+                        <input className="input-satuan" value={"Rp " + this.props.value.nominal * this.props.value.masapakai} defaultValue="0"/>
                     </div>
                 </div>
                 <hr />

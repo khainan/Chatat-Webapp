@@ -6,9 +6,9 @@ class UtangUsaha extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataPiutang:
+            dataUtangUsaha:
                 [{
-                    costumer:null,
+                    customer:null,
                     nominal: null
                 }]
         };
@@ -18,33 +18,33 @@ class UtangUsaha extends Component {
 
     handleData(prefix, index, value){
         
-        let dataPiutang = this.state.dataPiutang;
+        let dataUtangUsaha = this.state.dataUtangUsaha;
         
-        dataPiutang[index][prefix] = value;
+        dataUtangUsaha[index][prefix] = value;
         this.setState({
-            dataPiutang: dataPiutang
-        },()=> this.props.handleSetData("piutang" , dataPiutang))
+            dataUtangUsaha: dataUtangUsaha
+        },()=> this.props.handleSetData("utangusaha" , dataUtangUsaha))
     }
 
     addData(){
-        let dataPiutang = this.state.dataPiutang;
+        let dataUtangUsaha = this.state.dataUtangUsaha;
         let data = {
-            costumer:null,
+            custumer:null,
             nominal: null
         }
 
-        dataPiutang.push(data);
+        dataUtangUsaha.push(data);
 
         this.setState({
-            dataPiutang:dataPiutang
+            dataUtangUsaha:dataUtangUsaha
         })
     }
 
     componentDidMount(){
         if(this.props.data){
-            this.state.dataPiutang = this.props.data;
+            this.state.dataUtangUsaha = this.props.data;
             this.setState({
-                dataPiutang:this.state.dataPiutang
+                dataUtangUsaha:this.state.dataUtangUsaha
             })
         }
     }
@@ -55,7 +55,7 @@ class UtangUsaha extends Component {
         return (
             <div>
                 <div>
-                    { this.state.dataPiutang.map((val, index) => 
+                    { this.state.dataUtangUsaha.map((val, index) => 
                         <UtangUsahaComponent
                             title={"Utang Usaha"}
                             value={val}

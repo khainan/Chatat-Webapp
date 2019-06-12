@@ -6,9 +6,9 @@ class ModalUtang extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataPiutang:
+            dataModalUtang:
                 [{
-                    costumer:null,
+                    customer:null,
                     nominal: null
                 }]
         };
@@ -18,33 +18,33 @@ class ModalUtang extends Component {
 
     handleData(prefix, index, value){
         
-        let dataPiutang = this.state.dataPiutang;
+        let dataModalUtang = this.state.dataModalUtang;
         
-        dataPiutang[index][prefix] = value;
+        dataModalUtang[index][prefix] = value;
         this.setState({
-            dataPiutang: dataPiutang
-        },()=> this.props.handleSetData("piutang" , dataPiutang))
+            dataModalUtang: dataModalUtang
+        },()=> this.props.handleSetData("modal utang" , dataModalUtang))
     }
 
     addData(){
-        let dataPiutang = this.state.dataPiutang;
+        let dataModalUtang = this.state.dataModalUtang;
         let data = {
-            costumer:null,
+            customer:null,
             nominal: null
         }
 
-        dataPiutang.push(data);
+        dataModalUtang.push(data);
 
         this.setState({
-            dataPiutang:dataPiutang
+            dataModalUtang:dataModalUtang
         })
     }
 
     componentDidMount(){
         if(this.props.data){
-            this.state.dataPiutang = this.props.data;
+            this.state.dataModalUtang = this.props.data;
             this.setState({
-                dataPiutang:this.state.dataPiutang
+                dataModalUtang:this.state.dataModalUtang
             })
         }
     }
@@ -55,9 +55,9 @@ class ModalUtang extends Component {
         return (
             <div>
                 <div>
-                    { this.state.dataPiutang.map((val, index) => 
+                    { this.state.dataModalUtang.map((val, index) => 
                         <ModalUtangComponent
-                            title={"Utang Usaha"}
+                            title={"Modal Usaha"}
                             value={val}
                             id={index}
                             handleData={this.handleData}

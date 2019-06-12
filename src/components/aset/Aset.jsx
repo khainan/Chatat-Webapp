@@ -23,6 +23,9 @@ class Aset extends Component {
             dataProperty:null,
             dataPiutang:null,
             dataUtangUsaha:null,
+            dataUtangJangkaPanjang:null,
+            dataUtangLain:null,
+            dataModalUtang:null
         };
         this.handleBack = this.handleBack.bind(this);
         this.handleNext = this.handleNext.bind(this);
@@ -56,6 +59,10 @@ class Aset extends Component {
         let dataBahanBaku = this.state.dataBahanBaku;
         let dataProperty = this.state.dataProperty;
         let dataPiutang = this.state.dataPiutang;
+        let dataUtangUsaha = this.state.dataUtangUsaha;
+        let dataUtangJangkaPanjang = this.state.dataUtangJangkaPanjang;
+        let dataUtangLain = this.state.dataUtangLain;
+        let dataModalUtang = this.state.dataModalUtang;
 
         if(prefix === "kas"){
             dataKas = value;
@@ -96,6 +103,34 @@ class Aset extends Component {
             dataPiutang = value;
             this.setState({
                 dataPiutang:dataPiutang
+            })
+        }
+
+        else if(prefix === "utangusaha"){
+            dataUtangUsaha = value;
+            this.setState({
+                dataUtangUsaha:dataUtangUsaha
+            })
+        }
+
+        else if(prefix === "utang jangka panjang"){
+            dataUtangJangkaPanjang = value;
+            this.setState({
+                dataUtangJangkaPanjang:dataUtangJangkaPanjang
+            })
+        }
+
+        else if(prefix === "utang lain"){
+            dataUtangLain = value;
+            this.setState({
+                dataUtangLain:dataUtangLain
+            })
+        }
+
+        else if(prefix === "modal utang"){
+            dataModalUtang = value;
+            this.setState({
+                dataModalUtang:dataModalUtang
             })
         }
     }
@@ -215,7 +250,7 @@ class Aset extends Component {
                                     <div>
                                         <UtangUsaha
                                             handleSetData={this.handleSetData}
-                                            data={this.state.dataPiutang}
+                                            data={this.state.dataUtangUsaha}
                                         /> 
                                     </div>
                                 }
@@ -224,7 +259,7 @@ class Aset extends Component {
                                     <div>
                                         <UtangJangkaPanjang
                                             handleSetData={this.handleSetData}
-                                            data={this.state.dataPiutang}
+                                            data={this.state.dataUtangJangkaPanjang}
                                         /> 
                                     </div>
                                 }
@@ -233,7 +268,7 @@ class Aset extends Component {
                                     <div>
                                         <UtangLain
                                             handleSetData={this.handleSetData}
-                                            data={this.state.dataPiutang}
+                                            data={this.state.dataUtangLain}
                                         /> 
                                     </div>
                                 }
@@ -242,7 +277,7 @@ class Aset extends Component {
                                     <div>
                                         <ModalUtang
                                             handleSetData={this.handleSetData}
-                                            data={this.state.dataPiutang}
+                                            data={this.state.dataModalUtang}
                                         /> 
                                     </div>
                                 }                                

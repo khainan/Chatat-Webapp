@@ -17,6 +17,7 @@ class ModalUtangComponent extends Component {
                 <hr />
                 <div className="main-title">
                     <p className="title">{this.props.title}</p>
+                    <label className="form-label">Uang ataupun aset yang diinvestasikan dalam perusahaan, dan diberikan imbalan saham/kepemilikan kepada yang bersangkutan.</label>
                 </div>
                 <div className="container-aset">
                     <div className="section-aset">

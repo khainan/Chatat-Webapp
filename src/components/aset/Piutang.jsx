@@ -8,7 +8,7 @@ class Piutang extends Component {
         this.state = {
             dataPiutang:
                 [{
-                    costumer:null,
+                    customer:null,
                     nominal: null
                 }]
         };
@@ -29,7 +29,7 @@ class Piutang extends Component {
     addData(){
         let dataPiutang = this.state.dataPiutang;
         let data = {
-            costumer:null,
+            custumer:null,
             nominal: null
         }
 
