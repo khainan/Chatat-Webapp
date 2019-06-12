@@ -7,7 +7,7 @@ function handleUserResponse({data}) {
 
     const token = data.hash;
     window.localStorage.setItem(localStorageKey, token);
-    window.localStorage.setItem(localStorageUser, data);
+    window.localStorage.setItem(localStorageUser, JSON.stringify(data));
   
   return data
   

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import PropertyComponent from './PropertyComponent';
 
 class Property extends Component {

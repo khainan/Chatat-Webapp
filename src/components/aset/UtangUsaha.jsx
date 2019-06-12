@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import UtangUsahaComponent from './UtangUsahaComponent';
 
 class UtangUsaha extends Component {
