@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import Loading from '../components/Loading';
 
 class ResetPassword extends Component {

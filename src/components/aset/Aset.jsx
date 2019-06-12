@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import AkunBank from './AkunBank';
 import Peralatan from './Peralatan';
 import BahanBaku from './BahanBaku';

@@ -1,15 +1,46 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
+import axios from 'axios';
 class DaftarTransaksi extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            
+        
+        state = {
+            listTransaksi: [],
+            totalPage: 0,
+            perPage:0,
+            currentPage: 1
         };
+    
+        componentDidMount(){
+            this.getListTransaksi();
+        }
+        
+        getListTransaksi = () => {
+            const token = window.localStorage.getItem("__chatat_token__")
+            const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+            
+            const {filter, search} = this.state;
+            
+            const data = {
+                "search": {
+                    "tanggal":""
+                },
+                "order": {
+                    "tanggal": "ASC"
+                },
+                "page": this.state.currentPage
+            }
+    
+              axios({
+                method: "post",
+                url: `https://azaradigital.com/_devservice/sysFront/datatransaksi/list`,
+                data,
+                headers
+              }).then(r => this.setState({listTransaksi :r.data.data, totalPage:r.data.totalpage, perPage: r.data.perpage}));
+        }
 
-    }
     render() {
+
+        const {listTransaksi, totalPage, perPage, currentPage } = this.state;
+     
         return (
         <div>
         <main id="main">
@@ -52,214 +83,26 @@ class DaftarTransaksi extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-primary">Penjualan</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>250.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-primary">Penjualan</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>1.000.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-primary">Penjualan</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>250.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-primary">Penjualan</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>1.000.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-danger">Utang</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>250.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-warning">Terima Piutang</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>1.000.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-success">Modal</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>250.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-success">Modal</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>1.000.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-primary">Penjualan</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>250.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-default">Lainnya</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>1.000.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-default">Lainnya</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>250.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-default">Lainnya</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>1.000.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-primary">Penjualan</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>250.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-default">Lainnya</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>1.000.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-success">Modal</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>250.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>31 Nov, 2018</td>
-                                    <td><span className="label label-success">Modal</span></td>
-                                    <td><div className="table-text">Quisque eget massa lacus. Fusce pretium purus vitae libero suscipit sagittis.</div></td>
-                                    <td>500.000</td>
-                                    <td>1.000.000</td>
-                                    <td>
-                                        <ul className="icon-action text-right">
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                            <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                {listTransaksi.map(transaksi => {
+                                    const kategori = transaksi.kategori;
+                                    const classLabel = kategori === "Piutang" ? "label label-warning" : kategori === "Utang Bank" ? "label label-danger" : kategori === "Penjualan" ? "label label-primary" : kategori === "Modal" ? "label label-success" : "label label-default"
+                                    
+                                    return (
+                                        <tr>
+                                            <td>{new Date(transaksi.tanggal).toLocaleDateString('id', {day: 'numeric', month: 'short', year: 'numeric'})}</td>
+                                            <td><span className={classLabel}>{transaksi.kategori}</span></td>
+                                            <td><div className="table-text">{transaksi.deskripsi}</div></td>
+                                            <td>{parseInt(transaksi.debit).toLocaleString('id')}</td>
+                                            <td>{parseInt(transaksi.kredit).toLocaleString('id')}</td>
+                                            <td>
+                                                <ul className="icon-action text-right">
+                                                    <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
+                                                    <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    )}
+                                )}
                             </tbody>
                         </table>
                     </div>

@@ -18,8 +18,7 @@
     "react-strap": "0.0.1",
     "react-toastify": "^5.2.1",
     "reactstrap": "^8.0.0",
-    "save": "^2.4.0",
-    "webpack": "^4.29.6"
+    "save": "^2.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
