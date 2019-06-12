@@ -6,6 +6,7 @@ import Neraca from '../components/LaporanNeraca';
 import Loading from '../components/Loading';
 import Modal from '../components/ModalDaftarAset';
 import Aset from '../components/aset/Aset';
+import Setting from '../components/Setting';
 import CatatTransaksi from '../components/CatatTransaksi';
 import { UncontrolledTooltip } from 'reactstrap';
 import {useAuth} from '../context/auth-context'
@@ -36,6 +37,8 @@ function MainPage(props) {
 
     }
 
+    console.log(user)
+
     return (
       <main id="main">
       {/* <Loading/> */}
@@ -55,7 +58,7 @@ function MainPage(props) {
                           <ul className="list-icon-link">
                               <li><a className="icon-btn" id={"email"}><i className="icon-email"></i></a></li>
                               <li><a className="icon-btn" id={"idea"}><i className="icon-idea"></i></a></li>
-                              <li><a className="icon-btn" id={"briefcase"} onClick={() => props.history.replace('/aset')}><div className="dotted"></div><i className="icon-briefcase"></i></a></li>
+                              <li><a className="icon-btn" id={"briefcase"} onClick={() => props.history.replace('/aset')}>{user.notifikasi_aset && <div className="dotted"></div>}<i className="icon-briefcase"></i></a></li>
                               <UncontrolledTooltip placement="right" target="email">
                                 notification
                               </UncontrolledTooltip>
@@ -78,7 +81,7 @@ function MainPage(props) {
                                         <span className="text-label">Halo,</span>
                                         <div className="username">{user.nama}</div>
                                     </li>
-                                    <li><a><i className="icon icon-configure"></i><span className="label-menu">Setting</span></a></li>
+                                    <li onClick={() => props.history.replace('/setting')}><a><i className="icon icon-configure"></i><span className="label-menu">Setting</span></a></li>
                                     <li onClick={()=> logoutPage()}><a><i className="icon icon-log_out"></i><span className="label-menu">Keluar</span></a></li>
                                 </ul>
                             </div>
@@ -159,7 +162,7 @@ function MainPage(props) {
             {
               page === "/aset" &&
               <Aset 
-                
+                user={user}
               />
             }
 
@@ -181,6 +184,13 @@ function MainPage(props) {
               page === "/laporan-neraca" &&
               <Neraca 
                 
+              />
+            }
+
+            {
+              page === "/setting" &&
+              <Setting
+                user={user}
               />
             }
 
