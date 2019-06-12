@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import '../css/primary.css';
 import Dashboard from '../components/Dashboard';
+import DaftarTransaksi from '../components/DaftarTransaksi';
+import Neraca from '../components/LaporanNeraca';
 import Loading from '../components/Loading';
 import Modal from '../components/ModalDaftarAset';
-import Aset from '../components/Aset';
+import Aset from '../components/aset/Aset';
+import CatatTransaksi from '../components/CatatTransaksi';
 import { UncontrolledTooltip } from 'reactstrap';
 import {useAuth} from '../context/auth-context'
 import {useUser} from '../context/user-context'
@@ -28,10 +31,15 @@ function MainPage(props) {
         window.location.href = "/";
     }
 
+    function classActive(props){
+        let page = props.location.pathname;
+
+    }
+
     return (
       <main id="main">
       {/* <Loading/> */}
-      { isModalShow && page === "dashboard" &&
+      { isModalShow && page === "/" &&
         <Modal 
             showModal={() => showModal(true)}
             closeModal={() => showModal(false)}
@@ -82,11 +90,11 @@ function MainPage(props) {
                 <div className="content-inner">
                     <div className="main-menu-inner">
                         <div className="menu-item menu-top">
-                            <a className="btn btn-block btn-primary main-btn">Catat Transaksi</a>
+                            <a className="btn btn-block btn-primary main-btn" onClick={() => props.history.replace('/catat-transaksi')}>Catat Transaksi</a>
                             <div className="first-title">Dashboard</div>
                             <ul className="menu">
-                                <li className="active"><a><i className="icon icon-dashboard"></i><span className="label-menu">Dashboard</span></a></li>
-                                <li><a><i className="icon icon-documents"></i><span className="label-menu">Daftar Transaksi</span></a></li>
+                                <li className={page === "/" ? "active" : null} onClick={() => props.history.replace('/')}><a><i className="icon icon-dashboard"></i><span className="label-menu">Dashboard</span></a></li>
+                                <li className={page === "/daftar-transaksi" ? "active" : null} onClick={() => props.history.replace('/daftar-transaksi')}><a><i className="icon icon-documents"></i><span className="label-menu">Daftar Transaksi</span></a></li>
                                 <li><a><i className="icon icon-news"></i><span className="label-menu">Utang Piutang</span></a></li>
                                 <li><a><i className="icon icon-components"></i><span className="label-menu">Inventory</span></a></li>
                                 <li><a><i className="icon icon-users_teams"></i><span className="label-menu">Customer/Vendor</span></a></li>
@@ -97,7 +105,7 @@ function MainPage(props) {
                             <ul className="menu">
                                 <li><a><i className="icon icon-chart"></i><span className="label-menu">Arus Kas</span></a></li>
                                 <li><a><i className="icon icon-diagram"></i><span className="label-menu">Laba Rugi</span></a></li>
-                                <li><a><i className="icon icon-ranks"></i><span className="label-menu">Neraca</span></a></li>
+                                <li className={page === "/laporan-neraca" ? "active" : null} onClick={() => props.history.replace('/laporan-neraca')}><a><i className="icon icon-ranks"></i><span className="label-menu">Neraca</span></a></li>
                             </ul>
                         </div>
                         <div className="menu-item menu-bottom">
@@ -119,7 +127,7 @@ function MainPage(props) {
                         <ul className="breadcrumb">
                             <li>
                                 <a>Dashboard </a> 
-                                {currentPage !== "dashboard" && <a>{ " / " + currentPage}</a>}
+                                {page !== "/" && <a>{page}</a>}
                             </li>
                         </ul>
                         <div id="current-date">{date}</div>
@@ -155,7 +163,26 @@ function MainPage(props) {
               />
             }
 
+            {
+              page === "/catat-transaksi" &&
+              <CatatTransaksi 
+                history={props.history}
+              />
+            }
 
+            {
+              page === "/daftar-transaksi" &&
+              <DaftarTransaksi 
+                
+              />
+            }
+
+            {
+              page === "/laporan-neraca" &&
+              <Neraca 
+                
+              />
+            }
 
         </section>
     </section>

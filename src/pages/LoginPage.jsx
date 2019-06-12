@@ -38,7 +38,7 @@ function LoginPage(props) {
                     <div className="content">
                         <div className="content-inner">
                             <div className="login-content-heading">
-                                <span className="text-label">Belum punya akun?</span><a className="btn btn-sm btn-default" onClick={()=>props.history.replace('/register')}>Daftar sekarang</a>
+                                <span className="text-label">Belum punya akun?</span><a className="btn btn-sm btn-default" onClick={()=> window.location.pathname = '/register'}>Daftar sekarang</a>
                             </div>
                             <form>
                                 <div className="main-title">
@@ -63,7 +63,7 @@ function LoginPage(props) {
                                             <input type="checkbox" id="remember"/>
                                             <label for="remember">Ingat password</label>
                                         </div>
-                                        <a className="link" >Reset password?</a>
+                                        <a className="link" onClick={()=> window.location.pathname = "/reset-password"} >Reset password?</a>
                                     </div>
                                 </div>
                                 <div className="login-content-submit">
