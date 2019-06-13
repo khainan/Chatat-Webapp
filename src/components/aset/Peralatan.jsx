@@ -18,9 +18,12 @@ class Peralatan extends Component {
                     nominal: null,
                     masapakai: null
                 }],
+            ready:true
         };
         this.handleData = this.handleData.bind(this);
         this.addData = this.addData.bind(this);
+        this.deleteData = this.deleteData.bind(this);
+        this.refreshPage = this.refreshPage.bind(this);
     }
 
     handleData(prefix, prefix2, index, value){
@@ -62,13 +65,48 @@ class Peralatan extends Component {
             peralatan.push(data)
             this.setState({
                 dataPeralatan:peralatan
-            })
+            },()=> this.props.handleSetData("peralatan" , peralatan))
         }
         else{
             kendaraan.push(data)
             this.setState({
                 dataKendaraan:kendaraan
-            })
+            },()=> this.props.handleSetData("kendaraan" , kendaraan))
+        }
+    }
+
+    refreshPage(){
+        this.setState({
+            ready:false
+        })
+        setTimeout(() => {
+            this.setState({ready:true})    
+        })
+    }
+
+    deleteData(prefix , value){
+        let dataPeralatan = this.state.dataPeralatan;
+        let dataKendaraan = this.state.dataKendaraan;
+
+        if(prefix === "peralatan"){
+            if(dataPeralatan.length > 1){
+                dataPeralatan.splice(value, 1);
+            
+                this.setState({
+                    dataPeralatan:dataPeralatan
+                },()=> this.refreshPage()
+                ,()=> this.props.handleSetData("peralatan" , dataPeralatan))
+            }
+        }
+        else{
+            if(dataKendaraan.length > 1){
+                dataKendaraan.splice(value, 1);
+            
+                this.setState({
+                    dataKendaraan:dataKendaraan
+                },()=> this.refreshPage()
+                ,()=> this.props.handleSetData("kendaraan" , dataKendaraan))
+            }
         }
     }
 
@@ -92,12 +130,13 @@ class Peralatan extends Component {
         return (
             <div>
                 <div>
-                    { this.state.dataPeralatan.map((val,index) => 
+                    { this.state.ready && this.state.dataPeralatan.map((val,index) => 
                         <PeralatanComponent
                             title={"Peralatan"}
                             value={val}
                             id={index}
                             handleData={this.handleData}
+                            deleteData={this.deleteData}
                         />
                     )
                     }
@@ -108,12 +147,13 @@ class Peralatan extends Component {
                     </div>
                 </div>
                 <div>
-                    { this.state.dataKendaraan.map((val,index) => 
+                    { this.state.ready && this.state.dataKendaraan.map((val,index) => 
                         <PeralatanComponent
                             title={"Kendaraan"}
                             value={val}
                             id={index}
                             handleData={this.handleData}
+                            deleteData={this.deleteData}
                         />
                     )
                     }

@@ -16,6 +16,7 @@ class UtangLainComponent extends Component {
                 <hr />
                 <div className="main-title">
                     <p className="title">{this.props.title}</p>
+                    <i className="icon-close btn-delete-component" onClick={()=>this.props.deleteData(this.props.id)} ></i>
                     <label className="form-label">Utang yang timbul karena transaksi non rutin yang tidak berhubungan langsung dengan proses usaha kamu, misal : utang karena pembelian peralatan, dll.</label>
                 </div>
                 <div className="container-aset">

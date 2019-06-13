@@ -12,10 +12,13 @@ class Property extends Component {
                     nominal: null,
                     status: null,
                     masapakai:null
-                }]
+                }],
+            ready:true
         };
         this.handleData = this.handleData.bind(this);
         this.addData = this.addData.bind(this);
+        this.deleteData = this.deleteData.bind(this);
+        this.refreshPage = this.refreshPage.bind(this);
     }
 
     handleData(prefix, index, value){
@@ -41,7 +44,29 @@ class Property extends Component {
 
         this.setState({
             dataProperty:dataProperty
+        },()=> this.props.handleSetData("property" , dataProperty))
+    }
+
+    refreshPage(){
+        this.setState({
+            ready:false
         })
+        setTimeout(() => {
+            this.setState({ready:true})    
+        })
+    }
+
+    deleteData(value){
+        let dataProperty = this.state.dataProperty;
+
+        if(dataProperty.length > 1){
+            dataProperty.splice(value, 1);
+        
+            this.setState({
+                dataProperty:dataProperty
+            },()=> this.refreshPage()
+            ,()=> this.props.handleSetData("property" , dataProperty))
+        }
     }
 
     componentDidMount(){
@@ -58,12 +83,13 @@ class Property extends Component {
         return (
             <div>
                 <div>
-                    { this.state.dataProperty.map((val, index) => 
+                    { this.state.ready && this.state.dataProperty.map((val, index) => 
                         <PropertyComponent
                             title={"Property"}
                             handleData={this.handleData}
                             value={val}
                             id={index}
+                            deleteData={this.deleteData}
                         />
                     )
                     }

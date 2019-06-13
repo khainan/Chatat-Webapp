@@ -10,10 +10,13 @@ class UtangLain extends Component {
                 [{
                     customer:null,
                     nominal: null
-                }]
+                }],
+            ready:true
         };
         this.handleData = this.handleData.bind(this);
         this.addData = this.addData.bind(this);
+        this.deleteData = this.deleteData.bind(this);
+        this.refreshPage = this.refreshPage.bind(this);
     }
 
     handleData(prefix, index, value){
@@ -37,7 +40,29 @@ class UtangLain extends Component {
 
         this.setState({
             dataUtangLain:dataUtangLain
+        },()=> this.props.handleSetData("utang lain" , dataUtangLain))
+    }
+
+    refreshPage(){
+        this.setState({
+            ready:false
         })
+        setTimeout(() => {
+            this.setState({ready:true})    
+        })
+    }
+
+    deleteData(value){
+        let dataUtangLain = this.state.dataUtangLain;
+
+        if(dataUtangLain.length > 1){
+            dataUtangLain.splice(value, 1);
+        
+            this.setState({
+                dataUtangLain:dataUtangLain
+            },()=> this.refreshPage()
+            ,()=> this.props.handleSetData("utang lain" , dataUtangLain))
+        }
     }
 
     componentDidMount(){
@@ -55,12 +80,13 @@ class UtangLain extends Component {
         return (
             <div>
                 <div>
-                    { this.state.dataUtangLain.map((val, index) => 
+                    { this.state.ready && this.state.dataUtangLain.map((val, index) => 
                         <UtangLainComponent
                             title={"Utang Lain2"}
                             value={val}
                             id={index}
                             handleData={this.handleData}
+                            deleteData={this.deleteData}
                         />
                     )
                     }

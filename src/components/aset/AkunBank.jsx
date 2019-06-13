@@ -16,10 +16,13 @@ class AkunBank extends Component {
                         saldo:null,
                     }
                 ]
-            }
+            },
+            ready:true
         };
         this.handleData = this.handleData.bind(this);
         this.addData = this.addData.bind(this);
+        this.deleteData = this.deleteData.bind(this);
+        this.refreshPage = this.refreshPage.bind(this);
     }
 
     handleData(prefix, prefix2, index, value){
@@ -53,7 +56,29 @@ class AkunBank extends Component {
 
         this.setState({
             dataKas:dataKas
+        },()=> this.props.handleSetData("kas" , dataKas))
+    }
+
+    refreshPage(){
+        this.setState({
+            ready:false
         })
+        setTimeout(() => {
+            this.setState({ready:true})    
+        })
+    }
+
+    deleteData(value){
+        let dataKas = this.state.dataKas;
+
+        if(dataKas.akunbank.length > 1){
+            dataKas.akunbank.splice(value, 1);
+        
+            this.setState({
+                dataKas:dataKas
+            },()=> this.refreshPage()
+            ,()=> this.props.handleSetData("kas" , dataKas))
+        }
     }
 
     componentDidMount(){
@@ -86,12 +111,13 @@ class AkunBank extends Component {
                         </div>
                     </div>
                 </div>
-                { this.state.dataKas.akunbank.map((val, index) => 
+                { this.state.ready && this.state.dataKas.akunbank.map((val, index) => 
                     <AkunBankComponent
                         kas={this.state.dataKas.kaskecil}
                         value={val}
                         id={index}
                         handleSetData={this.handleData}
+                        deleteData={this.deleteData}
                     />
                 )
                 }

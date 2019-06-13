@@ -16,6 +16,7 @@ class PiutangComponent extends Component {
                 <hr />
                 <div className="main-title">
                     <p className="title">{this.props.title}</p>
+                    <i className="icon-close btn-delete-component" onClick={()=>this.props.deleteData(this.props.id)} ></i>
                 </div>
                 <div className="container-aset">
                     <div className="section-aset">

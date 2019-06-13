@@ -10,10 +10,13 @@ class UtangUsaha extends Component {
                 [{
                     customer:null,
                     nominal: null
-                }]
+                }],
+            ready:true
         };
         this.handleData = this.handleData.bind(this);
         this.addData = this.addData.bind(this);
+        this.deleteData = this.deleteData.bind(this);
+        this.refreshPage = this.refreshPage.bind(this);
     }
 
     handleData(prefix, index, value){
@@ -23,7 +26,7 @@ class UtangUsaha extends Component {
         dataUtangUsaha[index][prefix] = value;
         this.setState({
             dataUtangUsaha: dataUtangUsaha
-        },()=> this.props.handleSetData("utangusaha" , dataUtangUsaha))
+        },()=> this.props.handleSetData("utang usaha" , dataUtangUsaha))
     }
 
     addData(){
@@ -37,7 +40,29 @@ class UtangUsaha extends Component {
 
         this.setState({
             dataUtangUsaha:dataUtangUsaha
+        },()=> this.props.handleSetData("utang usaha" , dataUtangUsaha))
+    }
+
+    refreshPage(){
+        this.setState({
+            ready:false
         })
+        setTimeout(() => {
+            this.setState({ready:true})    
+        })
+    }
+
+    deleteData(value){
+        let dataUtangUsaha = this.state.dataUtangUsaha;
+
+        if(dataUtangUsaha.length > 1){
+            dataUtangUsaha.splice(value, 1);
+        
+            this.setState({
+                dataUtangUsaha:dataUtangUsaha
+            },()=> this.refreshPage()
+            ,()=> this.props.handleSetData("utang usaha" , dataUtangUsaha))
+        }
     }
 
     componentDidMount(){
@@ -55,12 +80,13 @@ class UtangUsaha extends Component {
         return (
             <div>
                 <div>
-                    { this.state.dataUtangUsaha.map((val, index) => 
+                    { this.state.ready && this.state.dataUtangUsaha.map((val, index) => 
                         <UtangUsahaComponent
                             title={"Utang Usaha"}
                             value={val}
                             id={index}
                             handleData={this.handleData}
+                            deleteData={this.deleteData}
                         />
                     )
                     }

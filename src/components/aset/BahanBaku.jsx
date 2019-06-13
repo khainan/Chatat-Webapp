@@ -13,10 +13,13 @@ class BahanBaku extends Component {
                     harga: null,
                     satuan:null,
                     vendor:null
-                }]
+                }],
+                ready:true
         };
         this.handleData = this.handleData.bind(this);
         this.addData = this.addData.bind(this);
+        this.deleteData = this.deleteData.bind(this);
+        this.refreshPage = this.refreshPage.bind(this);
     }
 
     handleData(prefix, index, value){
@@ -43,7 +46,29 @@ class BahanBaku extends Component {
 
         this.setState({
             dataBahanBaku:dataBahanBaku
+        },()=> this.props.handleSetData("bahan baku" , dataBahanBaku))
+    }
+
+    refreshPage(){
+        this.setState({
+            ready:false
         })
+        setTimeout(() => {
+            this.setState({ready:true})    
+        })
+    }
+
+    deleteData(value){
+        let dataBahanBaku = this.state.dataBahanBaku;
+
+        if(dataBahanBaku.length > 1){
+            dataBahanBaku.splice(value, 1);
+        
+            this.setState({
+                dataBahanBaku:dataBahanBaku
+            },()=> this.refreshPage()
+            ,()=> this.props.handleSetData("bahan baku" , dataBahanBaku))
+        }
     }
 
     componentDidMount(){
@@ -60,12 +85,13 @@ class BahanBaku extends Component {
         return (
             <div>
                 <div>
-                    { this.state.dataBahanBaku.map((val, index) => 
+                    { this.state.ready && this.state.dataBahanBaku.map((val, index) => 
                         <BahanBakuComponent
                             title={"Bahan Baku"}
                             value={val}
                             id={index}
                             handleData={this.handleData}
+                            deleteData={this.deleteData}
                         />
                     )
                     }

@@ -106,7 +106,7 @@ class Aset extends Component {
             })
         }
 
-        else if(prefix === "utangusaha"){
+        else if(prefix === "utang usaha"){
             dataUtangUsaha = value;
             this.setState({
                 dataUtangUsaha:dataUtangUsaha

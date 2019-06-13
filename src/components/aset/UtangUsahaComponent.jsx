@@ -16,6 +16,7 @@ class UtangUsahaComponent extends Component {
                 <hr />
                 <div className="main-title">
                     <p className="title">{this.props.title}</p>
+                    <i className="icon-close btn-delete-component" onClick={()=>this.props.deleteData(this.props.id)} ></i>
                     <label className="form-label">Utang yang timbul dari proses usaha kamu, misal : Utang kepada Vendor atas pembelian bahan baku.</label>
                 </div>
                 <div className="container-aset">

@@ -10,10 +10,13 @@ class ModalUtang extends Component {
                 [{
                     customer:null,
                     nominal: null
-                }]
+                }],
+            ready:true
         };
         this.handleData = this.handleData.bind(this);
         this.addData = this.addData.bind(this);
+        this.deleteData = this.deleteData.bind(this);
+        this.refreshPage = this.refreshPage.bind(this);
     }
 
     handleData(prefix, index, value){
@@ -37,7 +40,29 @@ class ModalUtang extends Component {
 
         this.setState({
             dataModalUtang:dataModalUtang
+        },()=> this.props.handleSetData("modal utang" , dataModalUtang))
+    }
+
+    refreshPage(){
+        this.setState({
+            ready:false
         })
+        setTimeout(() => {
+            this.setState({ready:true})    
+        })
+    }
+
+    deleteData(value){
+        let dataModalUtang = this.state.dataModalUtang;
+
+        if(dataModalUtang.length > 1){
+            dataModalUtang.splice(value, 1);
+        
+            this.setState({
+                dataModalUtang:dataModalUtang
+            },()=> this.refreshPage()
+            ,()=> this.props.handleSetData("modal utang" , dataModalUtang))
+        }
     }
 
     componentDidMount(){
@@ -55,12 +80,13 @@ class ModalUtang extends Component {
         return (
             <div>
                 <div>
-                    { this.state.dataModalUtang.map((val, index) => 
+                    { this.state.ready && this.state.dataModalUtang.map((val, index) => 
                         <ModalUtangComponent
                             title={"Modal Usaha"}
                             value={val}
                             id={index}
                             handleData={this.handleData}
+                            deleteData={this.deleteData}
                         />
                     )
                     }

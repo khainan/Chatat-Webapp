@@ -50,6 +50,7 @@ class AkunBankComponent extends Component {
             <div>
                 <div className="main-title">
                     <p className="title">Akun Bank</p>
+                    <i className="icon-close btn-delete-component" onClick={()=>this.props.deleteData(this.props.id)} ></i>
                 </div>
                 <div className="container-aset">
                     <div className="section-aset">

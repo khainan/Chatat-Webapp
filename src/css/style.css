@@ -2207,6 +2207,13 @@ select.input-sm {
     padding-bottom: 22px;
 }
 
+.btn-delete-component {
+    float: right;
+    margin-top: -20px;
+    font-size: 20px !important;
+    cursor: pointer;
+}
+
 .input-total {
     padding-left: 0;
     padding-bottom: 10px;
