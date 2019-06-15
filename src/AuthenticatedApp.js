@@ -7,18 +7,17 @@ import Aset from './components/aset/Aset';
 import CatatTransaksi from './components/CatatTransaksi';
 import Setting from './pages/SettingUsaha';
 
-const PublicRoute = ({ component: Component, ...rest }) => (
-	<Route {...rest} render={(props) => (
-		<Component {...props} />
-	)} />
-  )
-
-function AuthenticatedApp() {
+function AuthenticatedApp({onNotify}) {
+  const PublicRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+      <Component {...props} onNotify={onNotify}/>
+    )} />
+    )
   return (
     <Router>
       <Switch>
         <PublicRoute path="/setting-usaha" component={Setting}/>
-        <PublicRoute exact path={["/", "/aset", "/catat-transaksi", "/daftar-transaksi", "/laporan-neraca", "/setting" ]} component={MainPage}/>
+        <PublicRoute exact path={["/", "/aset", "/catat-transaksi", "/daftar-transaksi", "/neraca", "/setting", "/arus-kas", "/laba-rugi" ]} component={MainPage} />
       </Switch>
     </Router>
   );

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import { UncontrolledTooltip } from 'reactstrap';
 
 class Dashboard extends Component {
     
@@ -64,11 +65,14 @@ class Dashboard extends Component {
                     <div className="table-responsive table-wrapper">
                         <table className="table">
                             <tbody>
-                                {listKeuangan.map(list => (
+                                {listKeuangan && listKeuangan.map((list, index) => (
                                   <tr>
-                                      <td><i className={list.jenis === "Uang Masuk" ? "circle-icon icon-arrow_down icon-primary" : "circle-icon icon-arrow_up icon-custom" } data-toggle="tooltip" data-placement="right" title={list.jenis}></i></td>
+                                      <td><i id={list.jenis === "Uang Masuk" ? "uangmasuk" + index : "uangkeluar" + index} className={list.jenis === "Uang Masuk" ? "circle-icon icon-arrow_down icon-primary" : "circle-icon icon-arrow_up icon-custom" }></i></td>
                                       <td><b>Rp {parseInt(list.nominal).toLocaleString("id")}</b> -- {new Date(list.date).toLocaleDateString('id', {day: 'numeric', month: 'short', year: 'numeric'})}</td>
                                       <td>Penjualan Shift Pagi</td>
+                                        <UncontrolledTooltip placement="right" target={list.jenis === "Uang Masuk" ? "uangmasuk" + index : "uangkeluar" + index}>
+                                            {list.jenis === "Uang Masuk" ? "Uang Masuk" : "Uang Keluar"}
+                                        </UncontrolledTooltip>
                                   </tr>
                                 ))}
                             </tbody>

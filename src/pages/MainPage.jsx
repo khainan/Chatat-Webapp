@@ -3,6 +3,8 @@ import '../css/primary.css';
 import Dashboard from '../components/Dashboard';
 import DaftarTransaksi from '../components/DaftarTransaksi';
 import Neraca from '../components/LaporanNeraca';
+import LabaRugi from '../components/LaporanLabaRugi';
+import LaporanArusKas from '../components/LaporanArusKas';
 import Loading from '../components/Loading';
 import Modal from '../components/ModalDaftarAset';
 import Aset from '../components/aset/Aset';
@@ -12,6 +14,9 @@ import { UncontrolledTooltip } from 'reactstrap';
 import {useAuth} from '../context/auth-context'
 import {useUser} from '../context/user-context'
 import axios from 'axios';
+import LaporanLabaRugi from '../components/LaporanLabaRugi';
+
+
 
 class MainPage extends Component {
 
@@ -72,7 +77,6 @@ class MainPage extends Component {
         let date = today.toLocaleDateString('id', options)
         
         let page = this.props.match.path;
-        console.log("page", page);
 
         return (
         <main id="main">
@@ -141,9 +145,9 @@ class MainPage extends Component {
                             <div className="menu-item">
                                 <div className="title-menu">Laporan</div>
                                 <ul className="menu">
-                                    <li><a><i className="icon icon-chart"></i><span className="label-menu">Arus Kas</span></a></li>
-                                    <li><a><i className="icon icon-diagram"></i><span className="label-menu">Laba Rugi</span></a></li>
-                                    <li className={page === "/laporan-neraca" ? "active" : null} onClick={() => this.props.history.replace('/laporan-neraca')}><a><i className="icon icon-ranks"></i><span className="label-menu">Neraca</span></a></li>
+                                    <li className={page === "/arus-kas" ? "active" : null} onClick={() => this.props.history.replace('/arus-kas')}><a><i className="icon icon-chart"></i><span className="label-menu">Arus Kas</span></a></li>
+                                    <li className={page === "/laba-rugi" ? "active" : null} onClick={() => this.props.history.replace('/laba-rugi')}><a><i className="icon icon-diagram"></i><span className="label-menu">Laba Rugi</span></a></li>
+                                    <li className={page === "/neraca" ? "active" : null} onClick={() => this.props.history.replace('/neraca')}><a><i className="icon icon-ranks"></i><span className="label-menu">Neraca</span></a></li>
                                 </ul>
                             </div>
                             <div className="menu-item menu-bottom">
@@ -164,8 +168,9 @@ class MainPage extends Component {
                         <div className="section-top">
                             <ul className="breadcrumb">
                                 <li>
-                                    <a>Dashboard </a> 
-                                    {page !== "/" && <a>{page}</a>}
+                                    <a onClick={() => this.props.history.replace('/')}>Dashboard </a>
+                                    {page !== "/" && <a className="blue-slash"> / </a>}
+                                    {page !== "/" && <a>{page.replace("/", "").replace("-", " ")}</a>}
                                 </li>
                             </ul>
                             <div id="current-date">{date}</div>
@@ -205,6 +210,23 @@ class MainPage extends Component {
                 page === "/catat-transaksi" &&
                 <CatatTransaksi 
                     history={this.props.history}
+                    onNotify={this.props.onNotify}
+                />
+                }
+
+                {
+                page === "/arus-kas" &&
+                <LaporanArusKas 
+                    history={this.props.history}
+                    onNotify={this.props.onNotify}
+                />
+                }
+
+                {
+                page === "/laba-rugi" &&
+                <LaporanLabaRugi
+                    history={this.props.history}
+                    onNotify={this.props.onNotify}
                 />
                 }
 
@@ -214,9 +236,10 @@ class MainPage extends Component {
                     
                 />
                 }
+                
 
                 {
-                page === "/laporan-neraca" &&
+                page === "/neraca" &&
                 <Neraca 
                     
                 />

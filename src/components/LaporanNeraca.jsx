@@ -12,7 +12,7 @@ class LaporanNeraca extends Component {
         return (
         <div>
         <main id="main">
-        <section className="container-laporan-neraca">
+        <section className="container-laporan">
             <section className="section-body">
                 <div className="container">
                     <div className="row-flex">

@@ -311,6 +311,7 @@ h5 {
 
 .label-success {
     background-color: #1BCFB4;
+    color: white;
     border-color: #1E2432;
     box-shadow: inset 2px 2px 0 #fff,
                 2px 2px 0 #1BCFB4
@@ -326,6 +327,7 @@ h5 {
 
 .label-primary {
     background-color: #2895F9;
+    color: white;
     border-color: #1E2432;
     box-shadow: inset 2px 2px 0 #fff,
                 2px 2px 0 #2895F9
@@ -333,6 +335,7 @@ h5 {
 
 .label-danger {
     background-color: #D00221;
+    color: white;
     border-color: #1E2432;
     box-shadow: inset 2px 2px 0 #fff,
                 2px 2px 0 #D00221
@@ -1309,6 +1312,7 @@ select.input-sm {
 }
 
 .breadcrumb li a {
+    cursor: pointer;
     color: #A1A9BD
 }
 
@@ -2223,19 +2227,27 @@ select.input-sm {
     display: flex;
 }
 
-.container-laporan-neraca {
+.text-white {
+    color:white;
+}
+
+.blue-slash {
+    color: #2895F9 !important;
+}
+
+.container-laporan {
     display: flex;
 }
 
-.container-laporan-neraca td:first-child {
+.container-laporan td:first-child {
     padding-left: 30px;
 }
 
-.container-laporan-neraca tr:nth-child(odd){
+.container-laporan tr:nth-child(odd){
     background-color: #F9FAFB;
 }
 
-.container-laporan-neraca tr td {
+.container-laporan tr td {
     padding: 12px 16px;
 }
 

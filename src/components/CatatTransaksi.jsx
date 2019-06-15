@@ -21,19 +21,41 @@ class CatatTransaksi extends Component {
                 uangmuka:null,
                 tags:null
             },
+            buktitransaksi:null,
             kategori:null,
             listAkun:null,
             listTag:null,
-            listSatuan:null
+            listSatuan:null,
+            listProduk:null,
+            listVendor:null,
+            message:null
         };
         this.chooseMethod = this.chooseMethod.bind(this);
         this.handleData = this.handleData.bind(this);
         this.chooseCategory = this.chooseCategory.bind(this);
+        this.chooseBukti = this.chooseBukti.bind(this);
+        this.saveData = this.saveData.bind(this);
     }
 
     chooseCategory(value){
+        let kategori;
+
+        kategori = value === "Penjualan" ? "penjualan" 
+                : value === "Utang Jangka Panjang" ? "utang" 
+                : value === "Terima Piutang" ? "piutang"
+                : value === "Modal" ? "modal"
+                : value === "Pendapatan Lain2" ? "pendapatan"
+                : value === "Biaya" ? "biaya"
+                : value === "Bahan Baku" ? "bahanbaku"
+                : value === "Bayar Utang" ? "utang"
+                : value === "Peralatan" ? "peralatan"
+                : value === "Kendaraan" ? "kendaraan"
+                : value === "Properti" ? "properti"
+                : value === "Dividen/Prive" ? "dividen"
+                : null
+
         this.setState({
-            kategori: value
+            kategori: kategori
         })
     }
 
@@ -43,10 +65,18 @@ class CatatTransaksi extends Component {
         })
     }
 
+    chooseBukti(value){
+        this.setState({
+            buktitransaksi:value
+        })
+    }
+
     componentWillMount(){
         this.getListAkun();
         this.getListTags();
         this.getListSatuan();
+        this.getListProduk();
+        this.getListVendor();
     }
 
     getListAkun(){
@@ -128,7 +158,64 @@ class CatatTransaksi extends Component {
           );
     }
 
+    getListProduk(){
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+        
+        let data = {
+            "search": {
+                "akun": ""
+            },
+            "order": {
+                "akun": "DESC"
+            },
+            "page": 1
+        }
+
+
+        axios({
+            method: "post",
+            url: `https://azaradigital.com/_devservice/sysFront/produk/list`,
+            data,
+            headers
+          })
+          .then(
+            r => this.setState({listProduk:r.data.data})
+          );
+    }
+
+    getListVendor(){
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+        
+        let data = {
+            "search": {
+                "costumer": ""
+            },
+            "order": {
+                "costumer": "DESC"
+            },
+            "page": 1
+        }
+
+
+        axios({
+            method: "post",
+            url: `https://azaradigital.com/_devservice/sysFront/costumer/list`,
+            data,
+            headers
+          })
+          .then(
+            r => this.setState({listVendor:r.data.data})
+          );
+    }    
+
     handleData(prefix , value){
+
+        if(prefix === "carabayar"){
+           let newValue = value === "Pembayaran Penuh" ? "tunai" : "nontunai";
+           value = newValue;
+        }
         this.setState({
             data:{
                 ...this.state.data,
@@ -136,14 +223,37 @@ class CatatTransaksi extends Component {
             }
         })
     }
+
+    saveData(){
+
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+        
+        const data = new FormData;
+
+        data.append('data', JSON.stringify(this.state.data))
+        this.state.buktitransaksi && data.append('buktitransaksi',this.state.buktitransaksi[0])
+
+        axios({
+            method: "post",
+            url: `https://azaradigital.com/_devservice/sysFront/${this.state.method}/${this.state.kategori}`,
+            data,
+            headers
+          })
+          .then( r =>
+            this.setState({message:r.data.message, type:"success"},()=> this.props.history.replace("/"))
+          )
+          .catch(r => 
+            this.setState({message:r.response.data[Object.keys(r.response.data)[0]][0], type:"error"})
+        )
+    }
     
     render() {
-
-        let kategori = this.state.method === "uangmasuk" ? this.state.kategori1 : this.state.kategori2;
 
         return (
             <div>
                 <main id="main">
+                    {this.state.message && this.props.onNotify(this.state.type, this.state.message)}
                     <section className="main-pages-catat-transaksi">
                         <section className="section-body-catat-transaksi">
                             <div className="container">
@@ -195,6 +305,7 @@ class CatatTransaksi extends Component {
                                                 <div className="form-input">
                                                     <label className="form-label">Asal Akun</label>
                                                     <select onChange={(e)=> this.handleData("akun" , e.currentTarget.value)}  className="form-control" data-live-search="true" data-live-search-placeholder="Search">
+                                                    <option>--</option>
                                                         {
                                                            this.state.listAkun && this.state.listAkun.map(val=>
                                                                 <option>{val.akun}</option>    
@@ -214,6 +325,7 @@ class CatatTransaksi extends Component {
                                                 <div className="form-input">
                                                     <label className="form-label">Tags</label>
                                                     <select onChange={(e)=> this.handleData("tags" , e.currentTarget.value)}  className="form-control" data-live-search="true" data-live-search-placeholder="Search">
+                                                    <option>--</option>
                                                         {
                                                             this.state.listTag && this.state.listTag.map(val=>
                                                                 <option>{val.nama_tags}</option>    
@@ -234,13 +346,25 @@ class CatatTransaksi extends Component {
                                                 </span>
                                                 <div className="form-input">
                                                     <label className="form-label">Kategori Transaksi</label>
+                                                    { this.state.method === "uangmasuk" ?
                                                     <select onChange={(e)=> this.chooseCategory(e.currentTarget.value)} className="form-control" data-live-search="true" data-live-search-placeholder="Search">
-                                                        {
-                                                            kategori.map((val,index) =>
+                                                    <option>--</option>
+                                                        { 
+                                                            this.state.kategori1.map((val) =>
                                                                <option>{val}</option> 
                                                                 )
                                                         }
                                                     </select>
+                                                    :
+                                                    <select onChange={(e)=> this.chooseCategory(e.currentTarget.value)} className="form-control" data-live-search="true" data-live-search-placeholder="Search">
+                                                    <option selected>--</option>
+                                                        { 
+                                                            this.state.kategori2.map((val) =>
+                                                               <option>{val}</option> 
+                                                                )
+                                                        }
+                                                    </select>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -253,12 +377,13 @@ class CatatTransaksi extends Component {
                                                 </span>
                                                 <div className="form-input">
                                                     <label className="form-label">Customer/Vendor</label>
-                                                    <select className="form-control">
-                                                        <option>Penjualan</option>
-                                                        <option>Utang</option>
-                                                        <option>Terima piutang</option>
-                                                        <option>Modal</option>
-                                                        <option>Penerimaan lain</option>
+                                                    <select onChange={(e)=> this.handleData("vendor" , e.currentTarget.value)} className="form-control">
+                                                    <option>--</option>
+                                                        {
+                                                           this.state.listVendor && this.state.listVendor.map(val=>
+                                                                <option>{val.costumer}</option>    
+                                                            )
+                                                        }
                                                     </select>
                                                 </div>
                                             </div>
@@ -272,7 +397,7 @@ class CatatTransaksi extends Component {
                                                 </span>
                                                 <div className="form-input">
                                                     <label className="form-label">Keterangan</label>
-                                                    <input className="form-control" />
+                                                    <input className="form-control" onChange={(e)=> this.handleData("produk" , e.currentTarget.value)}/>
                                                 </div>
                                             </div>
                                         </div>
@@ -301,6 +426,7 @@ class CatatTransaksi extends Component {
                                                 <div className="form-input">
                                                     <label className="form-label">Satuan</label>
                                                     <select onChange={(e)=> this.handleData("satuan" , e.currentTarget.value)} className="form-control" data-live-search="true">
+                                                    <option>--</option>
                                                         {
                                                             this.state.listSatuan && this.state.listSatuan.map(val=>
                                                                 <option>{val.satuan}</option>    
@@ -345,6 +471,7 @@ class CatatTransaksi extends Component {
                                                 <div className="form-input">
                                                     <label className="form-label">Cara Bayar</label>
                                                     <select onChange={(e)=> this.handleData("carabayar" , e.currentTarget.value)} className="form-control">
+                                                        <option>--</option>
                                                         <option>Pembayaran Penuh</option>
                                                         <option>Pembayaran Sebagian</option>
                                                     </select>
@@ -388,7 +515,7 @@ class CatatTransaksi extends Component {
                                                 </span>
                                                 <div className="form-input">
                                                     <label className="form-label">Upload Bukti Transaksi</label>
-                                                    <input type="file"/>
+                                                    <input type="file" onChange={(e)=>this.chooseBukti(e.currentTarget.files)}/>
                                                 </div>
                                             </div>
                                         </div>
@@ -404,7 +531,7 @@ class CatatTransaksi extends Component {
                                 <div className="btn-group-catat-transaksi">
                                     <div className="container-btn-catat-transaksi">
                                         <button className="btn btn-default" onClick={()=> this.props.history.replace('/')}>Batal</button>
-                                        <button className="btn-simpan-transaksi">Simpan Transaksi</button>
+                                        <button className="btn-simpan-transaksi" onClick={()=> this.saveData()} >Simpan Transaksi</button>
                                     </div>
                                 </div>
                             </div>

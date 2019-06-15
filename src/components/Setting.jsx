@@ -53,7 +53,7 @@ class Setting extends Component {
                                             </span>
                                             <div className="form-input">
                                                 <label className="form-label">Password</label>
-                                                <input className="form-control" type="password" value="password" readonly/>
+                                                <input className="form-control" type="password" readonly/>
                                             </div>
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@ class Setting extends Component {
                                             </span>
                                             <div className="form-input">
                                                 <label className="form-label">Jasa</label>
-                                                <input className="form-control" value="jasa" readonly/>
+                                                <input className="form-control" readonly/>
                                             </div>
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@ class Setting extends Component {
                                             </span>
                                             <div className="form-input">
                                                 <label className="form-label">Produksi</label>
-                                                <input className="form-control" value="produksi" readonly/>
+                                                <input className="form-control" readonly/>
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +125,7 @@ class Setting extends Component {
                                             </span>
                                             <div className="form-input">
                                                 <label className="form-label">lokasi usaha</label>
-                                                <input className="form-control" value="lokasi usaha" readonly/>
+                                                <input className="form-control" readonly/>
                                             </div>
                                         </div>
                                     </div>

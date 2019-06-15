@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import { UncontrolledTooltip } from 'reactstrap';
+
 class DaftarTransaksi extends Component {
         
         state = {
@@ -83,7 +85,7 @@ class DaftarTransaksi extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {listTransaksi.map(transaksi => {
+                                {listTransaksi.map((transaksi,index) => {
                                     const kategori = transaksi.kategori;
                                     const classLabel = kategori === "Piutang" ? "label label-warning" : kategori === "Utang Bank" ? "label label-danger" : kategori === "Penjualan" ? "label label-primary" : kategori === "Modal" ? "label label-success" : "label label-default"
                                     
@@ -96,8 +98,14 @@ class DaftarTransaksi extends Component {
                                             <td>{parseInt(transaksi.kredit).toLocaleString('id')}</td>
                                             <td>
                                                 <ul className="icon-action text-right">
-                                                    <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="edit"><i className="icon-edit"></i></a></li>
-                                                    <li><a href="#!" data-toggle="tooltip" data-placement="left" title="" data-original-title="hapus"><i className="icon-close"></i></a></li>
+                                                    <li><a id={`edit-${index}`}><i className="icon-edit"></i></a></li>
+                                                    <li><a id={`close-${index}`}><i className="icon-close"></i></a></li>
+                                                    <UncontrolledTooltip placement="left" target={`edit-${index}`}>
+                                                        Edit
+                                                    </UncontrolledTooltip>
+                                                    <UncontrolledTooltip placement="right" target={`close-${index}`}>
+                                                        Close
+                                                    </UncontrolledTooltip>
                                                 </ul>
                                             </td>
                                         </tr>
