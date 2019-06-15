@@ -24,12 +24,12 @@ class MainPage extends Component {
         this.getKas();
     }
 
-    componentWillMount(){
-        const user  = JSON.parse(localStorage.getItem('__chatat_user__'));
-        if(!user.nama_usaha){
-            this.props.history.replace('/setting-usaha');
-        }
-    }
+    // componentWillMount(){
+    //     const user  = JSON.parse(localStorage.getItem('__chatat_user__'));
+    //     if(!user.nama_usaha){
+    //         this.props.history.replace('/setting-usaha');
+    //     }
+    // }
     
     getKas = () => {
         const token = window.localStorage.getItem("__chatat_token__")
@@ -71,7 +71,8 @@ class MainPage extends Component {
         let today = new Date();
         let date = today.toLocaleDateString('id', options)
         
-        let page = this.props.location.pathname;
+        let page = this.props.match.path;
+        console.log("page", page);
 
         return (
         <main id="main">

@@ -20,12 +20,14 @@ function RegisterPage (props) {
           username,
           email,
           password
-        }),
+        })
       )
     }
-    console.log("props", props)
     const type = isRejected ? "error" : "success";
-    message && props.onNotify(type, message);
+    if(message) {
+        props.onNotify(type, message);
+        props.history.replace("/");
+    }
     return (
         <div>
             <main id="main">

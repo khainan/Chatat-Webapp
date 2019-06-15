@@ -37,6 +37,7 @@ function useCallbackStatus() {
         return message
       }
     ).catch(error => {
+      console.log("masuk sini");
       const message = error.response.data.message;
       safeSetState({status: 'rejected', message })
       return Promise.reject(error)

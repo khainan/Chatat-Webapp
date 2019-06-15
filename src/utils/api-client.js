@@ -6,7 +6,7 @@ function client(endpoint, {body, ...customConfig} = {},method) {
      
     return axios({
       method: method,
-      url: `https://azaradigital.com/_devservice/sysFront/costumer/${endpoint}`,
+      url: `https://azaradigital.com/_devservice/sysFront/${endpoint}`,
       data: requestBody,
       headers
     }).then(r => r.data);

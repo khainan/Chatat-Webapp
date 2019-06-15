@@ -1,20 +1,25 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route} from "react-router-dom";
+import { Route, Switch} from "react-router";
+import { BrowserRouter as Router } from "react-router-dom";
 import MainPage from './pages/MainPage';
 import Aset from './components/aset/Aset';
 import CatatTransaksi from './components/CatatTransaksi';
 import Setting from './pages/SettingUsaha';
 
+const PublicRoute = ({ component: Component, ...rest }) => (
+	<Route {...rest} render={(props) => (
+		<Component {...props} />
+	)} />
+  )
+
 function AuthenticatedApp() {
   return (
     <Router>
-      <Route path="/setting-usaha" component={Setting}/>
-      <Route path="/">
-          <Route component={MainPage}/>
-          <Route path="aset" component={Aset}/>
-          <Route path="catat-transaksi" component={CatatTransaksi}/>   
-      </Route>
+      <Switch>
+        <PublicRoute path="/setting-usaha" component={Setting}/>
+        <PublicRoute exact path={["/", "/aset", "/catat-transaksi", "/daftar-transaksi", "/laporan-neraca", "/setting" ]} component={MainPage}/>
+      </Switch>
     </Router>
   );
 }

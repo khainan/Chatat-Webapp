@@ -19,23 +19,25 @@ function getUser() {
     return Promise.resolve(null);
   }
   const body = {body: { "hash": token}}
-  return client('loginbyhash', body, 'POST').catch(error => {
+  return client('costumer/loginbyhash', body, 'POST').catch(error => {
     logout()
     return Promise.reject(error)
   })
 }
 
 function login({email, password}) {
-  return client('login', {body: {email, password}}, 'POST').then(handleUserResponse).catch(error => {
+  return client('costumer/login', {body: {email, password}}, 'POST').then(handleUserResponse).catch(error => {
     logout()
     return Promise.reject(error)
   })
 }
 
 function register({nama, username, email, password}) {
-  return client('register', {body: {nama, username, email, password, paketid: "20192718199383289456"}}, 'PUT').catch(error => {
-    
-    return Promise.reject(error)
+  return client('helper/getconfig',{body: {key: "pakettrialID"}}, 'POST').then(r => {
+    return client('costumer/register', {body: {nama, username, email, password, paketid: r.value}}, 'PUT').catch(error => {
+      return Promise.reject(error)
+    }).catch(error => {
+      return Promise.reject(error)})
   })
 }
 
