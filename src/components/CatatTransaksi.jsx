@@ -9,17 +9,6 @@ class CatatTransaksi extends Component {
             kategori1:["Penjualan", "Utang Jangka Panjang", "Terima Piutang", "Modal", "Pendapatan Lain2"],
             kategori2:["Biaya", "Bahan Baku", "Bayar Utang", "Peralatan", "Kendaraan", "Properti", 'Dividen/Prive'],
             data:{
-                tanggal:null,
-                nomorbukti:null,
-                akun:null,
-                produk:null,
-                jumlah:null,
-                harga:null,
-                satuan:null,
-                vendor:null,
-                carabayar:null,
-                uangmuka:null,
-                tags:null
             },
             buktitransaksi:null,
             kategori:null,
@@ -28,6 +17,8 @@ class CatatTransaksi extends Component {
             listSatuan:null,
             listProduk:null,
             listVendor:null,
+            listPiutang:null,
+            listKode:null,
             message:null
         };
         this.chooseMethod = this.chooseMethod.bind(this);
@@ -35,6 +26,7 @@ class CatatTransaksi extends Component {
         this.chooseCategory = this.chooseCategory.bind(this);
         this.chooseBukti = this.chooseBukti.bind(this);
         this.saveData = this.saveData.bind(this);
+        this.handleKodeTransaksi = this.handleKodeTransaksi.bind(this);
     }
 
     chooseCategory(value){
@@ -77,6 +69,7 @@ class CatatTransaksi extends Component {
         this.getListSatuan();
         this.getListProduk();
         this.getListVendor();
+        this.getListPiutang();
     }
 
     getListAkun(){
@@ -208,20 +201,73 @@ class CatatTransaksi extends Component {
           .then(
             r => this.setState({listVendor:r.data.data})
           );
+    }
+
+    getListPiutang(){
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+        
+        let data = {
+            "search": {
+                "id_costumer": ""
+            },
+            "page": 1
+        }
+
+
+        axios({
+            method: "post",
+            url: `https://azaradigital.com/_devservice/sysFront/datapiutang/list`,
+            data,
+            headers
+          })
+          .then(
+            r => this.setState({listPiutang:r.data.data})
+          );
     }    
 
     handleData(prefix , value){
-
+        
         if(prefix === "carabayar"){
            let newValue = value === "Pembayaran Penuh" ? "tunai" : "nontunai";
            value = newValue;
         }
+        else if (prefix === "status"){
+           let newValue = value === "Sewa" ? "sewa" : "beli";
+           value = newValue;
+        }
+        else if (prefix === "vendor"){
+            let newValue = value.split(' ')[0]
+            value = newValue;
+         }
         this.setState({
             data:{
                 ...this.state.data,
                 [prefix]:value
             }
-        })
+        },()=> this.handleKodeTransaksi(value))
+    }
+
+    handleKodeTransaksi(val){
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+        
+        let data = {
+            "search": {
+                "id_costumer": val.split(' ')[1]
+            },
+            "page": 1
+        }
+
+        axios({
+            method: "post",
+            url: `https://azaradigital.com/_devservice/sysFront/datapiutang/listpiutang`,
+            data,
+            headers
+          })
+          .then(
+            r => this.setState({listKode:r.data.data})
+          );
     }
 
     saveData(){
@@ -369,6 +415,8 @@ class CatatTransaksi extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    { this.state.kategori ?
                                     <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
@@ -381,7 +429,7 @@ class CatatTransaksi extends Component {
                                                     <option>--</option>
                                                         {
                                                            this.state.listVendor && this.state.listVendor.map(val=>
-                                                                <option>{val.costumer}</option>    
+                                                                <option value={val.costumer + " " + val.id} >{val.costumer}</option>    
                                                             )
                                                         }
                                                     </select>
@@ -389,6 +437,11 @@ class CatatTransaksi extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    : 
+                                    <div className="section-catat-transaksi">
+                                    </div>
+                                    }
+                                    { this.state.kategori === "penjualan" || this.state.kategori === "pendapatan" || this.state.kategori === "bahanbaku" ?
                                     <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
@@ -402,111 +455,338 @@ class CatatTransaksi extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="container-aset">
-                                    <div className="section-catat-transaksi flex-3">
+                                    : null }
+
+                                    { this.state.kategori === "peralatan" || this.state.kategori === "kendaraan" || this.state.kategori === "properti" ?
+                                    <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
                                                 <span className="input-group-addon">
-                                                    <i className="circle-icon icon-ranks"></i>
+                                                    <i className="circle-icon icon-edit"></i>
                                                 </span>
                                                 <div className="form-input">
-                                                    <label className="form-label">Jumlah Unit</label>
-                                                    <input className="form-control" onChange={(e)=> this.handleData("jumlah" , e.currentTarget.value)} />
+                                                    <label className="form-label">Keterangan</label>
+                                                    <input className="form-control" onChange={(e)=> this.handleData(this.state.kategori , e.currentTarget.value)}/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="section-catat-transaksi flex-3">
-                                        <div className="form-group">
+                                    : null }
+
+                                    { !this.state.kategori ?
+                                    <div className="section-catat-transaksi">
+                                        
+                                    </div>
+                                    : null }
+
+                                    { this.state.kategori === "utang" || this.state.kategori === "modal" || this.state.kategori === "piutang" || this.state.kategori === "dividen" ?
+                                    <div className="section-catat-transaksi">
+                                        { this.state.kategori === "piutang" || (this.state.method === "uangkeluar" && this.state.kategori === "utang") ?
+                                         <div className="form-group">
                                             <div className="input-group">
                                                 <span className="input-group-addon">
-                                                    <i className="circle-icon icon-copy"></i>
+                                                    <i className="circle-icon icon-edit"></i>
                                                 </span>
                                                 <div className="form-input">
-                                                    <label className="form-label">Satuan</label>
-                                                    <select onChange={(e)=> this.handleData("satuan" , e.currentTarget.value)} className="form-control" data-live-search="true">
+                                                    <label className="form-label">Kode Transaksi</label>
+                                                    <select onChange={(e)=> this.setState({sisaPiutang: e.currentTarget.id} ,this.handleData("kode_transaksi" , e.currentTarget.value.substr(1)))} className="form-control">
                                                     <option>--</option>
                                                         {
-                                                            this.state.listSatuan && this.state.listSatuan.map(val=>
-                                                                <option>{val.satuan}</option>    
+                                                           this.state.listKode && this.state.listKode.map(val=>
+                                                                <option>{val.kode_transaksi}</option>    
                                                             )
                                                         }
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div className="section-catat-transaksi flex-3">
+                                        </div> : null }
                                         <div className="form-group">
                                             <div className="input-group">
                                                 <span className="input-group-addon">
-                                                    <i className="circle-icon icon-windows"></i>
+                                                    <i className="circle-icon icon-edit"></i>
                                                 </span>
                                                 <div className="form-input">
-                                                    <label className="form-label">Harga Satuan</label>
-                                                    <input className="form-control" onChange={(e)=> this.handleData("harga" , e.currentTarget.value)}/>
+                                                    <label className="form-label">Keterangan</label>
+                                                    <input className="form-control" readOnly/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="section-catat-transaksi flex-3">
-                                        <div className="form-group">
-                                            <div className="input-group">
-                                                <div className="input-total">
-                                                    <label className="form-label">Total</label>
-                                                </div>
-                                                <input className="form-control input-danger" value={"Rp " + (this.state.data.jumlah * this.state.data.harga)} readonly />
-                                            </div>
-                                        </div>
-                                    </div>
+                                    : null }
                                 </div>
-                                <div className="container-aset">
-                                    <div className="section-catat-transaksi">
-                                        <div className="form-group">
-                                            <div className="input-group">
-                                                <span className="input-group-addon">
-                                                    <i className="circle-icon icon-windows"></i>
-                                                </span>
-                                                <div className="form-input">
-                                                    <label className="form-label">Cara Bayar</label>
-                                                    <select onChange={(e)=> this.handleData("carabayar" , e.currentTarget.value)} className="form-control">
+                                {/* {SECTION NEED PENJUALAN} */}
+                                
+                                { this.state.kategori === "penjualan" || this.state.kategori === "pendapatan" || this.state.kategori === "bahanbaku" ?
+                                 <div>
+                                    <div className="container-aset">
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-ranks"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Jumlah Unit</label>
+                                                        <input className="form-control" onChange={(e)=> this.handleData("jumlah" , e.currentTarget.value)} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-copy"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Satuan</label>
+                                                        <select onChange={(e)=> this.handleData("satuan" , e.currentTarget.value)} className="form-control" data-live-search="true">
                                                         <option>--</option>
-                                                        <option>Pembayaran Penuh</option>
-                                                        <option>Pembayaran Sebagian</option>
-                                                    </select>
+                                                            {
+                                                                this.state.listSatuan && this.state.listSatuan.map(val=>
+                                                                    <option>{val.satuan}</option>    
+                                                                )
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-windows"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Harga Satuan</label>
+                                                        <input className="form-control" onChange={(e)=> this.handleData("harga" , e.currentTarget.value)}/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <div className="input-total">
+                                                        <label className="form-label">Total</label>
+                                                    </div>
+                                                    <input className="form-control input-danger" value={"Rp " + (this.state.data.jumlah * this.state.data.harga)} readonly />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="section-catat-transaksi">
-                                        <div className="form-group">
-                                            <div className="input-group">
-                                                <span className="input-group-addon">
-                                                    <i className="circle-icon icon-windows"></i>
-                                                </span>
-                                                <div className="form-input">
-                                                    <label className="form-label">Uang Muka</label>
-                                                    <input className="form-control" onChange={(e)=> this.handleData("uangmuka" , e.currentTarget.value)}/>
+                                    <div className="container-aset">
+                                        <div className="section-catat-transaksi">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-windows"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Cara Bayar</label>
+                                                        <select onChange={(e)=> this.handleData("carabayar" , e.currentTarget.value)} className="form-control">
+                                                            <option>--</option>
+                                                            <option>Pembayaran Penuh</option>
+                                                            <option>Pembayaran Sebagian</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="section-catat-transaksi">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-windows"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Uang Muka</label>
+                                                        <input className="form-control" onChange={(e)=> this.handleData("uangmuka" , e.currentTarget.value)}/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                        <div className="section-catat-transaksi">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-bills"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Nomor Bukti Transaksi</label>
+                                                        <input className="form-control" onChange={(e)=> this.handleData("nomorbukti" , e.currentTarget.value)}/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="section-catat-transaksi">
-                                        <div className="form-group">
-                                            <div className="input-group">
-                                                <span className="input-group-addon">
-                                                    <i className="circle-icon icon-bills"></i>
-                                                </span>
-                                                <div className="form-input">
-                                                    <label className="form-label">Nomor Bukti Transaksi</label>
-                                                    <input className="form-control" onChange={(e)=> this.handleData("nomorbukti" , e.currentTarget.value)}/>
+                                </div> : null }
+
+                                {/* {SECTION PROPTERTI DLL} */}
+
+                                { this.state.kategori === "peralatan" || this.state.kategori === "kendaraan" || this.state.kategori === "properti" ?
+                                <div>
+                                    <div className="container-aset">
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-ranks"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Jumlah Unit</label>
+                                                        <input className="form-control" onChange={(e)=> this.handleData("jumlah" , e.currentTarget.value)} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-copy"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Satuan</label>
+                                                        <select onChange={(e)=> this.handleData("satuan" , e.currentTarget.value)} className="form-control" data-live-search="true">
+                                                        <option>--</option>
+                                                            {
+                                                                this.state.listSatuan && this.state.listSatuan.map(val=>
+                                                                    <option>{val.satuan}</option>    
+                                                                )
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-windows"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Harga Satuan</label>
+                                                        <input className="form-control" onChange={(e)=> this.handleData("harga" , e.currentTarget.value)}/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <div className="input-total">
+                                                        <label className="form-label">Total</label>
+                                                    </div>
+                                                    <input className="form-control input-danger" value={"Rp " + (this.state.data.jumlah * this.state.data.harga)} readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="container-aset">
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-windows"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Jenis Transaksi</label>
+                                                        <select onChange={(e)=> this.handleData("status" , e.currentTarget.value)} className="form-control">
+                                                            <option>--</option>
+                                                            <option>Sewa</option>
+                                                            <option>Beli</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-copy"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Masa Pakai (Bulan)</label>
+                                                        <input type="number" className="form-control" onChange={(e)=> this.handleData("masapakai" , e.currentTarget.value)} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-windows"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Cara Bayar</label>
+                                                        <select onChange={(e)=> this.handleData("carabayar" , e.currentTarget.value)} className="form-control">
+                                                            <option>--</option>
+                                                            <option>Pembayaran Penuh</option>
+                                                            <option>Pembayaran Sebagian</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-windows"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Uang Muka</label>
+                                                        <input className="form-control" onChange={(e)=> this.handleData("uangmuka" , e.currentTarget.value)}/>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="container-aset">
+                                : null }
+
+                                {/* {SECTION UTANG DLL} */}
+                                { this.state.kategori === "utang" || this.state.kategori === "modal" || this.state.kategori === "piutang" || this.state.kategori === "dividen" ?
+                                <div>
+                                    <div className="container-aset">
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-ranks"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Nominal</label>
+                                                        <input className="form-control" onChange={(e)=> this.handleData("nominal" , e.currentTarget.value)} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="section-catat-transaksi flex-3">
+                                            <div className="form-group">
+                                                <div className="input-group">
+                                                    <span className="input-group-addon">
+                                                        <i className="circle-icon icon-windows"></i>
+                                                    </span>
+                                                    <div className="form-input">
+                                                        <label className="form-label">Nomor Bukti Transaksi</label>
+                                                        <input className="form-control" onChange={(e)=> this.handleData("nomorbukti" , e.currentTarget.value)}/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="section-catat-transaksi flex-3">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                : null }
+                                { this.state.kategori && <div className="container-aset">
                                     <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
@@ -521,12 +801,23 @@ class CatatTransaksi extends Component {
                                         </div>
                                     </div>
                                     <div className="section-catat-transaksi">
-
+                                        { this.state.kategori === "peralatan" || this.state.kategori === "kendaraan" || this.state.kategori === "properti" ?
+                                         <div className="form-group">
+                                            <div className="input-group">
+                                                <span className="input-group-addon">
+                                                    <i className="circle-icon icon-windows"></i>
+                                                </span>
+                                                <div className="form-input">
+                                                    <label className="form-label">Nomor Bukti Transaksi</label>
+                                                    <input className="form-control" onChange={(e)=> this.handleData("nomorbukti" , e.currentTarget.value)}/>
+                                                </div>
+                                            </div>
+                                        </div> : null}
                                     </div>
                                     <div className="section-catat-transaksi">
 
                                     </div>
-                                </div>
+                                </div>}
                                 <hr />
                                 <div className="btn-group-catat-transaksi">
                                     <div className="container-btn-catat-transaksi">

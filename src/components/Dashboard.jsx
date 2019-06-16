@@ -69,7 +69,7 @@ class Dashboard extends Component {
                                   <tr>
                                       <td><i id={list.jenis === "Uang Masuk" ? "uangmasuk" + index : "uangkeluar" + index} className={list.jenis === "Uang Masuk" ? "circle-icon icon-arrow_down icon-primary" : "circle-icon icon-arrow_up icon-custom" }></i></td>
                                       <td><b>Rp {parseInt(list.nominal).toLocaleString("id")}</b> -- {new Date(list.date).toLocaleDateString('id', {day: 'numeric', month: 'short', year: 'numeric'})}</td>
-                                      <td>Penjualan Shift Pagi</td>
+                                      <td>{list.kegiatan}</td>{console.log(list)}
                                         <UncontrolledTooltip placement="right" target={list.jenis === "Uang Masuk" ? "uangmasuk" + index : "uangkeluar" + index}>
                                             {list.jenis === "Uang Masuk" ? "Uang Masuk" : "Uang Keluar"}
                                         </UncontrolledTooltip>
