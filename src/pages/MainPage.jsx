@@ -29,12 +29,12 @@ class MainPage extends Component {
         this.getKas();
     }
 
-    // componentWillMount(){
-    //     const user  = JSON.parse(localStorage.getItem('__chatat_user__'));
-    //     if(!user.nama_usaha){
-    //         this.props.history.replace('/setting-usaha');
-    //     }
-    // }
+    componentWillMount(){
+        const user  = JSON.parse(localStorage.getItem('__chatat_user__'));
+        if(!user.nama_usaha){
+            this.props.history.replace('/setting-usaha');
+        }
+    }
     
     getKas = () => {
         const token = window.localStorage.getItem("__chatat_token__")

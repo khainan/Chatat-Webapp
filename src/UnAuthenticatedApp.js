@@ -6,20 +6,20 @@ import LoginPage from './pages/LoginPage';
 import ResetPassword from './pages/ResetPassword';
 import RegisterPage from './pages/RegisterPage';
 
-const PublicRoute = ({ component: Component, ...rest }) => (
-	<Route {...rest} render={(props) => (
-		<Component {...props} />
-	)} />
-  )
+function UnAuthenticatedApp({onNotify}) {
 
-function UnAuthenticatedApp(props) {
-
+  const PublicRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+      <Component {...props} onNotify={onNotify} />
+    )} />
+    )
+  
   return (
     <Router>
       <Switch>
-            <PublicRoute exact path="/" component={() => <LoginPage onNotify={props.onNotify}/>} />
-            <PublicRoute path="/reset-password" component={() => <ResetPassword onNotify={props.onNotify}/>}/>
-            <PublicRoute path="/register" component={() => <RegisterPage onNotify={props.onNotify}/>}/>
+            <PublicRoute exact path="/" component={LoginPage} />
+            <PublicRoute path="/reset-password" component={ResetPassword}/>
+            <PublicRoute path="/register" component={RegisterPage}/>
       </Switch>
     </Router>
   );

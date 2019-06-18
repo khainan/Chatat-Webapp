@@ -2,11 +2,37 @@ import React, { Component } from "react";
 import axios from 'axios';
 
 class SettingUsaha extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-           
-        };
+    state = {
+        namaUsaha: '',
+        jenisUsaha: '',
+        kota: ''
+    };
+
+
+    submitUsaha = (e) => {
+        e.preventDefault()
+        const {namaUsaha, jenisUsaha, kota} = this.state;
+
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+        
+        const data = {
+                "nama_usaha":  namaUsaha,
+                "jenis_usaha": jenisUsaha,
+                "kota":	  kota
+        }
+
+        axios({
+            method: "PATCH",
+            url: `https://azaradigital.com/_devservice/sysFront/costumerprofile/updatenamausaha`,
+            data,
+            headers
+        }).then(response =>  {
+            response.data.message && this.props.onNotify("success", response.data.message);
+            this.props.history.replace("/");
+        })
+        .catch(error => error.response.data.message && this.props.onNotify("success", error.response.data.message));
+        
     }
 
     
@@ -30,7 +56,7 @@ class SettingUsaha extends Component {
         <div className="main-login-content">
             <div className="content">
                 <div className="content-inner">
-                    <form action="index.html">
+                    <form>
                         <div className="main-title">
                             <h4 className="title">Data<br/>perusahaan</h4>
                         </div>
@@ -42,7 +68,7 @@ class SettingUsaha extends Component {
                                     </span>
                                     <div className="form-input">
                                         <label className="form-label">Nama usaha</label>
-                                        <input className="form-control"/>
+                                        <input className="form-control" onChange={(e) => this.setState({namaUsaha: e.target.value})}/>
                                     </div>
                                 </div>
                             </div>
@@ -53,33 +79,12 @@ class SettingUsaha extends Component {
                                     </span>
                                     <div className="form-input">
                                         <label className="form-label">Jenis usaha</label>
-                                        <select className="form-control">
+                                        <select className="form-control" onChange={(e) => this.setState({jenisUsaha: e.target.value.toLowerCase()})}>
                                             <option>--</option>
                                             <option>Ritel</option>
-                                            <option>Pedagang</option>
+                                            <option>Jasa</option>
+                                            <option>Produksi</option>
                                         </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <div className="input-group">
-                                    <span className="input-group-addon">
-                                        <i className="circle-icon icon-configure"></i>
-                                    </span>
-                                    <div className="form-input">
-                                        <label className="form-label">Jasa</label>
-                                        <input className="form-control"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="form-group">
-                                <div className="input-group">
-                                    <span className="input-group-addon">
-                                        <i className="circle-icon icon-components"></i>
-                                    </span>
-                                    <div className="form-input">
-                                        <label className="form-label">Produksi</label>
-                                        <input className="form-control"/>
                                     </div>
                                 </div>
                             </div>
@@ -90,13 +95,13 @@ class SettingUsaha extends Component {
                                     </span>
                                     <div className="form-input">
                                         <label className="form-label">lokasi usaha</label>
-                                        <input className="form-control"/>
+                                        <input className="form-control" onChange={(e) => this.setState({kota: e.target.value})}/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="login-content-submit">
-                            <button className="btn btn-block btn-primary" type="submit">Simpan data</button>
+                            <button className="btn btn-block btn-primary" type="submit" onClick={this.submitUsaha}>Simpan data</button>
                         </div>
                     </form>
                 </div>

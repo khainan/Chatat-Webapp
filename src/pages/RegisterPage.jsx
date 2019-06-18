@@ -4,7 +4,6 @@ import {useAuth} from '../context/auth-context'
 import useCallbackStatus from '../utils/use-callback-status'
 
 function RegisterPage (props) {
-    console.log("props", props)
     const {register} = useAuth();
     const {isPending, isRejected, message, status, run} = useCallbackStatus();
     function handleSubmit(event) {
