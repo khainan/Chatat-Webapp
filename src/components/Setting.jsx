@@ -100,32 +100,8 @@ class Setting extends Component {
                                                 <i className="circle-icon icon-configure"></i>
                                             </span>
                                             <div className="form-input">
-                                                <label className="form-label">Jasa</label>
-                                                <input className="form-control" readonly/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-4 col-md-4">
-                                    <div className="form-group">
-                                        <div className="input-group">
-                                            <span className="input-group-addon">
-                                                <i className="circle-icon icon-components"></i>
-                                            </span>
-                                            <div className="form-input">
-                                                <label className="form-label">Produksi</label>
-                                                <input className="form-control" readonly/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <div className="input-group">
-                                            <span className="input-group-addon">
-                                                <i className="circle-icon icon-home"></i>
-                                            </span>
-                                            <div className="form-input">
-                                                <label className="form-label">lokasi usaha</label>
-                                                <input className="form-control" readonly/>
+                                                <label className="form-label">Lokasi Usaha</label>
+                                                <input className="form-control" value={this.props.user.lokasi_usaha} readonly/>
                                             </div>
                                         </div>
                                     </div>

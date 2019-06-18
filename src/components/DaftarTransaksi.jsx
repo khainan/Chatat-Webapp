@@ -8,7 +8,9 @@ class DaftarTransaksi extends Component {
             listTransaksi: [],
             totalPage: 0,
             perPage:0,
-            currentPage: 1
+            currentPage: 1,
+            searchTransaksi: "",
+            kategori:""
         };
     
         componentDidMount(){
@@ -23,7 +25,8 @@ class DaftarTransaksi extends Component {
             
             const data = {
                 "search": {
-                    "tanggal":""
+                    "tanggal":this.state.searchTransaksi,
+                    "kategori":this.state.kategori
                 },
                 "order": {
                     "tanggal": "ASC"
@@ -55,20 +58,20 @@ class DaftarTransaksi extends Component {
                         <div className="list-action">
                             <div className="list-action-item search-input">
                                 <i className="input-icon icon-search"></i>
-                                <input className="form-control input-sm" placeholder="Cari transaksi.."/>
+                                <input className="form-control input-sm" onChange={(e)=> this.setState({searchTransaksi: e.currentTarget.value}, ()=> this.getListTransaksi())} placeholder="Cari transaksi.."/>
                             </div>
                             <div className="list-action-item">
-                                <select className="form-control input-sm">
-                                    <option data-hidden="true">Pilih Kategori</option>
+                                <select onChange={(e)=> this.setState({kategori: e.currentTarget.value}, ()=> this.getListTransaksi())} className="form-control input-sm">
+                                    <option value="" data-hidden="true">Pilih Kategori</option>
                                     <option>Penjualan</option>
                                     <option>Utang</option>
-                                    <option>Terima Utang</option>
+                                    <option>Biaya</option>
                                     <option>Modal</option>
                                     <option>Lainnya</option>
                                 </select>
                             </div>
                             <div className="list-action-item">
-                                <a className="btn btn-sm btn-primary" href="#!">Create</a>
+                                <a className="btn btn-sm btn-primary btn-create">Create</a>
                             </div>
                         </div>
                     </div>
@@ -114,21 +117,21 @@ class DaftarTransaksi extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <nav className="pagination-nav">
+                    { this.state.totalPage > 1 && <nav className="pagination-nav">
                         <div className="pagination-button">
-                            <a className="pagination-control disabled icon-arrow_backward_2" href="#!"></a>
+                            <a className="pagination-control disabled icon-arrow_backward_2"></a>
                             <ul className="pagination">
-                                <li className="active"><a href="#!">1</a></li>
-                                <li><a href="#!">2</a></li>
-                                <li><a href="#!">3</a></li>
-                                <li className="pagination-disabled"><a href="#!">...</a></li>
-                                <li><a href="#!">50</a></li>
-                                <li><a href="#!">51</a></li>
+                                <li className="active"><a>1</a></li>
+                                <li><a>2</a></li>
+                                <li><a>3</a></li>
+                                <li className="pagination-disabled"><a>...</a></li>
+                                <li><a>50</a></li>
+                                <li><a>51</a></li>
                             </ul>
-                            <a className="pagination-control icon-arrow_forward_2" href="#!"></a>
+                            <a className="pagination-control icon-arrow_forward_2"></a>
                         </div>
-                        <span className="pagination-info">Page 1 of 55</span>
-                    </nav>
+                        <span className="pagination-info">Page 1 of {this.state.totalPage}</span>
+                    </nav> }
                 </div>
             </section>
         </section>

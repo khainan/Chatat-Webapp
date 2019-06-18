@@ -80,7 +80,7 @@ class MainPage extends Component {
 
         return (
         <main id="main">
-
+        <Loading/>
         { isModalShow && page === "/" &&
             <Modal 
                 showModal={() => this.showModal()}
@@ -202,7 +202,8 @@ class MainPage extends Component {
                 {
                 page === "/aset" &&
                 <Aset 
-                    
+                    history={this.props.history}
+                    onNotify={this.props.onNotify}  
                 />
                 }
 
