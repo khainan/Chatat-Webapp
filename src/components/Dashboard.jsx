@@ -50,7 +50,6 @@ class Dashboard extends Component {
         const {listKeuangan, ready} = this.state;
         return (
             <div>
-            { ready ?
             <section className="section-body">
                 <div className="container">
                     <div className="list-header">
@@ -68,6 +67,7 @@ class Dashboard extends Component {
                             </div>
                         </div>
                     </div>
+                    {listKeuangan[0] ?
                     <div className="table-responsive table-wrapper">
                         <table className="table">
                             <tbody>
@@ -84,6 +84,9 @@ class Dashboard extends Component {
                             </tbody>
                         </table>
                     </div>
+                    :
+                    <EmptyState/> 
+                    }
                     { this.state.totalPage > 1 && <nav className="pagination-nav">
                         <div className="pagination-button">
                             <a className="pagination-control disabled icon-arrow_backward_2"></a>
@@ -101,9 +104,6 @@ class Dashboard extends Component {
                     </nav>}
                 </div>
             </section>
-            :
-            <EmptyState/>
-            }
             </div>
         );
     }

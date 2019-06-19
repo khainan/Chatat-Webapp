@@ -50,7 +50,6 @@ class DaftarTransaksi extends Component {
 
         return (
             <div>
-                { ready ?
                 <main id="main">
 
                     <section className="main-pages">
@@ -78,6 +77,7 @@ class DaftarTransaksi extends Component {
                                             </div>
                                         </div>
                                     </div>
+                                    { listTransaksi[0] ?
                                     <div className="table-responsive table-wrapper">
                                         <table className="table table-hover">
                                             <thead>
@@ -121,6 +121,9 @@ class DaftarTransaksi extends Component {
                                             </tbody>
                                         </table>
                                     </div>
+                                    :
+                                    <EmptyState/>
+                                    }
                                     {this.state.totalPage > 1 && <nav className="pagination-nav">
                                         <div className="pagination-button">
                                             <a className="pagination-control disabled icon-arrow_backward_2"></a>
@@ -143,9 +146,6 @@ class DaftarTransaksi extends Component {
                     </section>
 
                 </main>
-                :
-                <EmptyState/>
-                }
             </div>
         );
     }
