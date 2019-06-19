@@ -10,7 +10,6 @@ import UtangLain from './UtangLain';
 import UtangJangkaPanjang from './UtangJangkaPanjang';
 import ModalUtang from './ModalUtang';
 import Loading from '../Loading';
-import axios from 'axios';
 
 class Aset extends Component {
     constructor(props) {
