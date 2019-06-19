@@ -141,7 +141,7 @@ class MainPage extends Component {
                             </ul>
                             <div className="menu-user menu-icon dropdown">
                                 <div className="menu-user-img">
-                                    <div className="thumb">
+                                    <div className="profile-picture">
                                         <img src={user.foto}/>
                                     </div>
                                 </div>

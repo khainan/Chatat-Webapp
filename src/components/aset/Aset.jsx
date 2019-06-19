@@ -31,7 +31,7 @@ class Aset extends Component {
         this.handleNext = this.handleNext.bind(this);
         this.handleSetData = this.handleSetData.bind(this);
         this.save = this.save.bind(this);
-        this.handleSave = this.handleSave.bind(this);
+        this.handleTanggal = this.handleTanggal.bind(this);
     }
 
     save(e){
@@ -45,7 +45,6 @@ class Aset extends Component {
         
 
         let url =  'https://azaradigital.com/_devservice/sysFront/'
-        console.log("page", page);
         switch(page) {
 
             case 1:
@@ -179,49 +178,35 @@ class Aset extends Component {
         }
     }
 
-    handleSave(){
+    handleTanggal = () => {
         let page = this.state.page;
-        let data = {};
-        let kategori = "";
         let today = new Date();
 
         let formatedMonth = today.getMonth() < 10 ? '0' + (today.getMonth() + 1) : today.getMonth();
 
         let date = today.getFullYear() + '-' + formatedMonth + '-' + today.getDate();
         let tanggal = {
-            "tanggal": date
+            "tanggal": date.toString()
         }
+
+        let data = tanggal
 
         const token = window.localStorage.getItem("__chatat_token__")
         const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
         
-        if(page === 1){
-            data = this.state.dataKas;
-            kategori = "peralatan"
-        }
 
         console.log(tanggal)
 
         axios({
             method: "PATCH",
             url: `https://azaradigital.com/_devservice/sysFront/asset/inputdate`,
-            tanggal,
+            data,
             headers
           })
-        
-        // axios({
-        //     method: "PATCH",
-        //     url: `https://azaradigital.com/_devservice/sysFront/asset/input${kategori}`,
-        //     data,
-        //     headers
-        //   })
-        //   .then( r =>
-        //     this.setState({message:r.data.message, type:"success"})
-        //   )
-        //   .catch(r => 
-        //     this.setState({message:r.response.data.message[Object.keys(r.response.data.messag )[0]][0], type:"error"}
-        //     ,()=>this.props.onNotify(this.state.type, this.state.message))
-        // )
+    }
+
+    componentWillMount = () =>{
+        this.handleTanggal();
     }
 
     render() {
