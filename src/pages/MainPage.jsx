@@ -74,9 +74,18 @@ class MainPage extends Component {
         var options = { year: 'numeric', month: 'long', day: 'numeric' };
 
         let today = new Date();
-        let date = today.toLocaleDateString('id', options)
-        
+        let date = today.toLocaleDateString('id', options)    
         let page = this.props.match.path;
+        let kas = [];    
+        let totalKas = 0 ;
+
+        this.state.kas && Object.keys(this.state.kas).map(val=> kas.push(this.state.kas[val]))
+        
+        kas && kas.forEach(val => {
+            totalKas = totalKas + val
+        });
+
+        console.log(user.notifikasi_asset);
 
         return (
         <main id="main">
@@ -184,7 +193,7 @@ class MainPage extends Component {
                             <div className="cash-in text-right">
                                 <div className="cash-in-label">
                                     <span className="text-label">Sisa Kas</span>
-                                    <div className="cash-in-value">Rp {this.state.kas.toLocaleString('id')}</div>
+                                    <div className="cash-in-value">Rp {totalKas.toLocaleString('id')}</div>
                                 </div>
                                 <div className="cash-in-icon">
                                     <a className="btn btn-circle btn-primary btn-sm"><i className="icon-email"></i></a>

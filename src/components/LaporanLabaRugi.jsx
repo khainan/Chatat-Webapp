@@ -1,15 +1,42 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 class LaporanLabaRugi extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            dataLaba:null
         };
 
     }
+
+    componentDidMount(){
+        this.getListData();
+    }
+    
+    getListData = () => {
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+        
+        const data = {
+            "tanggal":""
+        }
+
+          axios({
+            method: "post",
+            url: `https://azaradigital.com/_devservice/sysFront/report/labarugi`,
+            data,
+            headers
+          }).then(r => this.setState({dataLaba :r.data}));
+    }
+    
     render() {
-        return (
+
+        let dataLaba = this.state.dataLaba;
+
+        console.log(dataLaba);
+
+        return dataLaba && (
         <div>
         <main id="main">
         <section className="container-laporan">
@@ -19,36 +46,27 @@ class LaporanLabaRugi extends Component {
                         <div className="flex-6">
                             <div className="panel panel-border">
                                 <div className="panel-heading">
-                                    <h5 className="panel-title">Aktifitas Operasional</h5>
+                                    <h5 className="panel-title">Biaya</h5>
                                 </div>
                                 <div className="panel-body">
                                     <div className="table-responsive table-wrapper">
                                         <table className="table list-table table-sm">
                                             <tbody>
+                                            { Object.keys(dataLaba.biaya.biaya.data).map(val =>
                                             <tr>
-                                                <td>Penjualan</td>
-                                                <td><b>300,000,000</b></td>
+                                                <td>{val}</td>
+                                                <td><b>{dataLaba.biaya.biaya.data[val]}</b></td>
                                             </tr>
+                                            )}
+                                            { Object.keys(dataLaba.biaya.depresiasi).map(val =>
                                             <tr>
-                                                <td>Retus Pembelian Barang Dagang</td>
-                                                <td><b>50,000,000</b></td>
+                                                <td>{val}</td>
+                                                <td><b>{dataLaba.biaya.depresiasi[val].total}</b></td>
                                             </tr>
+                                            )}
                                             <tr>
-                                                <td>Pembelian Persediaan Barang</td>
-                                                <td><b>100,000,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total Biaya & Beban</td>
-                                                <td><b>102,000,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Pembayaran Pajak Usaha</td>
-                                                <td><b>10,000,000</b></td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td><b>Arus Kas untuk Aktifitas Opersional</b></td>
-                                                <td><b className="fs14 text-primary">138,000,000</b></td>
+                                                <td><b>Total Biaya</b></td>
+                                                <td><b className="fs14 text-primary">{dataLaba.biaya.totalBiaya}</b></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -57,26 +75,29 @@ class LaporanLabaRugi extends Component {
                             </div>
                             <div className="panel panel-border">
                                 <div className="panel-heading">
-                                    <h5 className="panel-title">Aktifitas Investasi</h5>
+                                    <h5 className="panel-title">Laba Kotor</h5>
                                 </div>
                                 <div className="panel-body">
                                     <div className="table-responsive table-wrapper">
                                         <table className="table list-table table-sm">
                                             <tbody>
+                                            { Object.keys(dataLaba.labakotor.pendapatan.data).map(val =>
                                             <tr>
-                                                <td>Pembelian Mesin Baru</td>
-                                                <td><b>15,000,000</b></td>
+                                                <td>{val}</td>
+                                                <td><b>{dataLaba.labakotor.pendapatan.data[val]}</b></td>
+                                            </tr>
+                                            )}                
+                                            <tr>
+                                                <td><b>Total Pendapatan</b></td>
+                                                <td><b className="fs14 text-primary">{dataLaba.labakotor.pendapatan.total}</b></td>
                                             </tr>
                                             <tr>
-                                                <td>Penyewaan Kendaraan Operasional akuisisi</td>
-                                                <td><b>13,000,000</b></td>
+                                                <td><b>Total HPP</b></td>
+                                                <td><b className="fs14 text-primary">{dataLaba.labakotor.hpp.total}</b></td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2"><i className="icon-minus"></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Kas untuk Aktifitas Investasi</b></td>
-                                                <td><b className="fs14 text-primary">2,000,000</b></td>
+                                                <td><b>Total Laba Kotor</b></td>
+                                                <td><b className="fs14 text-primary">{dataLaba.labakotor.totalLabaKotor}</b></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -87,33 +108,22 @@ class LaporanLabaRugi extends Component {
                         <div className="flex-6">
                             <div className="panel panel-border">
                                 <div className="panel-heading">
-                                    <h5 className="panel-title">Aktifitas Pendanaan</h5>
+                                    <h5 className="panel-title">Laba Bersih</h5>
                                 </div>
                                 <div className="panel-body">
                                     <div className="table-responsive table-wrapper">
                                         <table className="table list-table table-sm">
                                             <tbody>
                                             <tr>
-                                                <td>Pembelian Mesin Baru</td>
-                                                <td><b>15,000,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Penyewaan Kendaraan Operasional akuisisi</td>
-                                                <td><b>13,000,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2"><i className="icon-minus"></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Kas untuk Aktifitas Investasi</b></td>
-                                                <td><b className="fs14 text-primary">2,000,000</b></td>
+                                                <td><b>Total Laba Bersih</b></td>
+                                                <td><b className="fs14 text-primary">{dataLaba.lababersih}</b></td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                            <div className="panel panel-border">
+                            {/* <div className="panel panel-border">
                                 <div className="panel-heading">
                                     <h5 className="panel-title">Kenaikan Kas</h5>
                                 </div>
@@ -140,7 +150,7 @@ class LaporanLabaRugi extends Component {
                                         </table>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <hr/>
