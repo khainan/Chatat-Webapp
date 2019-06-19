@@ -22,18 +22,43 @@ class MainPage extends Component {
 
     state = {
         isModalShow: false,
-        kas: 0
+        kas: 0,
+        userInfo:null
     }
 
-     componentDidMount(){
-        this.getKas();
+    componentDidMount(){
+        this.getKas();  
     }
 
     componentWillMount(){
-        const user  = JSON.parse(localStorage.getItem('__chatat_user__'));
-        if(!user.nama_usaha){
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+        
+          axios({
+            method: "post",
+            url: `https://azaradigital.com/_devservice/sysFront/costumer/loginbyhash`,
+            data: {"hash": token},
+            headers
+          }).then(r => {
+              this.setState({
+                  userInfo : r.data.data
+              },()=>this.settingUsaha())
+          });
+    }
+
+    handleModal = () => {
+        if(!this.state.userInfo.notifikasi_asset){
+            this.setState({
+                isModalShow:true
+            })
+        }
+    }
+
+    settingUsaha =() => {
+        if(!this.state.userInfo.nama_usaha){
             this.props.history.replace('/setting-usaha');
         }
+        this.handleModal();
     }
     
     getKas = () => {
@@ -67,10 +92,9 @@ class MainPage extends Component {
     }
 
     render() {
-
         const user  = JSON.parse(localStorage.getItem('__chatat_user__'));
         const {isModalShow} = this.state;
-
+        
         var options = { year: 'numeric', month: 'long', day: 'numeric' };
 
         let today = new Date();
@@ -78,14 +102,11 @@ class MainPage extends Component {
         let page = this.props.match.path;
         let kas = [];    
         let totalKas = 0 ;
-
         this.state.kas && Object.keys(this.state.kas).map(val=> kas.push(this.state.kas[val]))
         
         kas && kas.forEach(val => {
             totalKas = totalKas + val
         });
-
-        console.log(user.notifikasi_asset);
 
         return (
         <main id="main">
@@ -94,6 +115,7 @@ class MainPage extends Component {
             <Modal 
                 showModal={() => this.showModal()}
                 closeModal={() => this.showModal()}
+                modal={()=> this.state.isModalShow}
                 goToAset={() => this.props.history.replace('/aset')}
             />
         }
@@ -120,7 +142,7 @@ class MainPage extends Component {
                             <div className="menu-user menu-icon dropdown">
                                 <div className="menu-user-img">
                                     <div className="thumb">
-                                        <img src="../assets/images/user.jpg"/>
+                                        <img src={user.foto}/>
                                     </div>
                                 </div>
                                 <div className="dropdown-hover">
@@ -187,7 +209,7 @@ class MainPage extends Component {
                         <div className="section-title">
                             <div className="page-title">
                                 <div className="main-title">
-                                    <h4 className="title">Ayo, kamu belum catat keuanganmu hari ini</h4>
+                                    <h4 className="title">{page === '/' ? "Ayo, kamu belum catat keuanganmu hari ini" : page.replace("/", "").replace("-", " ")}</h4>
                                 </div>
                             </div>
                             <div className="cash-in text-right">
