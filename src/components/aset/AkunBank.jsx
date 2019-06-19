@@ -8,7 +8,7 @@ class AkunBank extends Component {
         this.state = {
             dataKas:{
                 kaskecil:null,
-                akunbank:[
+                data:[
                     {
                         bank:null,
                         rekening:null,
@@ -30,7 +30,7 @@ class AkunBank extends Component {
         let dataKas = this.state.dataKas;
         
         if(prefix === "akunbank"){
-            dataKas.akunbank[index][prefix2] = value;
+            dataKas.data[index][prefix2] = value;
             this.setState({
                 dataKas: dataKas
             },()=> this.props.handleSetData("kas" , dataKas) )
@@ -52,7 +52,7 @@ class AkunBank extends Component {
             saldo:null
         }
 
-        dataKas.akunbank.push(data);
+        dataKas.data.push(data);
 
         this.setState({
             dataKas:dataKas
@@ -71,8 +71,8 @@ class AkunBank extends Component {
     deleteData(value){
         let dataKas = this.state.dataKas;
 
-        if(dataKas.akunbank.length > 1){
-            dataKas.akunbank.splice(value, 1);
+        if(dataKas.data.length > 1){
+            dataKas.data.splice(value, 1);
         
             this.setState({
                 dataKas:dataKas
@@ -111,7 +111,7 @@ class AkunBank extends Component {
                         </div>
                     </div>
                 </div>
-                { this.state.ready && this.state.dataKas.akunbank.map((val, index) => 
+                { this.state.ready && this.state.dataKas.data.map((val, index) => 
                     <AkunBankComponent
                         kas={this.state.dataKas.kaskecil}
                         value={val}

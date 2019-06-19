@@ -10,6 +10,7 @@ import UtangLain from './UtangLain';
 import UtangJangkaPanjang from './UtangJangkaPanjang';
 import ModalUtang from './ModalUtang';
 import Loading from '../Loading';
+import axios from 'axios';
 
 class Aset extends Component {
     constructor(props) {
@@ -30,6 +31,49 @@ class Aset extends Component {
         this.handleBack = this.handleBack.bind(this);
         this.handleNext = this.handleNext.bind(this);
         this.handleSetData = this.handleSetData.bind(this);
+        this.save = this.save.bind(this);
+    }
+
+    save(e){
+        
+        e.preventDefault()
+
+        let page = this.state.page;
+        let data;
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+        
+
+        let url =  'https://azaradigital.com/_devservice/sysFront/'
+        console.log("page", page);
+        switch(page) {
+
+            case 1:
+                url += 'asset/inputkas';
+                data = this.state.dataKas;
+                break;
+            
+            case 2:
+                url += 'asset/inputperalatan';
+                data = this.state.dataPeralatan;
+                break;
+
+            case 3:
+                url += 'asset/inputperalatan';
+                data = this.state.dataPeralatan;
+                break;
+        }
+
+        axios({
+            method: "PATCH",
+            url: url,
+            data,
+            headers
+        }).then(response =>  {
+            response.data.message && this.props.onNotify("success", response.data.message);
+            this.props.history.replace("/");
+        })
+        .catch(error => error.response.data.message && this.props.onNotify("error", error.response.data.message));
     }
 
     handleNext(){
@@ -137,7 +181,6 @@ class Aset extends Component {
 
     render() {
         let page = this.state.page;
-
 
         return (
             <div>
@@ -286,7 +329,7 @@ class Aset extends Component {
                                     <button className="btn btn-default group-item" onClick={()=> this.handleBack()} >Kembali</button>
                                     <span className="container-next-save">
                                         <button className="btn btn-default group-item btn-skip" onClick={()=> this.handleNext() } >Lewati</button>
-                                        <button className="btn-save ">Simpan</button>
+                                        <button className="btn-save "  onClick={(e)=>this.save(e)}>Simpan</button>
                                     </span>
                                 </div>
                             </div>

@@ -202,7 +202,7 @@ class MainPage extends Component {
                 {
                 page === "/aset" &&
                 <Aset 
-                    
+                onNotify={this.props.onNotify}
                 />
                 }
 
