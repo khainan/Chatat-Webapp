@@ -2097,6 +2097,18 @@ select.input-sm {
     transform: translateZ(0)
 }
 
+.bahan-baku-terpakai td {
+    text-align: center;
+}
+
+.daftar-transaksi td {
+    text-align: center;
+}
+
+.dashboard td {
+    text-align: center;
+}
+
 .table thead tr th,
 .table tbody tr td {
     transform: translateZ(0);
@@ -2104,7 +2116,7 @@ select.input-sm {
     padding: 18px 20px;
     border-top: none;
     line-height: inherit;
-    vertical-align: middle
+    vertical-align: middle;
 }
 
 .table thead tr th {
@@ -2237,6 +2249,15 @@ select.input-sm {
 
 .row-flex {
     display: flex;
+}
+
+.input-sisa {
+    width: 50px;
+    height: 25px;
+    text-align: center;
+    font-size: 14px;
+    border: solid 1px #6A7387;
+    border-radius: 4px;
 }
 
 .text-white {

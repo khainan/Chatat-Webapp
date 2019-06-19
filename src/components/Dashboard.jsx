@@ -49,7 +49,7 @@ class Dashboard extends Component {
     render() {
         const {listKeuangan, ready} = this.state;
         return (
-            <div>
+            <div className="dashboard">
             <section className="section-body">
                 <div className="container">
                     <div className="list-header">

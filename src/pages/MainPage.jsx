@@ -15,6 +15,7 @@ import {useAuth} from '../context/auth-context'
 import {useUser} from '../context/user-context'
 import axios from 'axios';
 import LaporanLabaRugi from '../components/LaporanLabaRugi';
+import BahanBakuTerpakai from '../components/BahanBakuTerpakai';
 
 
 
@@ -171,6 +172,7 @@ class MainPage extends Component {
                                     <li><a><i className="icon icon-news"></i><span className="label-menu">Utang Piutang</span></a></li>
                                     <li><a><i className="icon icon-components"></i><span className="label-menu">Inventory</span></a></li>
                                     <li><a><i className="icon icon-users_teams"></i><span className="label-menu">Customer/Vendor</span></a></li>
+                                    <li className={page === "/bahan-baku-terpakai" ? "active" : null} onClick={() => this.props.history.replace('/bahan-baku-terpakai')}><a><i className="icon icon-chemistry"></i><span className="label-menu">Bahan Baku Terpakai</span></a></li>
                                 </ul>
                             </div>
                             <div className="menu-item">
@@ -209,7 +211,7 @@ class MainPage extends Component {
                         <div className="section-title">
                             <div className="page-title">
                                 <div className="main-title">
-                                    <h4 className="title">{page === '/' ? "Ayo, kamu belum catat keuanganmu hari ini" : page.replace("/", "").replace("-", " ")}</h4>
+                                    <h4 className="title">{page === '/' ? "Ayo, kamu belum catat keuanganmu hari ini" : page.replace("/", "").replace("-", " ").replace("-"," ")}</h4>
                                 </div>
                             </div>
                             <div className="cash-in text-right">
@@ -241,6 +243,14 @@ class MainPage extends Component {
                 {
                 page === "/catat-transaksi" &&
                 <CatatTransaksi 
+                    history={this.props.history}
+                    onNotify={this.props.onNotify}
+                />
+                }
+
+                {
+                page === "/bahan-baku-terpakai" &&
+                <BahanBakuTerpakai 
                     history={this.props.history}
                     onNotify={this.props.onNotify}
                 />

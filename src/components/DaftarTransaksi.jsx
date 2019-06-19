@@ -49,7 +49,7 @@ class DaftarTransaksi extends Component {
         const { listTransaksi, totalPage, perPage, currentPage, ready } = this.state;
 
         return (
-            <div>
+            <div className="daftar-transaksi">
                 <main id="main">
 
                     <section className="main-pages">
