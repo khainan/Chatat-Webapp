@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import EmptyState from './EmptyState';
 import axios from 'axios';
 
 class LaporanLabaRugi extends Component {
@@ -34,11 +35,9 @@ class LaporanLabaRugi extends Component {
 
         let dataLaba = this.state.dataLaba;
 
-        console.log(dataLaba);
-
-        return dataLaba && (
+        return (
         <div>
-        <main id="main">
+        { dataLaba ? <main id="main">
         <section className="container-laporan">
             <section className="section-body">
                 <div className="container">
@@ -161,7 +160,8 @@ class LaporanLabaRugi extends Component {
                 </div>
             </section>
         </section>
-</main>
+        </main>
+        : <EmptyState/> }
         </div>
         );
     }

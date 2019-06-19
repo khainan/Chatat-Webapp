@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { UncontrolledTooltip } from 'reactstrap';
+import EmptyState from "./EmptyState";
 
 class Dashboard extends Component {
     
@@ -10,7 +11,8 @@ class Dashboard extends Component {
         search: "",
         filter: "",
         totalPage:0,
-        perPage:0
+        perPage:0,
+        ready:false
     };
 
     componentDidMount(){
@@ -41,12 +43,14 @@ class Dashboard extends Component {
             url: `https://azaradigital.com/_devservice/sysFront/logtransaksi/list`,
             data,
             headers
-          }).then(r => this.setState({listKeuangan :r.data.data, totalPage:r.data.totalpage, perPage: r.data.perpage}));
+          }).then(r => this.setState({listKeuangan :r.data.data, totalPage:r.data.totalpage, perPage: r.data.perpage,ready: true}));
     }
     
     render() {
-        const {listKeuangan} = this.state;
+        const {listKeuangan, ready} = this.state;
         return (
+            <div>
+            { ready ?
             <section className="section-body">
                 <div className="container">
                     <div className="list-header">
@@ -97,6 +101,10 @@ class Dashboard extends Component {
                     </nav>}
                 </div>
             </section>
+            :
+            <EmptyState/>
+            }
+            </div>
         );
     }
 }
