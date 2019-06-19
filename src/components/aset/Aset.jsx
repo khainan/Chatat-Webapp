@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import axios from 'axios';
 import AkunBank from './AkunBank';
 import Peralatan from './Peralatan';
 import BahanBaku from './BahanBaku';
@@ -32,6 +32,7 @@ class Aset extends Component {
         this.handleNext = this.handleNext.bind(this);
         this.handleSetData = this.handleSetData.bind(this);
         this.save = this.save.bind(this);
+        this.handleSave = this.handleSave.bind(this);
     }
 
     save(e){
@@ -179,12 +180,55 @@ class Aset extends Component {
         }
     }
 
+    handleSave(){
+        let page = this.state.page;
+        let data = {};
+        let kategori = "";
+        let today = new Date();
+
+        let formatedMonth = today.getMonth() < 10 ? '0' + (today.getMonth() + 1) : today.getMonth();
+
+        let date = today.getFullYear() + '-' + formatedMonth + '-' + today.getDate();
+        let tanggal = {
+            "tanggal": date
+        }
+
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+        
+        if(page === 1){
+            data = this.state.dataKas;
+            kategori = "peralatan"
+        }
+
+        console.log(tanggal)
+
+        axios({
+            method: "PATCH",
+            url: `https://azaradigital.com/_devservice/sysFront/asset/inputdate`,
+            tanggal,
+            headers
+          })
+        
+        // axios({
+        //     method: "PATCH",
+        //     url: `https://azaradigital.com/_devservice/sysFront/asset/input${kategori}`,
+        //     data,
+        //     headers
+        //   })
+        //   .then( r =>
+        //     this.setState({message:r.data.message, type:"success"})
+        //   )
+        //   .catch(r => 
+        //     this.setState({message:r.response.data.message[Object.keys(r.response.data.messag )[0]][0], type:"error"}
+        //     ,()=>this.props.onNotify(this.state.type, this.state.message))
+        // )
+    }
+
     render() {
         let page = this.state.page;
-
         return (
             <div>
-                <Loading/>
                 <main id="main">
                     <section className="main-pages-aset">
                         <section className="section-body-aset">
@@ -248,6 +292,8 @@ class Aset extends Component {
                                         <AkunBank
                                             handleSetData={this.handleSetData}
                                             data={this.state.dataKas}
+                                            history={this.props.history}
+                                            onNotify={this.props.onNotify}
                                         /> 
                                     </div>
                                 }
@@ -258,6 +304,8 @@ class Aset extends Component {
                                             handleSetData={this.handleSetData}
                                             dataKendaraan={this.state.dataKendaraan}
                                             dataPeralatan={this.state.dataPeralatan}
+                                            history={this.props.history}
+                                            onNotify={this.props.onNotify}
                                         /> 
                                     </div>
                                 }
@@ -267,6 +315,8 @@ class Aset extends Component {
                                         <BahanBaku
                                             handleSetData={this.handleSetData}
                                             data={this.state.dataBahanBaku}
+                                            history={this.props.history}
+                                            onNotify={this.props.onNotify}
                                         /> 
                                     </div>
                                 }
@@ -276,6 +326,8 @@ class Aset extends Component {
                                         <Property
                                             handleSetData={this.handleSetData}
                                             data={this.state.dataProperty}
+                                            history={this.props.history}
+                                            onNotify={this.props.onNotify}
                                         /> 
                                     </div>
                                 }
@@ -285,6 +337,8 @@ class Aset extends Component {
                                         <Piutang
                                             handleSetData={this.handleSetData}
                                             data={this.state.dataPiutang}
+                                            history={this.props.history}
+                                            onNotify={this.props.onNotify}
                                         /> 
                                     </div>
                                 }
@@ -294,6 +348,8 @@ class Aset extends Component {
                                         <UtangUsaha
                                             handleSetData={this.handleSetData}
                                             data={this.state.dataUtangUsaha}
+                                            history={this.props.history}
+                                            onNotify={this.props.onNotify}
                                         /> 
                                     </div>
                                 }
@@ -303,6 +359,8 @@ class Aset extends Component {
                                         <UtangJangkaPanjang
                                             handleSetData={this.handleSetData}
                                             data={this.state.dataUtangJangkaPanjang}
+                                            history={this.props.history}
+                                            onNotify={this.props.onNotify}
                                         /> 
                                     </div>
                                 }
@@ -312,6 +370,8 @@ class Aset extends Component {
                                         <UtangLain
                                             handleSetData={this.handleSetData}
                                             data={this.state.dataUtangLain}
+                                            history={this.props.history}
+                                            onNotify={this.props.onNotify}
                                         /> 
                                     </div>
                                 }
@@ -321,6 +381,8 @@ class Aset extends Component {
                                         <ModalUtang
                                             handleSetData={this.handleSetData}
                                             data={this.state.dataModalUtang}
+                                            history={this.props.history}
+                                            onNotify={this.props.onNotify}
                                         /> 
                                     </div>
                                 }                                

@@ -954,6 +954,17 @@ select.input-sm {
     color: #fff
 }
 
+.btn-reset-password {
+    display: block;
+    text-align: center;
+    width: 356px !important;
+}
+
+.btn-create {
+    display: block;
+    text-align: center;
+}
+
 .btn-primary {
     background-color: #2895F9;
     color: #fff;

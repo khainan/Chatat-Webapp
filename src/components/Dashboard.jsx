@@ -8,7 +8,9 @@ class Dashboard extends Component {
         kas: 0,
         listKeuangan : [], 
         search: "",
-        filter: ""
+        filter: "",
+        totalPage:0,
+        perPage:0
     };
 
     componentDidMount(){
@@ -39,7 +41,7 @@ class Dashboard extends Component {
             url: `https://azaradigital.com/_devservice/sysFront/logtransaksi/list`,
             data,
             headers
-          }).then(r => this.setState({listKeuangan :r.data.data}));
+          }).then(r => this.setState({listKeuangan :r.data.data, totalPage:r.data.totalpage, perPage: r.data.perpage}));
     }
     
     render() {
@@ -69,7 +71,7 @@ class Dashboard extends Component {
                                   <tr>
                                       <td><i id={list.jenis === "Uang Masuk" ? "uangmasuk" + index : "uangkeluar" + index} className={list.jenis === "Uang Masuk" ? "circle-icon icon-arrow_down icon-primary" : "circle-icon icon-arrow_up icon-custom" }></i></td>
                                       <td><b>Rp {parseInt(list.nominal).toLocaleString("id")}</b> -- {new Date(list.date).toLocaleDateString('id', {day: 'numeric', month: 'short', year: 'numeric'})}</td>
-                                      <td>{list.kegiatan}</td>{console.log(list)}
+                                      <td>{list.kegiatan}</td>
                                         <UncontrolledTooltip placement="right" target={list.jenis === "Uang Masuk" ? "uangmasuk" + index : "uangkeluar" + index}>
                                             {list.jenis === "Uang Masuk" ? "Uang Masuk" : "Uang Keluar"}
                                         </UncontrolledTooltip>
@@ -78,21 +80,21 @@ class Dashboard extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <nav className="pagination-nav">
+                    { this.state.totalPage > 1 && <nav className="pagination-nav">
                         <div className="pagination-button">
-                            <a className="pagination-control disabled icon-arrow_backward_2" href="#!"></a>
+                            <a className="pagination-control disabled icon-arrow_backward_2"></a>
                             <ul className="pagination">
-                                <li className="active"><a href="#!">1</a></li>
-                                <li><a href="#!">2</a></li>
-                                <li><a href="#!">3</a></li>
-                                <li className="pagination-disabled"><a href="#!">...</a></li>
-                                <li><a href="#!">50</a></li>
-                                <li><a href="#!">51</a></li>
+                                <li className="active"><a>1</a></li>
+                                <li><a>2</a></li>
+                                <li><a>3</a></li>
+                                <li className="pagination-disabled"><a>...</a></li>
+                                <li><a>50</a></li>
+                                <li><a>51</a></li>
                             </ul>
-                            <a className="pagination-control icon-arrow_forward_2" href="#!"></a>
+                            <a className="pagination-control icon-arrow_forward_2"></a>
                         </div>
-                        <span className="pagination-info">Page 1 of 55</span>
-                    </nav>
+                        <span className="pagination-info">Page 1 of {this.state.totalPage}</span>
+                    </nav>}
                 </div>
             </section>
         );

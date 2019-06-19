@@ -31,7 +31,7 @@ class SettingUsaha extends Component {
             response.data.message && this.props.onNotify("success", response.data.message);
             this.props.history.replace("/");
         })
-        .catch(error => error.response.data.message && this.props.onNotify("success", error.response.data.message));
+        .catch(error => error.response.data.message && this.props.onNotify("error", error.response.data.message));
         
     }
 

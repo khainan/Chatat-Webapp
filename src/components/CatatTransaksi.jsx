@@ -239,7 +239,7 @@ class CatatTransaksi extends Component {
         else if (prefix === "vendor"){
             let newValue = value.split(' ')[0]
             value = newValue;
-         }
+        }
         this.setState({
             data:{
                 ...this.state.data,
@@ -275,9 +275,16 @@ class CatatTransaksi extends Component {
         const token = window.localStorage.getItem("__chatat_token__")
         const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
         
+        let dataWithNominal = {
+            ...this.state.data,
+            nominal:this.state.data.jumlah * this.state.data.harga
+        }
+
+        let newData = this.state.kategori === "biaya" ? dataWithNominal : this.state.data
+
         const data = new FormData;
 
-        data.append('data', JSON.stringify(this.state.data))
+        data.append('data', JSON.stringify(newData))
         this.state.buktitransaksi && data.append('buktitransaksi',this.state.buktitransaksi[0])
 
         axios({
@@ -290,7 +297,8 @@ class CatatTransaksi extends Component {
             this.setState({message:r.data.message, type:"success"},()=> this.props.history.replace("/"))
           )
           .catch(r => 
-            this.setState({message:r.response.data[Object.keys(r.response.data)[0]][0], type:"error"})
+            this.setState({message:r.response.data[Object.keys(r.response.data)[0]][0], type:"error"}
+            ,()=>this.props.onNotify(this.state.type, this.state.message))
         )
     }
     
@@ -299,7 +307,6 @@ class CatatTransaksi extends Component {
         return (
             <div>
                 <main id="main">
-                    {this.state.message && this.props.onNotify(this.state.type, this.state.message)}
                     <section className="main-pages-catat-transaksi">
                         <section className="section-body-catat-transaksi">
                             <div className="container">
@@ -441,7 +448,7 @@ class CatatTransaksi extends Component {
                                     <div className="section-catat-transaksi">
                                     </div>
                                     }
-                                    { this.state.kategori === "penjualan" || this.state.kategori === "pendapatan" || this.state.kategori === "bahanbaku" ?
+                                    { this.state.kategori === "penjualan" || this.state.kategori === "pendapatan" || this.state.kategori === "bahanbaku" || this.state.kategori === "biaya" ?
                                     <div className="section-catat-transaksi">
                                         <div className="form-group">
                                             <div className="input-group">
@@ -450,7 +457,7 @@ class CatatTransaksi extends Component {
                                                 </span>
                                                 <div className="form-input">
                                                     <label className="form-label">Keterangan</label>
-                                                    <input className="form-control" onChange={(e)=> this.handleData("produk" , e.currentTarget.value)}/>
+                                                    <input className="form-control" onChange={(e)=> this.handleData(this.state.kategori === "biaya" ? "biaya" : "produk" , e.currentTarget.value)}/>
                                                 </div>
                                             </div>
                                         </div>
@@ -516,7 +523,7 @@ class CatatTransaksi extends Component {
                                 </div>
                                 {/* {SECTION NEED PENJUALAN} */}
                                 
-                                { this.state.kategori === "penjualan" || this.state.kategori === "pendapatan" || this.state.kategori === "bahanbaku" ?
+                                { this.state.kategori === "penjualan" || this.state.kategori === "pendapatan" || this.state.kategori === "bahanbaku" || this.state.kategori === "biaya" ?
                                  <div>
                                     <div className="container-aset">
                                         <div className="section-catat-transaksi flex-3">
