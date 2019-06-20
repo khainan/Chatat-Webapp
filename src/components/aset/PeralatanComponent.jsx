@@ -41,7 +41,7 @@ class PeralatanComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Perkiraan Nilai Nominal</label>
-                                    <input className="form-control" value={this.props.value.nominal} onChange={(e)=> this.props.handleData(prefix ,"nominal", this.props.id ,parseInt(e.currentTarget.value))} />
+                                    <input className="form-control" type="number" value={this.props.value.nominal} onChange={(e)=> this.props.handleData(prefix ,"nominal", this.props.id ,parseInt(e.currentTarget.value))} />
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@ class PeralatanComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Perkiraan Masa Pakai</label>
-                                    <input className="form-control" value={this.props.value.masapakai} onChange={(e)=> this.props.handleData(prefix ,"masapakai", this.props.id  ,parseInt(e.currentTarget.value))} />
+                                    <input className="form-control"  type="number" value={this.props.value.masapakai} onChange={(e)=> this.props.handleData(prefix ,"masapakai", this.props.id  ,parseInt(e.currentTarget.value))} />
                                 </div>
                             </div>
                         </div>

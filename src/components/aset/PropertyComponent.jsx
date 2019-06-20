@@ -65,7 +65,7 @@ class PropertyComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Harga /Unit</label>
-                                    <input className="form-control"
+                                    <input className="form-control" type="number"
                                         value={this.props.value.nominal}
                                         onChange={(e)=> this.props.handleData("nominal", this.props.id, parseInt(e.currentTarget.value))}
                                     />
@@ -79,7 +79,7 @@ class PropertyComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">{subPrefix}</label>
-                                    <input className="form-control" 
+                                    <input className="form-control" type="number"
                                         value={this.props.value.masapakai}
                                         onChange={(e)=> this.props.handleData("masapakai", this.props.id, parseInt(e.currentTarget.value))}
                                     />
@@ -88,7 +88,7 @@ class PropertyComponent extends Component {
                         </div>
                     </div>
                     <div className="section-aset">
-                        <input className="input-satuan" value={"Rp " + this.props.value.nominal * this.props.value.masapakai} defaultValue="0"/>
+                        <input className="input-satuan" value={"Rp " + (this.props.value.nominal * this.props.value.masapakai).toLocaleString('id')} defaultValue="0"/>
                     </div>
                 </div>
                 <hr />

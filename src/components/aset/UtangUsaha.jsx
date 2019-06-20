@@ -8,7 +8,7 @@ class UtangUsaha extends Component {
         this.state = {
             dataUtangUsaha:
                 [{
-                    customer:null,
+                    costumer:null,
                     nominal: null
                 }],
             ready:true
@@ -32,7 +32,7 @@ class UtangUsaha extends Component {
     addData(){
         let dataUtangUsaha = this.state.dataUtangUsaha;
         let data = {
-            custumer:null,
+            costumer:null,
             nominal: null
         }
 

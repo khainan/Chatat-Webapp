@@ -84,7 +84,7 @@ class Aset extends Component {
                     data = {data: this.state.dataUtangLain};
                     break;
 
-                case 8:
+                case 9:
                     url += 'asset/inputmodal';
                     data = {data: this.state.dataModalUtang};
                     break;
@@ -98,7 +98,11 @@ class Aset extends Component {
                 headers
             }).then(response =>  {
                 response.data.message && this.props.onNotify("success", response.data.message);
-                this.props.history.replace("/");
+                if(page < 9){
+                    this.setState({
+                        page: page += 1
+                    })
+                }
             })
             .catch(error => error.response.data.message && this.props.onNotify("error", error.response.data.message));
 
@@ -116,7 +120,6 @@ class Aset extends Component {
                 headers
             }).then(response =>  {
                 response.data.message && this.props.onNotify("success", response.data.message);
-                this.props.history.replace("/");
             })
             .catch(error => error.response.data.message && this.props.onNotify("error", error.response.data.message));
 
@@ -133,20 +136,37 @@ class Aset extends Component {
                 headers
             }).then(response =>  {
                 response.data.message && this.props.onNotify("success", response.data.message);
-                this.props.history.replace("/");
+                if(page < 9){
+                    this.setState({
+                        page: page += 1
+                    })
+                }
             })
             .catch(error => error.response.data.message && this.props.onNotify("error", error.response.data.message));
         }
     }
 
     handleNext(){
+
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
+        
         let page = this.state.page
 
-        if(page < 9){
-            this.setState({
-                page: page += 1
-            })
-        }
+        axios({
+            method: "PATCH",
+            url: 'https://azaradigital.com/_devservice/sysFront/asset/skipinput',
+            headers
+        }).then(response =>  {
+            response.data.message && this.props.onNotify("success", response.data.message);
+            if(page < 9){
+                this.setState({
+                    page: page += 1
+                })
+            }
+        })
+        .catch(error => error.response.data.message && this.props.onNotify("error", error.response.data.message));
+
     }
 
     handleBack(){
@@ -438,7 +458,7 @@ class Aset extends Component {
                                 <div className="btn-next-back">
                                     <button className="btn btn-default group-item" onClick={()=> this.handleBack()} >Kembali</button>
                                     <span className="container-next-save">
-                                        <button className="btn btn-default group-item btn-skip" onClick={()=> this.handleNext() } >Lewati</button>
+                                        { page !== 1 && <button className="btn btn-default group-item btn-skip" onClick={()=> this.handleNext() } >Lewati</button>}
                                         <button className="btn-save "  onClick={(e)=>this.save(e)}>Simpan</button>
                                     </span>
                                 </div>

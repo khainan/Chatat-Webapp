@@ -8,7 +8,7 @@ class UtangLain extends Component {
         this.state = {
             dataUtangLain:
                 [{
-                    customer:null,
+                    costumer:null,
                     nominal: null
                 }],
             ready:true
@@ -32,7 +32,7 @@ class UtangLain extends Component {
     addData(){
         let dataUtangLain = this.state.dataUtangLain;
         let data = {
-            customer:null,
+            costumer:null,
             nominal: null
         }
 

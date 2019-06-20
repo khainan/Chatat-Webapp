@@ -155,7 +155,7 @@ class DaftarTransaksi extends Component {
                             </ul>
                             <a className="pagination-control icon-arrow_forward_2" onClick={()=>this.setState({currentPage: currentPage+1})}></a>
                         </div>
-                        <span className="pagination-info">Page 1 of {this.state.totalPage}</span>
+                        <span className="pagination-info">Page {currentPage} of {this.state.totalPage}</span>
                     </nav> }
                 </div>
             </section>

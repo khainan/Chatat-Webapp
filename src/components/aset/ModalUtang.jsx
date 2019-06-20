@@ -8,7 +8,7 @@ class ModalUtang extends Component {
         this.state = {
             dataModalUtang:
                 [{
-                    customer:null,
+                    costumer:null,
                     nominal: null
                 }],
             ready:true
@@ -32,7 +32,7 @@ class ModalUtang extends Component {
     addData(){
         let dataModalUtang = this.state.dataModalUtang;
         let data = {
-            customer:null,
+            costumer:null,
             nominal: null
         }
 

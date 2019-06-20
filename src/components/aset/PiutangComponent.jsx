@@ -55,7 +55,7 @@ class PiutangComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Nominal</label>
-                                    <input className="form-control" 
+                                    <input className="form-control"  type="number"
                                         value={this.props.value.nominal}
                                         onChange={(e)=> this.props.handleData("nominal", this.props.id, parseInt(e.currentTarget.value))}
                                     />

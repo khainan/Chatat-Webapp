@@ -91,7 +91,7 @@ class BahanBakuComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">{subPrefix}</label>
-                                    <input className="form-control" 
+                                    <input className="form-control" type="number"
                                         value={this.props.value.unit}
                                         onChange={(e)=> this.props.handleData("unit", this.props.id, parseInt(e.currentTarget.value))}
                                     />
@@ -127,14 +127,14 @@ class BahanBakuComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">{prefix}</label>
-                                    <input className="form-control" 
+                                    <input className="form-control" type="number"
                                         value={this.props.value.harga}
                                         onChange={(e)=> this.props.handleData("harga", this.props.id, parseInt(e.currentTarget.value))}
                                     />
                                 </div>
                             </div>
                         </div>
-                        <input className="input-satuan" value={"Rp " + this.props.value.harga * this.props.value.unit}/>
+                        <input className="input-satuan" value={"Rp " + (this.props.value.harga * this.props.value.unit).toLocaleString('id')}/>
                     </div>
                 </div>
                 <hr />

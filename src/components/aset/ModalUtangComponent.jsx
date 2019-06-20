@@ -31,7 +31,7 @@ class ModalUtangComponent extends Component {
                                     <label className="form-label">Vendor</label>
                                     <input className="form-control" 
                                         value={this.props.value.customer}
-                                        onChange={(e)=> this.props.handleData("customer", this.props.id, e.currentTarget.value)}
+                                        onChange={(e)=> this.props.handleData("costumer", this.props.id, e.currentTarget.value)}
                                     />
                                 </div>
                             </div>
@@ -45,7 +45,7 @@ class ModalUtangComponent extends Component {
                                 </span>
                                 <div className="form-input">
                                     <label className="form-label">Besar Utang</label>
-                                    <input className="form-control" 
+                                    <input className="form-control" type="number"
                                         value={this.props.value.nominal}
                                         onChange={(e)=> this.props.handleData("nominal", this.props.id, parseInt(e.currentTarget.value))}
                                     />

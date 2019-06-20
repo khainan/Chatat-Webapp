@@ -69,8 +69,9 @@ class BahanBakuTerpakai extends Component {
             url: `https://azaradigital.com/_devservice/sysFront/bahanbakutersedia/update`,
             data,
             headers
-          }).then(
-              this.getList()
+          }).then( r =>
+            {this.props.onNotify("success", r.data.message);
+            this.getList()}
           ).catch(
               r => this.props.onNotify("error", r.response.data.message)
           )

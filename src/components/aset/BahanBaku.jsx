@@ -9,8 +9,8 @@ class BahanBaku extends Component {
             dataBahanBaku:
                 [{
                     bahanbaku:null,
-                    unit: null,
-                    harga: null,
+                    unit: 0,
+                    harga: 0,
                     satuan:null,
                     vendor:null
                 }],
