@@ -72,7 +72,6 @@ class MainPage extends Component {
         const {isModalShow} = this.state;
 
         var options = { year: 'numeric', month: 'long', day: 'numeric' };
-
         let today = new Date();
         let date = today.toLocaleDateString('id', options)
         
@@ -202,12 +201,7 @@ class MainPage extends Component {
                 {
                 page === "/aset" &&
                 <Aset 
-<<<<<<< HEAD
                 onNotify={this.props.onNotify}
-=======
-                    history={this.props.history}
-                    onNotify={this.props.onNotify}  
->>>>>>> 55184a40a8303b27d92b5e340b3d0c9d805f2fd9
                 />
                 }
 

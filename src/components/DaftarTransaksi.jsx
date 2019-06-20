@@ -9,8 +9,8 @@ class DaftarTransaksi extends Component {
             totalPage: 0,
             perPage:0,
             currentPage: 1,
-            searchTransaksi: "",
-            kategori:""
+            search: "",
+            filter: ""
         };
     
         componentDidMount(){
@@ -25,8 +25,7 @@ class DaftarTransaksi extends Component {
             
             const data = {
                 "search": {
-                    "tanggal":this.state.searchTransaksi,
-                    "kategori":this.state.kategori
+                    "kategori": filter,
                 },
                 "order": {
                     "tanggal": "ASC"
@@ -44,7 +43,7 @@ class DaftarTransaksi extends Component {
 
     render() {
 
-        const {listTransaksi, totalPage, perPage, currentPage } = this.state;
+        var {listTransaksi, totalPage, perPage, currentPage } = this.state;
      
         return (
         <div>
@@ -58,16 +57,16 @@ class DaftarTransaksi extends Component {
                         <div className="list-action">
                             <div className="list-action-item search-input">
                                 <i className="input-icon icon-search"></i>
-                                <input className="form-control input-sm" onChange={(e)=> this.setState({searchTransaksi: e.currentTarget.value}, ()=> this.getListTransaksi())} placeholder="Cari transaksi.."/>
+                                <input className="form-control input-sm" onChange={(e)=>this.setState({search:e.target.value},()=>{this.getListTransaksi()})}placeholder="Cari transaksi.."/>
                             </div>
                             <div className="list-action-item">
-                                <select onChange={(e)=> this.setState({kategori: e.currentTarget.value}, ()=> this.getListTransaksi())} className="form-control input-sm">
+                                <select className="form-control input-sm" onChange={(e)=>this.setState({filter:e.target.value}, ()=>{this.getListTransaksi()})}>
                                     <option value="" data-hidden="true">Pilih Kategori</option>
-                                    <option>Penjualan</option>
-                                    <option>Utang</option>
-                                    <option>Biaya</option>
-                                    <option>Modal</option>
-                                    <option>Lainnya</option>
+                                    <option value="penjualan">Penjualan</option>
+                                    <option value="Utang">Utang</option>
+                                    <option value="Terima Utang">Terima Utang</option>
+                                    <option value="Modal">Modal</option>
+                                    <option value="Lainnya">Lainnya</option>
                                 </select>
                             </div>
                             <div className="list-action-item">
@@ -97,8 +96,8 @@ class DaftarTransaksi extends Component {
                                             <td>{new Date(transaksi.tanggal).toLocaleDateString('id', {day: 'numeric', month: 'short', year: 'numeric'})}</td>
                                             <td><span className={classLabel}>{transaksi.kategori}</span></td>
                                             <td><div className="table-text">{transaksi.deskripsi}</div></td>
-                                            <td>{parseInt(transaksi.debit).toLocaleString('id')}</td>
-                                            <td>{parseInt(transaksi.kredit).toLocaleString('id')}</td>
+                                            <td>{transaksi.debit && transaksi.debit.toLocaleString('id')}</td>
+                                            <td>{transaksi.kredit && parseInt(transaksi.kredit).toLocaleString('id')}</td>
                                             <td>
                                                 <ul className="icon-action text-right">
                                                     <li><a id={`edit-${index}`}><i className="icon-edit"></i></a></li>
@@ -119,16 +118,39 @@ class DaftarTransaksi extends Component {
                     </div>
                     { this.state.totalPage > 1 && <nav className="pagination-nav">
                         <div className="pagination-button">
-                            <a className="pagination-control disabled icon-arrow_backward_2"></a>
+                            <a className="pagination-control disabled icon-arrow_backward_2" onClick={()=>this.setState({currentPage: currentPage-1})}></a>
                             <ul className="pagination">
-                                <li className="active"><a>1</a></li>
-                                <li><a>2</a></li>
-                                <li><a>3</a></li>
-                                <li className="pagination-disabled"><a>...</a></li>
-                                <li><a>50</a></li>
-                                <li><a>51</a></li>
+                                {
+                                    totalPage <= 6 ? 
+
+                                    [...Array(totalPage)].map((_, index) => 
+                                                <li className={index === currentPage} onClick={()=>this.setState({currentPage: currentPage+index}, ()=>{this.getListTransaksi()})}><a href="#!">{currentPage+index}</a></li>
+                                        ) :
+                                    
+                                    totalPage - currentPage <= 5 ?
+                                            <>
+                                                <li className={totalPage-5 === currentPage && "active"} onClick={()=>this.setState({currentPage: totalPage-5}, ()=>{this.getListTransaksi()})}><a href="#!">{totalPage-5}</a></li>
+                                                <li className={totalPage-4 === currentPage && "active"} onClick={()=>this.setState({currentPage: totalPage-4}, ()=>{this.getListTransaksi()})}><a href="#!">{totalPage-4}</a></li>
+                                                <li className={totalPage-3 === currentPage && "active"} onClick={()=>this.setState({currentPage: totalPage-3}, ()=>{this.getListTransaksi()})}><a href="#!">{totalPage-3}</a></li>
+                                                <li className={totalPage-2 === currentPage && "active"} onClick={()=>this.setState({currentPage: totalPage-2}, ()=>{this.getListTransaksi()})}><a href="#!">{totalPage-2}</a></li>
+                                                <li className={totalPage-1 === currentPage && "active"} onClick={()=>this.setState({currentPage: totalPage-1}, ()=>{this.getListTransaksi()})}><a href="#!">{totalPage-1}</a></li>
+                                                <li className={totalPage === currentPage && "active"} onClick={()=>this.setState({currentPage: totalPage}, ()=>{this.getListTransaksi()})}><a href="#!">{totalPage}</a></li>
+                                            </>
+
+                                    :   
+
+                                    <>
+                                        <li className={"active"} onClick={()=>this.setState({currentPage: currentPage}, ()=>{this.getListTransaksi()})}><a href="#!">{currentPage}</a></li>
+                                        <li onClick={()=>this.setState({currentPage: currentPage+1}, ()=>{this.getListTransaksi()})}><a href="#!">{currentPage+1}</a></li>
+                                        <li onClick={()=>this.setState({currentPage: currentPage+2}, ()=>{this.getListTransaksi()})}><a href="#!">{currentPage+2}</a></li>
+                                        <li className="pagination-disabled"><a href="#!">...</a></li>
+                                        <li onClick={()=>this.setState({currentPage: totalPage-1}, ()=>{this.getListTransaksi()})}><a href="#!">{totalPage-1}</a></li>
+                                        <li onClick={()=>this.setState({currentPage: totalPage}, ()=>{this.getListTransaksi()})}><a href="#!">{totalPage}</a></li>
+                                    </> 
+                                    
+                                }
                             </ul>
-                            <a className="pagination-control icon-arrow_forward_2"></a>
+                            <a className="pagination-control icon-arrow_forward_2" onClick={()=>this.setState({currentPage: currentPage+1})}></a>
                         </div>
                         <span className="pagination-info">Page 1 of {this.state.totalPage}</span>
                     </nav> }
