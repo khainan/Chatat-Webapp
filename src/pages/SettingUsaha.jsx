@@ -94,7 +94,7 @@ class SettingUsaha extends Component {
                                         <i className="circle-icon icon-home"></i>
                                     </span>
                                     <div className="form-input">
-                                        <label className="form-label">lokasi usaha</label>
+                                        <label className="form-label">Lokasi usaha</label>
                                         <input className="form-control" onChange={(e) => this.setState({kota: e.target.value})}/>
                                     </div>
                                 </div>

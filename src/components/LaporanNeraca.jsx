@@ -1,231 +1,161 @@
 import React, { Component } from "react";
+import axios from 'axios';
+import EmptyState from "./EmptyState";
 
 class LaporanNeraca extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            dataNeraca: ""
         };
 
     }
+
+    componentDidMount() {
+        this.getListData();
+    }
+
+    getListData = () => {
+        const token = window.localStorage.getItem("__chatat_token__")
+        const headers = { "Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0", "content-type": "application/json", "content-hash": token }
+
+        const data = {
+            "tanggal": ""
+        }
+
+        axios({
+            method: "post",
+            url: `https://azaradigital.com/_devservice/sysFront/report/neraca`,
+            data,
+            headers
+        }).then(r => this.setState({ dataNeraca: r.data }));
+    }
     render() {
+        let neraca = this.state.dataNeraca;
+
         return (
-        <div>
-        <main id="main">
-        <section className="container-laporan">
-            <section className="section-body">
-                <div className="container">
-                    <div className="row-flex">
-                        <div className="flex-6">
-                            <div className="panel panel-border">
-                                <div className="panel-heading">
-                                    <h5 className="panel-title">Assets</h5>
-                                </div>
-                                <div className="panel-body">
-                                    <p className="text-label">Current assets</p>
-                                    <div className="table-responsive table-wrapper">
-                                        <table className="table list-table table-sm">
-                                            <tbody>
-                                            <tr>
-                                                <td>Cash</td>
-                                                <td><b>2,100</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Potty Cash</td>
-                                                <td><b>100</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Temporary Investments</td>
-                                                <td><b>10,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Accounts receivable - net</td>
-                                                <td><b>40,500</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Inventory</td>
-                                                <td><b>31,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Supplies</td>
-                                                <td><b>3,800</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Prepaid Insurance</td>
-                                                <td><b>1,500</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Total current assets</b></td>
-                                                <td><b className="fs14 text-primary">89,000</b></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+            <div>
+                { neraca ?
+                <main id="main">
+                    <section className="container-laporan">
+                        <section className="section-body">
+                            <div className="container">
+                                <div className="row-flex">
+                                    <div className="flex-6">
+                                        <div className="panel panel-border">
+                                            <div className="panel-heading">
+                                                <h5 className="panel-title">Assets</h5>
+                                            </div>
+                                            {neraca && Object.keys(neraca.aktiva.asset).map(val =>
+                                                <div className="panel-body">
+                                                    <p className="text-label">{val.replace("data", "")}</p>
+                                                    <div className="table-responsive table-wrapper">
+                                                        <table className="table list-table table-sm">
+                                                            <tbody>
+                                                                {Object.keys(neraca.aktiva.asset[val].data).map(val2 =>
+                                                                    <tr>
+                                                                        <td>{val2}</td>
+                                                                        <td><b>{neraca.aktiva.asset[val].data[val2].toLocaleString('id')}</b></td>
+                                                                    </tr>
+                                                                )}
+                                                                <tr>
+                                                                    <td><b>Total {val.replace("data", "")}</b></td>
+                                                                    <td><b className="fs14 text-primary">{neraca.aktiva.asset[val].total.toLocaleString('id')}</b></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {neraca &&
+                                                <div className="panel-body">
+                                                    <div className="table-responsive table-wrapper">
+                                                        <table className="table list-table table-sm">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td><b>Total Asset</b></td>
+                                                                    <td><b className="fs14 text-primary">{"Rp. " + neraca.aktiva.totalAsset.toLocaleString('id')}</b></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>}
+                                        </div>
+                                    </div>
+                                    <div className="flex-6">
+                                        <div className="panel panel-border">
+                                            <div className="panel-heading">
+                                                <h5 className="panel-title">Liabilities</h5>
+                                            </div>
+                                            {neraca && Object.keys(neraca.pasiva.hutang).map(val =>
+                                                <div className="panel-body">
+                                                    <p className="text-label">{val.replace("data", "")}</p>
+                                                    <div className="table-responsive table-wrapper">
+                                                        <table className="table list-table table-sm">
+                                                            <tbody>
+                                                                {Object.keys(neraca.pasiva.hutang[val].data).map(val2 =>
+                                                                    <tr>
+                                                                        <td>{val2}</td>
+                                                                        <td><b>{neraca.pasiva.hutang[val].data[val2].toLocaleString('id')}</b></td>
+                                                                    </tr>
+                                                                )}
+                                                                <tr>
+                                                                    <td><b>Total {val.replace("data", "")}</b></td>
+                                                                    <td><b className="fs14 text-primary">{neraca.pasiva.hutang[val].total.toLocaleString('id')}</b></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            <div className="panel-body">
+                                                <p className="text-label">Modal</p>
+                                                <div className="table-responsive table-wrapper">
+                                                    <table className="table list-table table-sm">
+                                                        <tbody>
+                                                            {neraca && Object.keys(neraca.pasiva.modal.dataModal.data).map(val =>
+                                                                <tr>
+                                                                    <td>{val}</td>
+                                                                    <td><b>{neraca.pasiva.modal.dataModal.data[val].toLocaleString('id')}</b></td>
+                                                                </tr>
+                                                            )}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            {neraca &&
+                                                <div className="panel-body">
+                                                    <div className="table-responsive table-wrapper">
+                                                        <table className="table list-table table-sm">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td><b>Total Hutang</b></td>
+                                                                    <td><b className="fs14 text-primary">{"Rp. " + neraca.pasiva.totalHutang.toLocaleString('id')}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><b>Total Modal</b></td>
+                                                                    <td><b className="fs14 text-primary">{"Rp. " + neraca.pasiva.totalModal.toLocaleString('id')}</b></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>}
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="panel-body">
-                                    <div className="table-responsive table-wrapper">
-                                        <table className="table list-table table-sm">
-                                            <tbody>
-                                            <tr>
-                                                <td>Investments</td>
-                                                <td><b className="fs14 text-primary">36,000</b></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div className="panel-body">
-                                    <p className="text-label">Property, plant & equipment</p>
-                                    <div className="table-responsive table-wrapper">
-                                        <table className="table list-table table-sm">
-                                            <tbody>
-                                            <tr>
-                                                <td>Land</td>
-                                                <td><b>5,500</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Land improvements</td>
-                                                <td><b>5,500</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Buildings</td>
-                                                <td><b>180,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Equipments</td>
-                                                <td><b>201,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Prop, paint & equip - net</b></td>
-                                                <td><b className="fs14 text-primary">337,000</b></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div className="panel-body">
-                                    <p className="text-label">Intangible assets</p>
-                                    <div className="table-responsive table-wrapper">
-                                        <table className="table list-table table-sm">
-                                            <tbody>
-                                            <tr>
-                                                <td>Goodwill</td>
-                                                <td><b>105,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trade names</td>
-                                                <td><b>200,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Total intangible assets</b></td>
-                                                <td><b className="fs14 text-primary">305,000</b></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div className="panel-body">
-                                    <div className="table-responsive table-wrapper">
-                                        <table className="table list-table table-sm m0">
-                                            <tbody>
-                                            <tr>
-                                                <td>Other assets</td>
-                                                <td><b className="fs14 text-primary">3,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Total assets</b></td>
-                                                <td><b className="fs14 text-primary">$ 770,000</b></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                <hr />
+                                <div className="help-block">
+                                    <p>**Note</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam auctor dui vitae nisi dignissim egestas. Pellentesque pellentesque sodales dignissim. Etiam rhoncus diam arcu, vitae porttitor purus mollis id.</p>
                                 </div>
                             </div>
-                        </div>
-                        <div className="flex-6">
-                            <div className="panel panel-border">
-                                <div className="panel-heading">
-                                    <h5 className="panel-title">Liabilities</h5>
-                                </div>
-                                <div className="panel-body">
-                                    <p className="text-label">Current Liabilities</p>
-                                    <div className="table-responsive table-wrapper">
-                                        <table className="table list-table table-sm">
-                                            <tbody>
-                                            <tr>
-                                                <td>Notes Payable</td>
-                                                <td><b>5,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Accounts payable</td>
-                                                <td><b>35,900</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Wages payable</td>
-                                                <td><b>8,500</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Interest payable</td>
-                                                <td><b>2,900</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Taxes payable</td>
-                                                <td><b>6,100</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Waranty liability</td>
-                                                <td><b>1,100</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Unearned revenues</td>
-                                                <td><b>1,500</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Total current liabilities</b></td>
-                                                <td><b className="fs14 text-primary">61,000</b></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div className="panel-body">
-                                    <p className="text-label">Long-term liabilities</p>
-                                    <div className="table-responsive table-wrapper">
-                                        <table className="table list-table table-sm m0">
-                                            <tbody>
-                                            <tr>
-                                                <td>Notes Payable</td>
-                                                <td><b>20,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bonds payable</td>
-                                                <td><b>400,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Total long-term liabilities</b></td>
-                                                <td><b className="fs14 text-primary">420,000</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Total liabilities</b></td>
-                                                <td><b className="fs14 text-primary">481,000</b></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div className="help-block">
-                        <p>**Note</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam auctor dui vitae nisi dignissim egestas. Pellentesque pellentesque sodales dignissim. Etiam rhoncus diam arcu, vitae porttitor purus mollis id.</p>
-                    </div>
-                </div>
-            </section>
-        </section>
-</main>
-        </div>
+                        </section>
+                    </section>
+                </main>
+            : <EmptyState/>
+            }
+            </div>
         );
     }
 }

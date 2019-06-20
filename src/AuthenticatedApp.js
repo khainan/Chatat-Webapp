@@ -17,7 +17,7 @@ function AuthenticatedApp({onNotify}) {
     <Router>
       <Switch>
         <PublicRoute path="/setting-usaha" component={Setting}/>
-        <PublicRoute exact path={["/", "/aset", "/catat-transaksi", "/daftar-transaksi", "/neraca", "/setting", "/arus-kas", "/laba-rugi" ]} component={MainPage} />
+        <PublicRoute exact path={["/", "/aset", "/catat-transaksi", "/daftar-transaksi", "/neraca", "/setting", "/arus-kas", "/laba-rugi", "/bahan-baku-terpakai" ]} component={MainPage} />
       </Switch>
     </Router>
   );

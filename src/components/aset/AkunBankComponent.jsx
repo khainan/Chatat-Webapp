@@ -38,7 +38,7 @@ class AkunBankComponent extends Component {
             url: `https://azaradigital.com/_devservice/sysFront/data-bank/list`,
             data,
             headers
-          }).then(r => this.setState({listBank:[r.data.data], ready:true}));
+          }).then(r => this.setState({listBank:[r.data.data], ready:true}, ()=> this.props.handleSetData("akunbank", "bank", this.props.id , r.data.data[0].nama )));
     }
 
 

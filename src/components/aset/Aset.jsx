@@ -31,7 +31,7 @@ class Aset extends Component {
         this.handleNext = this.handleNext.bind(this);
         this.handleSetData = this.handleSetData.bind(this);
         this.save = this.save.bind(this);
-        this.handleSave = this.handleSave.bind(this);
+        this.handleTanggal = this.handleTanggal.bind(this);
     }
 
     save(e){
@@ -45,35 +45,98 @@ class Aset extends Component {
         
 
         let url =  'https://azaradigital.com/_devservice/sysFront/'
-        console.log("page", page);
-        switch(page) {
 
-            case 1:
-                url += 'asset/inputkas';
-                data = this.state.dataKas;
-                break;
+        if(page !== 2){
+            switch(page) {
+
+                case 1:
+                    url += 'asset/inputkas';
+                    data = this.state.dataKas;
+                    break;
+
+                case 3:
+                    url += 'asset/inputbahanbaku';
+                    data = {data : this.state.dataBahanBaku};
+                    break;
+                
+                case 4:
+                    url += 'asset/inputproperti';
+                    data = {data: this.state.dataProperty};
+                    break;
+
+                case 5:
+                    url += 'asset/inputpiutang';
+                    data = {data: this.state.dataPiutang};
+                    break;
+
+                case 6:
+                    url += 'asset/inpututangusaha';
+                    data = {data: this.state.dataUtangUsaha};
+                    break;
+
+                case 7:
+                    url += 'asset/inpututangbank';
+                    data = {data: this.state.dataUtangJangkaPanjang};
+                    break;
+
+                case 8:
+                    url += 'asset/inpututanglain';
+                    data = {data: this.state.dataUtangLain};
+                    break;
+
+                case 8:
+                    url += 'asset/inputmodal';
+                    data = {data: this.state.dataModalUtang};
+                    break;
+            }
+
+
+            axios({
+                method: "PATCH",
+                url: url,
+                data,
+                headers
+            }).then(response =>  {
+                response.data.message && this.props.onNotify("success", response.data.message);
+                this.props.history.replace("/");
+            })
+            .catch(error => error.response.data.message && this.props.onNotify("error", error.response.data.message));
+
+        }else{
+
+            let urlPeralatan =  'https://azaradigital.com/_devservice/sysFront/asset/inputperalatan';
+            let dataPeralatan = this.state.dataPeralatan;
+
+            axios({
+                method: "PATCH",
+                url: urlPeralatan,
+                data : {
+                    data: dataPeralatan
+                },
+                headers
+            }).then(response =>  {
+                response.data.message && this.props.onNotify("success", response.data.message);
+                this.props.history.replace("/");
+            })
+            .catch(error => error.response.data.message && this.props.onNotify("error", error.response.data.message));
+
+            let urlKendaraan =  'https://azaradigital.com/_devservice/sysFront/asset/inputkendaraan';
+            let dataKendaraan = this.state.dataKendaraan;
+
             
-            case 2:
-                url += 'asset/inputperalatan';
-                data = this.state.dataPeralatan;
-                break;
-
-            case 3:
-                url += 'asset/inputperalatan';
-                data = this.state.dataPeralatan;
-                break;
+            axios({
+                method: "PATCH",
+                url: urlKendaraan,
+                data : {
+                    data : dataKendaraan
+                },
+                headers
+            }).then(response =>  {
+                response.data.message && this.props.onNotify("success", response.data.message);
+                this.props.history.replace("/");
+            })
+            .catch(error => error.response.data.message && this.props.onNotify("error", error.response.data.message));
         }
-
-        axios({
-            method: "PATCH",
-            url: url,
-            data,
-            headers
-        }).then(response =>  {
-            response.data.message && this.props.onNotify("success", response.data.message);
-            this.props.history.replace("/");
-        })
-        .catch(error => error.response.data.message && this.props.onNotify("error", error.response.data.message));
     }
 
     handleNext(){
@@ -179,49 +242,35 @@ class Aset extends Component {
         }
     }
 
-    handleSave(){
+    handleTanggal = () => {
         let page = this.state.page;
-        let data = {};
-        let kategori = "";
         let today = new Date();
 
         let formatedMonth = today.getMonth() < 10 ? '0' + (today.getMonth() + 1) : today.getMonth();
 
         let date = today.getFullYear() + '-' + formatedMonth + '-' + today.getDate();
         let tanggal = {
-            "tanggal": date
+            "tanggal": date.toString()
         }
+
+        let data = tanggal
 
         const token = window.localStorage.getItem("__chatat_token__")
         const headers =  {"Authorization": "Bearer chatatID498327b5-b36d-48cc-82ef-975f13658eb0","content-type": "application/json", "content-hash": token}
         
-        if(page === 1){
-            data = this.state.dataKas;
-            kategori = "peralatan"
-        }
 
         console.log(tanggal)
 
         axios({
             method: "PATCH",
             url: `https://azaradigital.com/_devservice/sysFront/asset/inputdate`,
-            tanggal,
+            data,
             headers
           })
-        
-        // axios({
-        //     method: "PATCH",
-        //     url: `https://azaradigital.com/_devservice/sysFront/asset/input${kategori}`,
-        //     data,
-        //     headers
-        //   })
-        //   .then( r =>
-        //     this.setState({message:r.data.message, type:"success"})
-        //   )
-        //   .catch(r => 
-        //     this.setState({message:r.response.data.message[Object.keys(r.response.data.messag )[0]][0], type:"error"}
-        //     ,()=>this.props.onNotify(this.state.type, this.state.message))
-        // )
+    }
+
+    componentWillMount = () =>{
+        this.handleTanggal();
     }
 
     render() {

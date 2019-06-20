@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { UncontrolledTooltip } from 'reactstrap';
+import EmptyState from "./EmptyState";
 
 class Dashboard extends Component {
     
@@ -10,7 +11,8 @@ class Dashboard extends Component {
         search: "",
         filter: "",
         totalPage:0,
-        perPage:0
+        perPage:0,
+        currentPage: 1
     };
 
     componentDidMount(){
@@ -33,7 +35,7 @@ class Dashboard extends Component {
             "order": {
                 "tanggal": "DESC"
             },
-            "page": 1
+            "page": this.state.currentPage
         }
 
           axios({
@@ -41,12 +43,13 @@ class Dashboard extends Component {
             url: `https://azaradigital.com/_devservice/sysFront/logtransaksi/list`,
             data,
             headers
-          }).then(r => this.setState({listKeuangan :r.data.data, totalPage:r.data.totalpage, perPage: r.data.perpage}));
+          }).then(r => this.setState({listKeuangan :r.data.data, totalPage:r.data.totalpage, perPage: r.data.perpage,ready: true}));
     }
     
     render() {
-        const {listKeuangan} = this.state;
+        const {totalPage, perPage, currentPage, listKeuangan } = this.state;
         return (
+            <div className="dashboard">
             <section className="section-body">
                 <div className="container">
                     <div className="list-header">
@@ -64,13 +67,14 @@ class Dashboard extends Component {
                             </div>
                         </div>
                     </div>
+                    {listKeuangan[0] ?
                     <div className="table-responsive table-wrapper">
                         <table className="table">
                             <tbody>
                                 {listKeuangan && listKeuangan.map((list, index) => (
                                   <tr>
                                       <td><i id={list.jenis === "Uang Masuk" ? "uangmasuk" + index : "uangkeluar" + index} className={list.jenis === "Uang Masuk" ? "circle-icon icon-arrow_down icon-primary" : "circle-icon icon-arrow_up icon-custom" }></i></td>
-                                      <td><b>Rp {parseInt(list.nominal).toLocaleString("id")}</b> -- {new Date(list.date).toLocaleDateString('id', {day: 'numeric', month: 'short', year: 'numeric'})}</td>
+                                      <td><b>Rp {parseInt(list.nominal).toLocaleString("id")}</b> -- {new Date(parseInt(list.date)).toLocaleDateString('id', {day: 'numeric', month: 'short', year: 'numeric'})}</td>
                                       <td>{list.kegiatan}</td>
                                         <UncontrolledTooltip placement="right" target={list.jenis === "Uang Masuk" ? "uangmasuk" + index : "uangkeluar" + index}>
                                             {list.jenis === "Uang Masuk" ? "Uang Masuk" : "Uang Keluar"}
@@ -80,23 +84,50 @@ class Dashboard extends Component {
                             </tbody>
                         </table>
                     </div>
-                    { this.state.totalPage > 1 && <nav className="pagination-nav">
+                    :
+                    <EmptyState/> 
+                    }
+                      { this.state.totalPage > 1 && <nav className="pagination-nav">
                         <div className="pagination-button">
-                            <a className="pagination-control disabled icon-arrow_backward_2"></a>
+                            <a className="pagination-control disabled icon-arrow_backward_2" onClick={()=>this.setState({currentPage: currentPage-1})}></a>
                             <ul className="pagination">
-                                <li className="active"><a>1</a></li>
-                                <li><a>2</a></li>
-                                <li><a>3</a></li>
-                                <li className="pagination-disabled"><a>...</a></li>
-                                <li><a>50</a></li>
-                                <li><a>51</a></li>
+                                {
+                                    totalPage <= 6 ? 
+
+                                    [...Array(totalPage)].map((_, index) => 
+                                                <li className={index === currentPage} onClick={()=>this.setState({currentPage: currentPage+index}, ()=>{this.getListKeuangan()})}><a href="#!">{currentPage+index}</a></li>
+                                        ) :
+                                    
+                                    totalPage - currentPage <= 5 ?
+                                            <>
+                                                <li className={totalPage-5 === currentPage && "active"} onClick={()=>this.setState({currentPage: totalPage-5}, ()=>{this.getListKeuangan()})}><a href="#!">{totalPage-5}</a></li>
+                                                <li className={totalPage-4 === currentPage && "active"} onClick={()=>this.setState({currentPage: totalPage-4}, ()=>{this.getListKeuangan()})}><a href="#!">{totalPage-4}</a></li>
+                                                <li className={totalPage-3 === currentPage && "active"} onClick={()=>this.setState({currentPage: totalPage-3}, ()=>{this.getListKeuangan()})}><a href="#!">{totalPage-3}</a></li>
+                                                <li className={totalPage-2 === currentPage && "active"} onClick={()=>this.setState({currentPage: totalPage-2}, ()=>{this.getListKeuangan()})}><a href="#!">{totalPage-2}</a></li>
+                                                <li className={totalPage-1 === currentPage && "active"} onClick={()=>this.setState({currentPage: totalPage-1}, ()=>{this.getListKeuangan()})}><a href="#!">{totalPage-1}</a></li>
+                                                <li className={totalPage === currentPage && "active"} onClick={()=>this.setState({currentPage: totalPage}, ()=>{this.getListKeuangan()})}><a href="#!">{totalPage}</a></li>
+                                            </>
+
+                                    :   
+
+                                    <>
+                                        <li className={"active"} onClick={()=>this.setState({currentPage: currentPage}, ()=>{this.getListKeuangan()})}><a href="#!">{currentPage}</a></li>
+                                        <li onClick={()=>this.setState({currentPage: currentPage+1}, ()=>{this.getListKeuangan()})}><a href="#!">{currentPage+1}</a></li>
+                                        <li onClick={()=>this.setState({currentPage: currentPage+2}, ()=>{this.getListKeuangan()})}><a href="#!">{currentPage+2}</a></li>
+                                        <li className="pagination-disabled"><a href="#!">...</a></li>
+                                        <li onClick={()=>this.setState({currentPage: totalPage-1}, ()=>{this.getListKeuangan()})}><a href="#!">{totalPage-1}</a></li>
+                                        <li onClick={()=>this.setState({currentPage: totalPage}, ()=>{this.getListKeuangan()})}><a href="#!">{totalPage}</a></li>
+                                    </> 
+                                    
+                                }
                             </ul>
-                            <a className="pagination-control icon-arrow_forward_2"></a>
+                            <a className="pagination-control icon-arrow_forward_2" onClick={()=>this.setState({currentPage: currentPage+1})}></a>
                         </div>
                         <span className="pagination-info">Page 1 of {this.state.totalPage}</span>
-                    </nav>}
+                    </nav> }
                 </div>
             </section>
+            </div>
         );
     }
 }

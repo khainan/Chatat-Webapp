@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { UncontrolledTooltip } from 'reactstrap';
+import EmptyState from "./EmptyState";
 
 class DaftarTransaksi extends Component {
         
@@ -26,6 +27,7 @@ class DaftarTransaksi extends Component {
             const data = {
                 "search": {
                     "kategori": filter,
+                    "tanggal": search
                 },
                 "order": {
                     "tanggal": "ASC"
@@ -41,9 +43,10 @@ class DaftarTransaksi extends Component {
               }).then(r => this.setState({listTransaksi :r.data.data, totalPage:r.data.totalpage, perPage: r.data.perpage}));
         }
 
+
     render() {
 
-        var {listTransaksi, totalPage, perPage, currentPage } = this.state;
+        const {listTransaksi, totalPage, perPage, currentPage } = this.state;
      
         return (
         <div>
@@ -105,8 +108,8 @@ class DaftarTransaksi extends Component {
                                                     <UncontrolledTooltip placement="left" target={`edit-${index}`}>
                                                         Edit
                                                     </UncontrolledTooltip>
-                                                    <UncontrolledTooltip placement="right" target={`close-${index}`}>
-                                                        Close
+                                                                    <UncontrolledTooltip placement="right" target={`close-${index}`}>
+                                                                        Close
                                                     </UncontrolledTooltip>
                                                 </ul>
                                             </td>

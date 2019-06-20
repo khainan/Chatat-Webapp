@@ -36,7 +36,7 @@ class BahanBakuComponent extends Component {
             url: `https://azaradigital.com/_devservice/sysFront/data-satuan/list`,
             data,
             headers
-          }).then(r => this.setState({listSatuan:[r.data.data], ready:true}));
+          }).then(r => this.setState({listSatuan:[r.data.data], ready:true}, ()=> this.props.handleData("satuan", this.props.id, r.data.data[0].satuan)));
     }
 
 
@@ -93,7 +93,7 @@ class BahanBakuComponent extends Component {
                                     <label className="form-label">{subPrefix}</label>
                                     <input className="form-control" 
                                         value={this.props.value.unit}
-                                        onChange={(e)=> this.props.handleData("unit", this.props.id, e.currentTarget.value)}
+                                        onChange={(e)=> this.props.handleData("unit", this.props.id, parseInt(e.currentTarget.value))}
                                     />
                                 </div>
                             </div>
@@ -129,7 +129,7 @@ class BahanBakuComponent extends Component {
                                     <label className="form-label">{prefix}</label>
                                     <input className="form-control" 
                                         value={this.props.value.harga}
-                                        onChange={(e)=> this.props.handleData("harga", this.props.id, e.currentTarget.value)}
+                                        onChange={(e)=> this.props.handleData("harga", this.props.id, parseInt(e.currentTarget.value))}
                                     />
                                 </div>
                             </div>

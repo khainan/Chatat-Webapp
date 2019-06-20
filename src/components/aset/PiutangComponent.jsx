@@ -40,8 +40,8 @@ class PiutangComponent extends Component {
                                 <div className="form-input">
                                     <label className="form-label">Vendor</label>
                                     <input className="form-control" 
-                                        value={this.props.value.customer}
-                                        onChange={(e)=> this.props.handleData("customer", this.props.id, e.currentTarget.value)}
+                                        value={this.props.value.costumer}
+                                        onChange={(e)=> this.props.handleData("costumer", this.props.id, e.currentTarget.value)}
                                     />
                                 </div>
                             </div>
@@ -57,7 +57,7 @@ class PiutangComponent extends Component {
                                     <label className="form-label">Nominal</label>
                                     <input className="form-control" 
                                         value={this.props.value.nominal}
-                                        onChange={(e)=> this.props.handleData("nominal", this.props.id, e.currentTarget.value)}
+                                        onChange={(e)=> this.props.handleData("nominal", this.props.id, parseInt(e.currentTarget.value))}
                                     />
                                 </div>
                             </div>
